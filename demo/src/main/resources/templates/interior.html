@@ -1,109 +1,53 @@
 <!DOCTYPE html>
 <html lang="es-es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GreenByte</title>
-    <!--el linl referencia para Bootstrap-->
+    <title>GreenByte - Plantas de Interior</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <!--link referencia para el icono de la página -->
     <link rel="icon" th:href="@{/iconos/ico-greenbyte-sinfondo.png}" type="image/png">
-    <!--link referencia para los estilos personalizados -->
     <link rel="stylesheet" th:href="@{/styles.css}">
-    <!--link referencia para los iconos de Bootstrap -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 </head>
-
 <body class="d-flex flex-column min-vh-100">
     <header th:replace="fragments/header :: navegador"></header>
-    <!-- Modal de Login -->
     <div th:replace="fragments/login :: login"></div>
-    <div class="container">
-        <div class="row align-items-center justify-content-center mt-5">
-            <div class="card col-xl-4 col-md-6 m-3 d-flex flex-column" style="width: 18rem; height:35rem">
-                <img th:src="@{/plantas/interior/planta-int-1.webp}" class="card-img-top" alt="Violeta Africana">
-                <div class="card-body d-flex flex-column">
-                    <h5 class="card-title">Violeta Africana</h5>
-                    <p class="card-text">Planta compacta de flores violetas que alegra cualquier espacio. Prefiere luz indirecta y riego moderado.</p>
-                    <p class="card-text mt-auto"><strong>S/.39.90</strong></p>
-                    <a href="#" class="btn btn-primary align-self-start">Comprar</a>
-                </div>
-            </div>
-            <div class="card col-xl-4 col-md-6 m-3 d-flex flex-column" style="width: 18rem; height:35rem">
-                <img th:src="@{/plantas/interior/planta-int-2.webp}" class="card-img-top" alt="Aloe Vera">
-                <div class="card-body d-flex flex-column">
-                    <h5 class="card-title">Aloe Vera</h5>
-                    <p class="card-text">Suculenta resistente de hojas carnosas. Necesita mucha luz y poco riego; deja secar la tierra entre riegos.</p>
-                    <p class="card-text mt-auto"><strong>S/.29.90</strong></p>
-                    <a href="#" class="btn btn-primary align-self-start">Comprar</a>
-                </div>
-            </div>
-            <div class="card col-xl-4 col-md-6 m-3 d-flex flex-column" style="width: 18rem; height:35rem">
-                <img th:src="@{/plantas/interior/planta-int-3.webp}" class="card-img-top" alt="Menta">
-                <div class="card-body d-flex flex-column">
-                    <h5 class="card-title">Menta</h5>
-                    <p class="card-text">Hierba aromática de hojas frescas, ideal para infusiones y cocina. Crece mejor con buena luz y tierra húmeda.</p>
-                    <p class="card-text mt-auto"><strong>S/.19.90</strong></p>
-                    <a href="#" class="btn btn-primary align-self-start">Comprar</a>
-                </div>
-            </div>
-            <div class="card col-xl-4 col-md-6 m-3 d-flex flex-column" style="width: 18rem; height:35rem">
-                <img th:src="@{/plantas/interior/planta-int-4.webp}" class="card-img-top" alt="Peperomia Verde">
-                <div class="card-body d-flex flex-column">
-                    <h5 class="card-title">Peperomia Verde</h5>
-                    <p class="card-text">Planta ornamental de hojas verdes y brillantes, perfecta para interiores. Prefiere luz indirecta y riego cuando la tierra esté seca.</p>
-                    <p class="card-text mt-auto"><strong>S/.34.90</strong></p>
-                    <a href="#" class="btn btn-primary align-self-start">Comprar</a>
-                </div>
-            </div>
+    <div th:replace="fragments/cart :: carrito"></div>
+
+    <div class="container py-4">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2 class="mb-0"><i class="bi bi-flower1 me-2 text-success"></i> Plantas de Interior</h2>
+            <span class="badge bg-success" th:text="${#lists.size(productos)} + ' productos'">0 productos</span>
         </div>
-        <div class="row align-items-center justify-content-center mt-4">
-            <div class="card col-xl-4 col-md-6 m-3 d-flex flex-column" style="width: 18rem; height:35rem">
-                <img th:src="@{/plantas/interior/planta-int-1.webp}" class="card-img-top" alt="Planta de interior provisional">
-                <div class="card-body d-flex flex-column">
-                    <h5 class="card-title">Planta de interior 5</h5>
-                    <p class="card-text">Descripción provisional: planta decorativa para el hogar. Pronto agregaremos información sobre sus cuidados.</p>
-                    <p class="card-text mt-auto"><strong>S/.00.00</strong></p>
-                    <a href="#" class="btn btn-primary align-self-start">Comprar</a>
-                </div>
-            </div>
-            <div class="card col-xl-4 col-md-6 m-3 d-flex flex-column" style="width: 18rem; height:35rem">
-                <img th:src="@{/plantas/interior/planta-int-2.webp}" class="card-img-top" alt="Planta de interior provisional">
-                <div class="card-body d-flex flex-column">
-                    <h5 class="card-title">Planta de interior 6</h5>
-                    <p class="card-text">Descripción provisional: una opción verde para alegrar tus espacios. La información de cuidados estará disponible pronto.</p>
-                    <p class="card-text mt-auto"><strong>S/.00.00</strong></p>
-                    <a href="#" class="btn btn-primary align-self-start">Comprar</a>
-                </div>
-            </div>
-            <div class="card col-xl-4 col-md-6 m-3 d-flex flex-column" style="width: 18rem; height:35rem">
-                <img th:src="@{/plantas/interior/planta-int-3.webp}" class="card-img-top" alt="Planta de interior provisional">
-                <div class="card-body d-flex flex-column">
-                    <h5 class="card-title">Planta de interior 7</h5>
-                    <p class="card-text">Descripción provisional: planta ideal para dar un toque natural a cualquier habitación. Detalles próximamente.</p>
-                    <p class="card-text mt-auto"><strong>S/.00.00</strong></p>
-                    <a href="#" class="btn btn-primary align-self-start">Comprar</a>
-                </div>
-            </div>
-            <div class="card col-xl-4 col-md-6 m-3 d-flex flex-column" style="width: 18rem; height:35rem">
-                <img th:src="@{/plantas/interior/planta-int-4.webp}" class="card-img-top" alt="Planta de interior provisional">
-                <div class="card-body d-flex flex-column">
-                    <h5 class="card-title">Planta de interior 8</h5>
-                    <p class="card-text">Descripción provisional: planta ornamental de interior. Pronto añadiremos sus características y recomendaciones de cuidado.</p>
-                    <p class="card-text mt-auto"><strong>S/.00.00</strong></p>
-                    <a href="#" class="btn btn-primary align-self-start">Comprar</a>
+        <p class="text-white-50">Ideales para iluminar tu hogar con poca luz directa. Todas incluyen guía de riego.</p>
+
+        <div class="row align-items-stretch justify-content-center g-3 mt-2">
+            <div th:each="prod : ${productos}" class="col-xl-3 col-lg-4 col-md-6 d-flex justify-content-center product-card">
+                <div class="card d-flex flex-column w-100" style="max-width: 18rem; min-height: 34rem;">
+                    <img th:src="@{${prod.imagen}}" class="card-img-top" th:alt="${prod.alt}">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title" th:text="${prod.nombre}">Nombre</h5>
+                        <p class="card-text small text-white-50" th:text="${prod.descripcion}">Descripción</p>
+                        <div class="mt-auto">
+                            <p class="mb-2"><strong class="text-success fs-5" th:text="'S/. ' + ${#numbers.formatDecimal(prod.precio,1,2)}">S/. 0.00</strong></p>
+                            <button class="btn btn-success w-100" data-add-to-cart
+                                th:data-id="${prod.id}"
+                                th:data-nombre="${prod.nombre}"
+                                th:data-precio="${prod.precio}"
+                                th:data-imagen="${prod.imagen}">
+                                <i class="bi bi-cart-plus me-1"></i> Agregar al carrito
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <!--los derechos po-->
-    <footer th:replace="fragments/footer :: footer"></footer>
-    <!-- y este es el script para Bootstrap -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-        crossorigin="anonymous"></script>
-</body>
 
+    <footer th:replace="fragments/footer :: footer"></footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script th:src="@{/js/cart.js}"></script>
+</body>
 </html>

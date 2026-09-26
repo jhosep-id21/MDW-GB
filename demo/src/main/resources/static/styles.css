@@ -29,3 +29,31 @@ body {
 .nav-categories a.nav-link:hover {
     color: var(--gb-accent);
 }
+
+.card {
+    border: 1px solid #2ECC71 !important;
+    background: #1a2e22 !important;
+    color: #fff;
+    overflow: hidden;
+    transition: transform .15s ease, box-shadow .15s ease;
+}
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(46,204,113,.25);
+}
+.card-img-top {
+    height: 200px;
+    object-fit: cover;
+}
+.product-card .btn-success {
+    background-color: var(--gb-accent);
+    border-color: var(--gb-accent);
+    color: #0a1a12;
+    font-weight: 600;
+}
+.offcanvas {
+    background-color: #0f1e14 !important;
+}
+#cart-count {
+    font-size: .65rem;
+}
