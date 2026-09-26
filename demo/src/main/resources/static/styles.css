@@ -1,0 +1,31 @@
+:root {
+    --gb-accent: #2ECC71;
+}
+.contenedor-uno {
+    background: linear-gradient(to right, #0a3c20, #000000);
+}
+
+body {
+    background-color: #121E17;
+    color: #ffffff;
+}
+
+.navbar-custom {
+    background-color: #1A241D;
+    border-bottom: 2px solid #2ECC71;
+}
+
+.brand-title {
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 1.4rem;
+}
+
+.brand-title span {
+    color: #2ECC71;
+}
+
+/*Nav para categorias*/
+.nav-categories a.nav-link:hover {
+    color: var(--gb-accent);
+}
