@@ -1,0 +1,26 @@
+    <div th:fragment="login" class="modal fade" id="loginModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bg-dark text-white border-success">
+                <div class="modal-header border-success">
+                    <h5 class="modal-title">Iniciar Sesión - GreenByte</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="form-login">
+                        <div class="mb-1 mt-2">
+                            <label class="form-label">Correo electrónico</label>
+                            <input type="email" id="email" class="form-control" placeholder="admin@greenbyte.com"
+                                required>
+                            <div class="form-text text-muted">Usa <b>admin@greenbyte.com</b> para probar el rol de
+                                administrador.</div>
+                        </div>
+                        <div class="mb-5">
+                            <label class="form-label">Contraseña</label>
+                            <input type="password" id="password" class="form-control" required>
+                        </div>
+                        <button type="submit" class="btn btn-success w-100 mb-3"><a href="administrador.html" class="text-white text-decoration-none">Ingresar</a></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
