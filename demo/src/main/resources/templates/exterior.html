@@ -22,44 +22,78 @@
     <div th:replace="fragments/login :: login"></div>
     <div class="container">
         <div class="row align-items-center justify-content-center mt-5">
-            <div class="card col-md-6 m-3" style="width: 18rem;">
-                <img src="IMG\plantas\exterior\planta-ext-1.webp" class="card-img-top" alt="...">
-                <div class="card-body">
+            <div class="card col-xl-4 col-md-6 m-3 d-flex flex-column" style="width: 18rem; height:35rem">
+                <img th:src="@{/plantas/exterior/planta-ext-1.webp}" class="card-img-top" alt="Geranio">
+                <div class="card-body d-flex flex-column">
                     <h5 class="card-title">Geranio</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card’s
-                        content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                    <p class="card-text">Planta florífera de colores vivos, ideal para balcones y jardines soleados. Riégala con regularidad evitando encharcarla.</p>
+                    <p class="card-text mt-auto"><strong>S/.49.90</strong></p>
+                    <a href="#" class="btn btn-primary align-self-start">Comprar</a>
                 </div>
             </div>
-            <div class="card col-md-6 m-3" style="width: 18rem;">
-                <img src="IMG\plantas\exterior\planta-ext-2.webp" class="card-img-top" alt="...">
-                <div class="card-body">
+            <div class="card col-xl-4 col-md-6 m-3 d-flex flex-column" style="width: 18rem; height:35rem">
+                <img th:src="@{/plantas/exterior/planta-ext-2.webp}" class="card-img-top" alt="Hiedra Inglesa">
+                <div class="card-body d-flex flex-column">
                     <h5 class="card-title">Hiedra Inglesa</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card’s
-                        content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                    <p class="card-text">Enredadera de follaje frondoso que cubre muros y pérgolas. Se adapta a semisombra y agradece un suelo ligeramente húmedo.</p>
+                    <p class="card-text mt-auto"><strong>S/.59.90</strong></p>
+                    <a href="#" class="btn btn-primary align-self-start">Comprar</a>
                 </div>
             </div>
-            <div class="card col-md-6 m-3" style="width: 18rem;">
-                <img src="IMG\plantas\exterior\planta-ext-3.webp" class="card-img-top" alt="...">
-                <div class="card-body">
+            <div class="card col-xl-4 col-md-6 m-3 d-flex flex-column" style="width: 18rem; height:35rem">
+                <img th:src="@{/plantas/exterior/planta-ext-3.webp}" class="card-img-top" alt="Hortensia">
+                <div class="card-body d-flex flex-column">
                     <h5 class="card-title">Hortensia</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card’s
-                        content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                    <p class="card-text">Arbusto ornamental conocido por sus grandes flores. Prefiere lugares frescos con semisombra y riego frecuente.</p>
+                    <p class="card-text mt-auto"><strong>S/.79.90</strong></p>
+                    <a href="#" class="btn btn-primary align-self-start">Comprar</a>
                 </div>
             </div>
-            <div class="card col-md-6 m-3" style="width: 18rem;">
-                <img src="IMG\plantas\exterior\planta-ext-4.webp" class="card-img-top" alt="...">
-                <div class="card-body">
+            <div class="card col-xl-4 col-md-6 m-3 d-flex flex-column" style="width: 18rem; height:35rem">
+                <img th:src="@{/plantas/exterior/planta-ext-4.webp}" class="card-img-top" alt="Sheflera">
+                <div class="card-body d-flex flex-column">
                     <h5 class="card-title">Sheflera</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card’s
-                        content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                    <p class="card-text">Arbusto de hojas verdes en forma de paraguas, adecuado para patios protegidos. Crece bien con luz brillante y riego moderado.</p>
+                    <p class="card-text mt-auto"><strong>S/.99.90</strong></p>
+                    <a href="#" class="btn btn-primary align-self-start">Comprar</a>
+                </div>
+            </div>
+        </div>
+        <div class="row align-items-center justify-content-center mt-4">
+            <div class="card col-xl-4 col-md-6 m-3 d-flex flex-column" style="width: 18rem; height:35rem">
+                <img th:src="@{/plantas/exterior/planta-ext-1.webp}" class="card-img-top" alt="Planta de exterior provisional">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Planta de exterior 5</h5>
+                    <p class="card-text">Descripción provisional: planta para jardines y terrazas. Pronto agregaremos información sobre sus cuidados.</p>
+                    <p class="card-text mt-auto"><strong>S/.00.00</strong></p>
+                    <a href="#" class="btn btn-primary align-self-start">Comprar</a>
+                </div>
+            </div>
+            <div class="card col-xl-4 col-md-6 m-3 d-flex flex-column" style="width: 18rem; height:35rem">
+                <img th:src="@{/plantas/exterior/planta-ext-2.webp}" class="card-img-top" alt="Planta de exterior provisional">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Planta de exterior 6</h5>
+                    <p class="card-text">Descripción provisional: una alternativa para llenar de verde tus espacios al aire libre. Detalles próximamente.</p>
+                    <p class="card-text mt-auto"><strong>S/.00.00</strong></p>
+                    <a href="#" class="btn btn-primary align-self-start">Comprar</a>
+                </div>
+            </div>
+            <div class="card col-xl-4 col-md-6 m-3 d-flex flex-column" style="width: 18rem; height:35rem">
+                <img th:src="@{/plantas/exterior/planta-ext-3.webp}" class="card-img-top" alt="Planta de exterior provisional">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Planta de exterior 7</h5>
+                    <p class="card-text">Descripción provisional: planta ornamental para balcones o jardines. La información de cuidados estará disponible pronto.</p>
+                    <p class="card-text mt-auto"><strong>S/.00.00</strong></p>
+                    <a href="#" class="btn btn-primary align-self-start">Comprar</a>
+                </div>
+            </div>
+            <div class="card col-xl-4 col-md-6 m-3 d-flex flex-column" style="width: 18rem; height:35rem">
+                <img th:src="@{/plantas/exterior/planta-ext-4.webp}" class="card-img-top" alt="Planta de exterior provisional">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Planta de exterior 8</h5>
+                    <p class="card-text">Descripción provisional: planta resistente para decorar áreas exteriores. Pronto añadiremos sus características y cuidados.</p>
+                    <p class="card-text mt-auto"><strong>S/.00.00</strong></p>
+                    <a href="#" class="btn btn-primary align-self-start">Comprar</a>
                 </div>
             </div>
         </div>

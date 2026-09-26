@@ -22,44 +22,78 @@
     <div th:replace="fragments/login :: login"></div>
     <div class="container">
         <div class="row align-items-center justify-content-center mt-5">
-            <div class="card col-md-6 m-3" style="width: 18rem;">
-                <img src="IMG\plantas\interior\planta-int-1.webp" class="card-img-top" alt="...">
-                <div class="card-body">
+            <div class="card col-xl-4 col-md-6 m-3 d-flex flex-column" style="width: 18rem; height:35rem">
+                <img th:src="@{/plantas/interior/planta-int-1.webp}" class="card-img-top" alt="Violeta Africana">
+                <div class="card-body d-flex flex-column">
                     <h5 class="card-title">Violeta Africana</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card’s
-                        content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                    <p class="card-text">Planta compacta de flores violetas que alegra cualquier espacio. Prefiere luz indirecta y riego moderado.</p>
+                    <p class="card-text mt-auto"><strong>S/.39.90</strong></p>
+                    <a href="#" class="btn btn-primary align-self-start">Comprar</a>
                 </div>
             </div>
-            <div class="card col-md-6 m-3" style="width: 18rem;">
-                <img src="IMG\plantas\interior\planta-int-2.webp" class="card-img-top" alt="...">
-                <div class="card-body">
+            <div class="card col-xl-4 col-md-6 m-3 d-flex flex-column" style="width: 18rem; height:35rem">
+                <img th:src="@{/plantas/interior/planta-int-2.webp}" class="card-img-top" alt="Aloe Vera">
+                <div class="card-body d-flex flex-column">
                     <h5 class="card-title">Aloe Vera</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card’s
-                        content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                    <p class="card-text">Suculenta resistente de hojas carnosas. Necesita mucha luz y poco riego; deja secar la tierra entre riegos.</p>
+                    <p class="card-text mt-auto"><strong>S/.29.90</strong></p>
+                    <a href="#" class="btn btn-primary align-self-start">Comprar</a>
                 </div>
             </div>
-            <div class="card col-md-6 m-3" style="width: 18rem;">
-                <img src="IMG\plantas\interior\planta-int-3.webp" class="card-img-top" alt="...">
-                <div class="card-body">
+            <div class="card col-xl-4 col-md-6 m-3 d-flex flex-column" style="width: 18rem; height:35rem">
+                <img th:src="@{/plantas/interior/planta-int-3.webp}" class="card-img-top" alt="Menta">
+                <div class="card-body d-flex flex-column">
                     <h5 class="card-title">Menta</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card’s
-                        content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                    <p class="card-text">Hierba aromática de hojas frescas, ideal para infusiones y cocina. Crece mejor con buena luz y tierra húmeda.</p>
+                    <p class="card-text mt-auto"><strong>S/.19.90</strong></p>
+                    <a href="#" class="btn btn-primary align-self-start">Comprar</a>
                 </div>
             </div>
-            <div class="card col-md-6 m-3" style="width: 18rem;">
-                <img src="IMG\plantas\interior\planta-int-4.webp" class="card-img-top" alt="...">
-                <div class="card-body">
+            <div class="card col-xl-4 col-md-6 m-3 d-flex flex-column" style="width: 18rem; height:35rem">
+                <img th:src="@{/plantas/interior/planta-int-4.webp}" class="card-img-top" alt="Peperomia Verde">
+                <div class="card-body d-flex flex-column">
                     <h5 class="card-title">Peperomia Verde</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card’s
-                        content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                    <p class="card-text">Planta ornamental de hojas verdes y brillantes, perfecta para interiores. Prefiere luz indirecta y riego cuando la tierra esté seca.</p>
+                    <p class="card-text mt-auto"><strong>S/.34.90</strong></p>
+                    <a href="#" class="btn btn-primary align-self-start">Comprar</a>
+                </div>
+            </div>
+        </div>
+        <div class="row align-items-center justify-content-center mt-4">
+            <div class="card col-xl-4 col-md-6 m-3 d-flex flex-column" style="width: 18rem; height:35rem">
+                <img th:src="@{/plantas/interior/planta-int-1.webp}" class="card-img-top" alt="Planta de interior provisional">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Planta de interior 5</h5>
+                    <p class="card-text">Descripción provisional: planta decorativa para el hogar. Pronto agregaremos información sobre sus cuidados.</p>
+                    <p class="card-text mt-auto"><strong>S/.00.00</strong></p>
+                    <a href="#" class="btn btn-primary align-self-start">Comprar</a>
+                </div>
+            </div>
+            <div class="card col-xl-4 col-md-6 m-3 d-flex flex-column" style="width: 18rem; height:35rem">
+                <img th:src="@{/plantas/interior/planta-int-2.webp}" class="card-img-top" alt="Planta de interior provisional">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Planta de interior 6</h5>
+                    <p class="card-text">Descripción provisional: una opción verde para alegrar tus espacios. La información de cuidados estará disponible pronto.</p>
+                    <p class="card-text mt-auto"><strong>S/.00.00</strong></p>
+                    <a href="#" class="btn btn-primary align-self-start">Comprar</a>
+                </div>
+            </div>
+            <div class="card col-xl-4 col-md-6 m-3 d-flex flex-column" style="width: 18rem; height:35rem">
+                <img th:src="@{/plantas/interior/planta-int-3.webp}" class="card-img-top" alt="Planta de interior provisional">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Planta de interior 7</h5>
+                    <p class="card-text">Descripción provisional: planta ideal para dar un toque natural a cualquier habitación. Detalles próximamente.</p>
+                    <p class="card-text mt-auto"><strong>S/.00.00</strong></p>
+                    <a href="#" class="btn btn-primary align-self-start">Comprar</a>
+                </div>
+            </div>
+            <div class="card col-xl-4 col-md-6 m-3 d-flex flex-column" style="width: 18rem; height:35rem">
+                <img th:src="@{/plantas/interior/planta-int-4.webp}" class="card-img-top" alt="Planta de interior provisional">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Planta de interior 8</h5>
+                    <p class="card-text">Descripción provisional: planta ornamental de interior. Pronto añadiremos sus características y recomendaciones de cuidado.</p>
+                    <p class="card-text mt-auto"><strong>S/.00.00</strong></p>
+                    <a href="#" class="btn btn-primary align-self-start">Comprar</a>
                 </div>
             </div>
         </div>
