@@ -26,11 +26,6 @@ public class Controlador {
         return "exterior";
     }
 
-    @GetMapping("/index")
-    public String mostrarIndex() {
-        return "index";
-    }
-
     @GetMapping("/interior")
     public String mostrarInterior() {
         return "interior";
