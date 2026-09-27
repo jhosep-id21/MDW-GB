@@ -46,6 +46,21 @@ public class Controlador {
         return "principiantes";
     }
 
+    @GetMapping("/fichas")
+    public String fichas() {
+        return "fichas";
+    }
+
+    @GetMapping("/calculadora-riego")
+    public String calculadoraRiego() {
+        return "calculadora-riego";
+    }
+
+    @GetMapping("/tips-luz")
+    public String tipsLuz() {
+        return "tips-luz";
+    }
+
     @GetMapping("/login")
     public String login() {
         return "redirect:/";

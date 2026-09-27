@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es-es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GreenByte - Calculadora de Riego</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="icon" th:href="@{/iconos/ico-greenbyte-sinfondo.png}" type="image/png">
+    <link rel="stylesheet" th:href="@{/styles.css}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+</head>
+<body class="d-flex flex-column min-vh-100">
+    <header th:replace="~{fragments/header :: navegador}"></header>
+    <div th:replace="~{fragments/login :: login}"></div>
+    <div th:replace="~{fragments/cart :: carrito}"></div>
+    <div class="container py-4 col-12 col-lg-8 mx-auto">
+        <h2 class="mb-1"><i class="bi bi-calculator text-success me-2"></i>Calculadora de Riego</h2>
+        <p class="text-white-50 small">Ajusta los parámetros y presiona Calcular.</p>
+        <div class="card p-3 p-md-4 border-success">
+            <div class="row g-3">
+                <div class="col-md-6"><label class="form-label">Especie</label><select id="calcEspecie" class="form-select"><option value="tropical">Tropical (Monstera, Pothos)</option><option value="suculenta">Suculenta (Aloe, Sansevieria)</option><option value="helecho">Helecho / Calathea</option><option value="aromatica">Aromática (Menta, Lavanda)</option><option value="flor">Flor exterior (Geranio, Hortensia)</option></select></div>
+                <div class="col-md-3"><label class="form-label">Tamaño maceta</label><select id="calcMaceta" class="form-select"><option value="s">Pequeña (10-12cm)</option><option value="m" selected>Mediana (14-16cm)</option><option value="l">Grande (20-24cm)</option></select></div>
+                <div class="col-md-3"><label class="form-label">Estación</label><select id="calcEstacion" class="form-select"><option value="verano" selected>Verano / Cálido</option><option value="invierno">Invierno / Frío</option></select></div>
+                <div class="col-md-4"><label class="form-label">Luz disponible</label><select id="calcLuz" class="form-select"><option value="baja">Baja</option><option value="media" selected>Media</option><option value="alta">Alta / Sol</option></select></div>
+                <div class="col-md-4"><label class="form-label">Ambiente</label><select id="calcAmb" class="form-select"><option value="interior">Interior</option><option value="exterior" selected>Exterior / Balcón</option></select></div>
+                <div class="col-md-4 d-flex align-items-end"><button class="btn btn-success w-100" onclick="calcularRiego()"><i class="bi bi-droplet me-1"></i> Calcular</button></div>
+            </div>
+            <div id="calcResultado" class="alert alert-dark border-success mt-4 d-none"></div>
+            <p class="small text-white-50 mt-2 mb-0"><i class="bi bi-lightbulb me-1"></i>Tip: mete el dedo 2cm en la tierra; si sale seco, riega. Esta calculadora es orientativa.</p>
+        </div>
+    </div>
+    <footer th:replace="~{fragments/footer :: footer}"></footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script th:src="@{/js/cart.js}"></script>
+    <script th:src="@{/js/auth.js}"></script>
+    <script>
+    function calcularRiego(){
+        const esp = document.getElementById('calcEspecie').value;
+        const mac = document.getElementById('calcMaceta').value;
+        const est = document.getElementById('calcEstacion').value;
+        const luz = document.getElementById('calcLuz').value;
+        let base = {tropical:7, suculenta:14, helecho:4, aromatica:5, flor:4}[esp] || 7;
+        if(est==='invierno') base += 4;
+        if(luz==='alta') base -= 2;
+        if(luz==='baja') base += 2;
+        if(mac==='s') base -= 1;
+        if(mac==='l') base += 2;
+        if(base<2) base=2; if(base>21) base=21;
+        const ml = {s:120, m:250, l:400}[mac];
+        const nombre = {tropical:'Tropical',suculenta:'Suculenta',helecho:'Helecho',aromatica:'Aromática',flor:'Flor'}[esp];
+        const res = document.getElementById('calcResultado');
+        res.classList.remove('d-none');
+        res.innerHTML = `<b>${nombre}</b> — Riega cada <span class="text-success fs-5">${base} días</span> aprox. con <b>${ml} ml</b> por riego (hasta que drene).<br><span class="small text-white-50">Próximo riego: ${new Date(Date.now()+base*86400000).toLocaleDateString('es-PE', {weekday:'long', day:'numeric', month:'short'})}</span>`;
+    }
+    </script>
+</body>
+</html>

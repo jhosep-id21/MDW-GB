@@ -126,7 +126,6 @@ function filtrarProductos() {
         const text = card.innerText.toLowerCase();
         card.style.display = text.includes(q) ? '' : 'none';
     });
-    // si está en index sin cards, hace scroll búsqueda no hace nada
 }
 
 // Delegación para botones "Agregar"

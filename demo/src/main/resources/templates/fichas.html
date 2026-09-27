@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es-es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GreenByte - Fichas Técnicas</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="icon" th:href="@{/iconos/ico-greenbyte-sinfondo.png}" type="image/png">
+    <link rel="stylesheet" th:href="@{/styles.css}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+</head>
+<body class="d-flex flex-column min-vh-100">
+    <header th:replace="~{fragments/header :: navegador}"></header>
+    <div th:replace="~{fragments/login :: login}"></div>
+    <div th:replace="~{fragments/cart :: carrito}"></div>
+    <div class="container py-4">
+        <h2 class="mb-1"><i class="bi bi-journal-text text-success me-2"></i>Fichas Técnicas por Especie</h2>
+        <p class="text-white-50 small mb-3">Filtra por nombre. Todo es frontend, sin backend extra.</p>
+        <div class="row mb-3">
+            <div class="col-md-6 mx-auto"><input id="filtroFichas" class="form-control" placeholder="Buscar: monstera, suculenta, riego..."></div>
+        </div>
+        <div class="row g-3" id="gridFichas">
+            <!-- 8 fichas estáticas -->
+            <div class="col-md-6 col-lg-4 ficha-item"><div class="card h-100 p-3"><h5 class="card-title mb-1">Monstera Deliciosa <span class="badge bg-success ms-1">Interior</span></h5><p class="small text-white-50 mb-2">Fenestrada, tropical. Muy popular.</p><ul class="small mb-0"><li><i class="bi bi-sun me-1 text-warning"></i><b>Luz:</b> Brillante indirecta</li><li><i class="bi bi-droplet me-1 text-info"></i><b>Riego:</b> Cada 7-10 días, sustrato seco 2cm</li><li><i class="bi bi-thermometer me-1"></i><b>Temp:</b> 18-27°C</li><li><i class="bi bi-exclamation-triangle me-1 text-danger"></i><b>Tóxica:</b> Sí (mascotas)</li></ul></div></div>
+            <div class="col-md-6 col-lg-4 ficha-item"><div class="card h-100 p-3"><h5 class="card-title mb-1">Sansevieria <span class="badge bg-success">Interior</span></h5><p class="small text-white-50 mb-2">Lengua de suegra, indestructible.</p><ul class="small mb-0"><li><i class="bi bi-sun me-1"></i><b>Luz:</b> Baja a brillante</li><li><i class="bi bi-droplet me-1 text-info"></i><b>Riego:</b> Cada 14-21 días</li><li><i class="bi bi-thermometer me-1"></i><b>Temp:</b> 15-30°C</li><li><i class="bi bi-check-circle me-1 text-success"></i><b>Tóxica:</b> Leve</li></ul></div></div>
+            <div class="col-md-6 col-lg-4 ficha-item"><div class="card h-100 p-3"><h5 class="card-title mb-1">Aloe Vera <span class="badge bg-success">Suculenta</span></h5><p class="small text-white-50 mb-2">Medicinal y resistente.</p><ul class="small mb-0"><li><i class="bi bi-sun me-1"></i><b>Luz:</b> Sol directo / brillante</li><li><i class="bi bi-droplet me-1 text-info"></i><b>Riego:</b> Cada 12-18 días</li><li><i class="bi bi-thermometer me-1"></i><b>Temp:</b> 18-28°C</li><li><i class="bi bi-check-circle me-1"></i><b>Uso:</b> Gel hidratante</li></ul></div></div>
+            <div class="col-md-6 col-lg-4 ficha-item"><div class="card h-100 p-3"><h5 class="card-title mb-1">Geranio <span class="badge bg-warning text-dark">Exterior</span></h5><p class="small text-white-50 mb-2">Balcones a pleno sol.</p><ul class="small mb-0"><li><i class="bi bi-sun me-1"></i><b>Luz:</b> Sol directo 6h+</li><li><i class="bi bi-droplet me-1 text-info"></i><b>Riego:</b> Cada 3-5 días en verano</li><li><i class="bi bi-thermometer me-1"></i><b>Temp:</b> 15-25°C</li><li><i class="bi bi-flower1 me-1"></i><b>Flor:</b> Primavera-verano</li></ul></div></div>
+            <div class="col-md-6 col-lg-4 ficha-item"><div class="card h-100 p-3"><h5 class="card-title mb-1">Hortensia <span class="badge bg-warning text-dark">Exterior</span></h5><p class="small text-white-50 mb-2">Flores grandes, suelo ácido.</p><ul class="small mb-0"><li><i class="bi bi-sun me-1"></i><b>Luz:</b> Semisombra</li><li><i class="bi bi-droplet me-1 text-info"></i><b>Riego:</b> Diario en verano, abundante</li><li><i class="bi bi-thermometer me-1"></i><b>Temp:</b> 14-22°C</li><li><i class="bi bi-palette me-1"></i><b>Color:</b> pH dependiente</li></ul></div></div>
+            <div class="col-md-6 col-lg-4 ficha-item"><div class="card h-100 p-3"><h5 class="card-title mb-1">Menta <span class="badge bg-info text-dark">Aromática</span></h5><p class="small text-white-50 mb-2">Culinaria, invasiva.</p><ul class="small mb-0"><li><i class="bi bi-sun me-1"></i><b>Luz:</b> Brillante / sol suave</li><li><i class="bi bi-droplet me-1 text-info"></i><b>Riego:</b> Cada 2-4 días, siempre húmedo</li><li><i class="bi bi-scissors me-1"></i><b>Poda:</b> Frecuente para ramificar</li><li><i class="bi bi-cup-hot me-1"></i><b>Uso:</b> Infusiones</li></ul></div></div>
+            <div class="col-md-6 col-lg-4 ficha-item"><div class="card h-100 p-3"><h5 class="card-title mb-1">Pothos Dorado <span class="badge bg-success">Colgante</span></h5><p class="small text-white-50 mb-2">Ideal para principiantes, purifica.</p><ul class="small mb-0"><li><i class="bi bi-sun me-1"></i><b>Luz:</b> Baja a media</li><li><i class="bi bi-droplet me-1 text-info"></i><b>Riego:</b> Cada 7-12 días</li><li><i class="bi bi-thermometer me-1"></i><b>Temp:</b> 17-30°C</li><li><i class="bi bi-water me-1"></i><b>Propag:</b> Esqueje en agua</li></ul></div></div>
+            <div class="col-md-6 col-lg-4 ficha-item"><div class="card h-100 p-3"><h5 class="card-title mb-1">Lavanda <span class="badge bg-warning text-dark">Exterior</span></h5><p class="small text-white-50 mb-2">Aromática, atrae polinizadores.</p><ul class="small mb-0"><li><i class="bi bi-sun me-1"></i><b>Luz:</b> Sol pleno 8h</li><li><i class="bi bi-droplet me-1 text-info"></i><b>Riego:</b> Cada 10-15 días, muy drenado</li><li><i class="bi bi-thermometer me-1"></i><b>Temp:</b> Tolera heladas leves</li><li><i class="bi bi-bug me-1"></i><b>Plagas:</b> Muy resistente</li></ul></div></div>
+        </div>
+    </div>
+    <footer th:replace="~{fragments/footer :: footer}"></footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script th:src="@{/js/cart.js}"></script>
+    <script th:src="@{/js/auth.js}"></script>
+    <script>document.getElementById('filtroFichas')?.addEventListener('input', e=>{ const q=e.target.value.toLowerCase(); document.querySelectorAll('.ficha-item').forEach(c=> c.style.display = c.innerText.toLowerCase().includes(q)?'':'none'); });</script>
+</body>
+</html>
