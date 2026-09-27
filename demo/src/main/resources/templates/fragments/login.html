@@ -6,21 +6,18 @@
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
-                    <form th:action="@{/login}" method="get" id="form-login">
+                    <form id="form-login" onsubmit="return handleLogin(event)">
                         <div class="mb-1 mt-2">
                             <label class="form-label">Correo electrónico</label>
                             <input type="email" name="email" id="email" class="form-control" placeholder="admin@greenbyte.com" required>
-                            <div class="form-text text-light opacity-75">Por ahora solo usar<b>admin@greenbyte.com</b> para rol Administrador. En cambio para cualquier otro correo entra como Cliente.</div>
+                            <div class="form-text text-light opacity-75">Usa <b>admin@greenbyte.com</b> para rol Administrador. Cualquier otro correo entra como Cliente.</div>
                         </div>
                         <div class="mb-4">
                             <label class="form-label">Contraseña</label>
                             <input type="password" name="password" id="password" class="form-control" placeholder="cualquier contraseña" required>
-                            <div class="form-text text-light opacity-75">Hardcode: <code>admin123</code> o cualquier clave en el caso de clientes.</div>
                         </div>
                         <button type="submit" class="btn btn-success w-100 mb-2">Ingresar</button>
-                        <div class="text-center small">
-                            <span class="text-white-50">¿No tienes cuenta? Usa cualquier correo y entrarás como cliente.</span>
-                        </div>
+                        <div class="text-center small"><span class="text-white-50">Demo sin backend: rol guardado en localStorage.</span></div>
                     </form>
                 </div>
             </div>

@@ -1,65 +1,47 @@
 <header th:fragment="navegador">
-    <!-- Navegación principal -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom border-success border-3">
         <div class="container-fluid contenedor-uno">
-
             <a class="navbar-brand d-flex align-items-center" th:href="@{/}">
                 <img th:src="@{/iconos/ico-greenbyte-sinfondo.png}" alt="GreenByte" width="60" height="60" class="me-2">
                 <span class="brand-title">Green<span>Byte</span></span>
             </a>
-
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 align-items-lg-center">
-                    <li class="nav-item">
-                        <a class="nav-link active text-white" aria-current="page" th:href="@{/}">Inicio</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white" th:href="@{/contactanos}">Contactanos</a>
-                    </li>
+                    <li class="nav-item"><a class="nav-link active text-white" th:href="@{/}">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" th:href="@{/contactanos}">Contactanos</a></li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            Manual Byte 🌿
-                        </a>
+                        <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Manual Byte 🌿</a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="#">Fichas Técnicas por Especie</a></li>
                             <li><a class="dropdown-item" href="#">Calculadora de Riego</a></li>
                             <li><a class="dropdown-item" href="#">Tips según tu Tipo de Luz</a></li>
                         </ul>
                     </li>
-
-                    <!-- Usuario / Login -->
-                    <li class="nav-item ms-lg-2" th:if="${session.logueado == null}">
+                    <!-- Área usuario controlada por JS (sin Model/Session) -->
+                    <li class="nav-item ms-lg-2" id="nav-login">
                         <a class="btn btn-success my-1" data-bs-toggle="modal" data-bs-target="#loginModal" href="#">Iniciar Sesión</a>
                     </li>
-                    <li class="nav-item dropdown ms-lg-2" th:if="${session.logueado != null}">
+                    <li class="nav-item dropdown ms-lg-2 d-none" id="nav-user">
                         <a class="nav-link dropdown-toggle text-white d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="bi bi-person-circle me-1"></i>
-                            <span th:text="${session.usuario}">usuario</span>
-                            <span class="badge ms-2" th:classappend="${session.rol == 'ADMIN'} ? 'bg-danger' : 'bg-success'" th:text="${session.rol}">ROL</span>
+                            <span id="user-email">usuario</span>
+                            <span class="badge ms-2" id="user-rol">ROL</span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li th:if="${session.rol == 'ADMIN'}"><a class="dropdown-item" th:href="@{/administrador}"><i class="bi bi-shield-lock me-1"></i> Panel Administrador</a></li>
-                            <li th:if="${session.rol == 'ADMIN'}"><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" th:href="@{/logout}"><i class="bi bi-box-arrow-right me-1"></i> Cerrar sesión</a></li>
+                            <li id="nav-admin-link" class="d-none"><a class="dropdown-item" th:href="@{/administrador}"><i class="bi bi-shield-lock me-1"></i> Panel Administrador</a></li>
+                            <li id="nav-admin-divider" class="d-none"><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#" onclick="logout()"><i class="bi bi-box-arrow-right me-1"></i> Cerrar sesión</a></li>
                         </ul>
                     </li>
                 </ul>
-
-                <!-- Búsqueda + Carrito -->
                 <div class="d-flex align-items-center gap-2 mb-2 mb-lg-0">
                     <form class="d-flex" role="search" onsubmit="return false;">
                         <input class="form-control me-2" type="search" id="searchInput" placeholder="Buscar producto..." aria-label="Search" />
                         <button class="btn btn-outline-success" type="button" onclick="filtrarProductos()"><i class="bi bi-search"></i></button>
                     </form>
-
-                    <!-- Botón Carrito -->
                     <button class="btn btn-outline-light position-relative" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart" aria-controls="offcanvasCart">
                         <i class="bi bi-cart3 fs-5"></i>
                         <span id="cart-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-success">0</span>
@@ -68,7 +50,6 @@
             </div>
         </div>
     </nav>
-    <!-- Barra de categorías -->
     <nav class="nav-categories bg-dark py-2 border-bottom border-success">
         <div class="container-fluid d-flex overflow-x-auto text-nowrap">
             <a class="nav-link px-3 text-white" th:href="@{/interior}"><i class="bi bi-flower1 me-1"></i> Plantas de Interior</a>
