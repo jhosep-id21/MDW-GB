@@ -1,39 +1,174 @@
 <!DOCTYPE html>
 <html lang="es-es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GreenByte - Para Principiantes</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="icon" th:href="@{/iconos/ico-greenbyte-sinfondo.png}" type="image/png">
     <link rel="stylesheet" th:href="@{/styles.css}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 </head>
+
 <body class="d-flex flex-column min-vh-100">
     <header th:replace="~{fragments/header :: navegador}"></header>
     <div th:replace="~{fragments/login :: login}"></div>
     <div th:replace="~{fragments/cart :: carrito}"></div>
     <div class="container py-4">
         <div class="d-flex justify-content-between align-items-center mb-3">
-            <h2 class="mb-0"><i class="bi bi-emoji-smile me-2 text-success"></i> Para Principiantes</h2>
+            <h2 class="mb-0"><i class="bi bi-emoji-smile me-2 text-black"></i> Para Principiantes</h2>
             <span class="badge bg-success">8 productos</span>
         </div>
         <p class="text-white-50">Kits imposibles de matar. Empieza sin miedo.</p>
-        <div class="alert alert-success bg-dark border-success text-white small"><i class="bi bi-lightbulb me-1"></i> Todos los kits incluyen guía de cuidados.</div>
+        <div class="alert alert-success bg-dark border-success text-white small"><i class="bi bi-lightbulb me-1"></i>
+            Todos los kits incluyen guía de cuidados.</div>
         <div class="row align-items-stretch justify-content-center g-3 mt-2">
-            <div class="col-xl-3 col-lg-4 col-md-6 d-flex justify-content-center product-card"><div class="card d-flex flex-column w-100" style="max-width:18rem;min-height:32rem;"><img th:src="@{/plantas/interior/planta-int-2.webp}" class="card-img-top" alt="Kit Suculentas"><div class="card-body d-flex flex-column"><h5 class="card-title">Kit Iniciación Suculentas x3</h5><p class="card-text small text-white-50">3 suculentas + 3 macetitas + sustrato.</p><div class="mt-auto"><p class="mb-2"><strong class="text-success fs-5">S/. 49.90</strong></p><button class="btn btn-success w-100" data-add-to-cart data-id="prin-1" data-nombre="Kit Suculentas x3" data-precio="49.90" data-imagen="/plantas/interior/planta-int-2.webp"><i class="bi bi-cart-plus me-1"></i> Agregar al carrito</button></div></div></div></div>
-            <div class="col-xl-3 col-lg-4 col-md-6 d-flex justify-content-center product-card"><div class="card d-flex flex-column w-100" style="max-width:18rem;min-height:32rem;"><img th:src="@{/plantas/interior/planta-int-3.webp}" class="card-img-top" alt="Aromáticas"><div class="card-body d-flex flex-column"><h5 class="card-title">Kit Hierbas Aromáticas</h5><p class="card-text small text-white-50">Menta, albahaca y cilantro + guía PDF.</p><div class="mt-auto"><p class="mb-2"><strong class="text-success fs-5">S/. 39.90</strong></p><button class="btn btn-success w-100" data-add-to-cart data-id="prin-2" data-nombre="Kit Hierbas Aromáticas" data-precio="39.90" data-imagen="/plantas/interior/planta-int-3.webp"><i class="bi bi-cart-plus me-1"></i> Agregar al carrito</button></div></div></div></div>
-            <div class="col-xl-3 col-lg-4 col-md-6 d-flex justify-content-center product-card"><div class="card d-flex flex-column w-100" style="max-width:18rem;min-height:32rem;"><img th:src="@{/plantas/interior/planta-int-1.webp}" class="card-img-top" alt="Monstera Combo"><div class="card-body d-flex flex-column"><h5 class="card-title">Monstera + Maceta Blanca (Combo)</h5><p class="card-text small text-white-50">Monstera joven + maceta cerámica 16cm.</p><div class="mt-auto"><p class="mb-2"><strong class="text-success fs-5">S/. 69.90</strong></p><button class="btn btn-success w-100" data-add-to-cart data-id="prin-3" data-nombre="Combo Monstera" data-precio="69.90" data-imagen="/plantas/interior/planta-int-1.webp"><i class="bi bi-cart-plus me-1"></i> Agregar al carrito</button></div></div></div></div>
-            <div class="col-xl-3 col-lg-4 col-md-6 d-flex justify-content-center product-card"><div class="card d-flex flex-column w-100" style="max-width:18rem;min-height:32rem;"><img th:src="@{/plantas/interior/planta-int-4.webp}" class="card-img-top" alt="Pack"><div class="card-body d-flex flex-column"><h5 class="card-title">Pack Principiante: Pothos + Sansevieria</h5><p class="card-text small text-white-50">Dos plantas indestructibles para poca luz.</p><div class="mt-auto"><p class="mb-2"><strong class="text-success fs-5">S/. 59.90</strong></p><button class="btn btn-success w-100" data-add-to-cart data-id="prin-4" data-nombre="Pack Pothos + Sansevieria" data-precio="59.90" data-imagen="/plantas/interior/planta-int-4.webp"><i class="bi bi-cart-plus me-1"></i> Agregar al carrito</button></div></div></div></div>
-            <div class="col-xl-3 col-lg-4 col-md-6 d-flex justify-content-center product-card"><div class="card d-flex flex-column w-100" style="max-width:18rem;min-height:32rem;"><img th:src="@{/img-carousel/maceta-4.jpg}" class="card-img-top" alt="Terrario"><div class="card-body d-flex flex-column"><h5 class="card-title">Terrario Cerrado Fácil</h5><p class="card-text small text-white-50">Vidrio 20cm con fitonia y musgo, riego mínimo.</p><div class="mt-auto"><p class="mb-2"><strong class="text-success fs-5">S/. 55.90</strong></p><button class="btn btn-success w-100" data-add-to-cart data-id="prin-5" data-nombre="Terrario Cerrado" data-precio="55.90" data-imagen="/img-carousel/maceta-4.jpg"><i class="bi bi-cart-plus me-1"></i> Agregar al carrito</button></div></div></div></div>
-            <div class="col-xl-3 col-lg-4 col-md-6 d-flex justify-content-center product-card"><div class="card d-flex flex-column w-100" style="max-width:18rem;min-height:32rem;"><img th:src="@{/img-carousel/accesorios-3.png}" class="card-img-top" alt="Siembra"><div class="card-body d-flex flex-column"><h5 class="card-title">Kit Siembra Completo</h5><p class="card-text small text-white-50">Semillas, sustrato, macetitas y guía.</p><div class="mt-auto"><p class="mb-2"><strong class="text-success fs-5">S/. 29.90</strong></p><button class="btn btn-success w-100" data-add-to-cart data-id="prin-6" data-nombre="Kit Siembra Completo" data-precio="29.90" data-imagen="/img-carousel/accesorios-3.png"><i class="bi bi-cart-plus me-1"></i> Agregar al carrito</button></div></div></div></div>
-            <div class="col-xl-3 col-lg-4 col-md-6 d-flex justify-content-center product-card"><div class="card d-flex flex-column w-100" style="max-width:18rem;min-height:32rem;"><img th:src="@{/img-carousel/accesorios-2.png}" class="card-img-top" alt="Regalo"><div class="card-body d-flex flex-column"><h5 class="card-title">Caja Regalo GreenByte Starter</h5><p class="card-text small text-white-50">Planta sorpresa + accesorio + fertilizante.</p><div class="mt-auto"><p class="mb-2"><strong class="text-success fs-5">S/. 79.90</strong></p><button class="btn btn-success w-100" data-add-to-cart data-id="prin-7" data-nombre="Caja Regalo Starter" data-precio="79.90" data-imagen="/img-carousel/accesorios-2.png"><i class="bi bi-cart-plus me-1"></i> Agregar al carrito</button></div></div></div></div>
-            <div class="col-xl-3 col-lg-4 col-md-6 d-flex justify-content-center product-card"><div class="card d-flex flex-column w-100" style="max-width:18rem;min-height:32rem;"><img th:src="@{/plantas/exterior/planta-ext-1.webp}" class="card-img-top" alt="Suscripción"><div class="card-body d-flex flex-column"><h5 class="card-title">Suscripción Planta del Mes</h5><p class="card-text small text-white-50">Planta fácil + tips y calendario de riego.</p><div class="mt-auto"><p class="mb-2"><strong class="text-success fs-5">S/. 34.90</strong></p><button class="btn btn-success w-100" data-add-to-cart data-id="prin-8" data-nombre="Suscripción Planta Mes" data-precio="34.90" data-imagen="/plantas/exterior/planta-ext-1.webp"><i class="bi bi-cart-plus me-1"></i> Agregar al carrito</button></div></div></div></div>
+            <div class="col-xl-3 col-lg-4 col-md-6 d-flex justify-content-center product-card">
+                <div class="card d-flex flex-column w-100" style="max-width:18rem;">
+                    <img src="https://m.media-amazon.com/images/I/71auBbxyMYL.jpg" class="card-img-top"
+                        alt="Kit Suculentas">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">Kit Iniciación Suculentas x3</h5>
+                        <p class="card-text small text-white-50">3 suculentas + 3 macetitas + sustrato.</p>
+                        <div class="card-foot mt-auto">
+                            <p class="mb-2"><strong class="text-success fs-5">S/. 49.90</strong></p><button
+                                class="btn btn-success w-100" data-add-to-cart data-id="prin-1"
+                                data-nombre="Kit Suculentas x3" data-precio="49.90"
+                                data-imagen="/plantas/interior/planta-int-2.webp"><i class="bi bi-cart-plus me-1"></i>
+                                Agregar al carrito</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-4 col-md-6 d-flex justify-content-center product-card">
+                <div class="card d-flex flex-column w-100" style="max-width:18rem;">
+                    <img src="https://fieito.com/wp-content/uploads/2021/06/mini-cultivo-de-hierbas-aromaticas.jpg.webp"
+                        class="card-img-top" alt="Aromáticas">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">Kit Hierbas Aromáticas</h5>
+                        <p class="card-text small text-white-50">Menta, albahaca y cilantro + guía PDF.</p>
+                        <div class="card-foot mt-auto">
+                            <p class="mb-2"><strong class="text-success fs-5">S/. 39.90</strong></p><button
+                                class="btn btn-success w-100" data-add-to-cart data-id="prin-2"
+                                data-nombre="Kit Hierbas Aromáticas" data-precio="39.90"
+                                data-imagen="/plantas/interior/planta-int-3.webp"><i class="bi bi-cart-plus me-1"></i>
+                                Agregar al carrito</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-4 col-md-6 d-flex justify-content-center product-card">
+                <div class="card d-flex flex-column w-100" style="max-width:18rem;">
+                    <img src="https://www.mijardin.pe/cdn/shop/files/setmonsterayluckybambu1.jpg?v=1732597986"
+                        class="card-img-top" alt="Monstera Combo">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">Monstera + Maceta Blanca (Combo)</h5>
+                        <p class="card-text small text-white-50">Monstera joven + maceta cerámica 16cm.</p>
+                        <div class="card-foot mt-auto">
+                            <p class="mb-2"><strong class="text-success fs-5">S/. 69.90</strong></p><button
+                                class="btn btn-success w-100" data-add-to-cart data-id="prin-3"
+                                data-nombre="Combo Monstera" data-precio="69.90"
+                                data-imagen="/plantas/interior/planta-int-1.webp"><i class="bi bi-cart-plus me-1"></i>
+                                Agregar al carrito</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-4 col-md-6 d-flex justify-content-center product-card">
+                <div class="card d-flex flex-column w-100" style="max-width:18rem;">
+                    <img src="https://www.mijardin.pe/cdn/shop/files/packsansevieria.jpg?v=1700951974"
+                        class="card-img-top" alt="Pack">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">Pack Principiante: Pothos + Sansevieria</h5>
+                        <p class="card-text small text-white-50">Dos plantas indestructibles para poca luz.</p>
+                        <div class="card-foot mt-auto">
+                            <p class="mb-2"><strong class="text-success fs-5">S/. 59.90</strong></p><button
+                                class="btn btn-success w-100" data-add-to-cart data-id="prin-4"
+                                data-nombre="Pack Pothos + Sansevieria" data-precio="59.90"
+                                data-imagen="/plantas/interior/planta-int-4.webp"><i class="bi bi-cart-plus me-1"></i>
+                                Agregar al carrito</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-4 col-md-6 d-flex justify-content-center product-card">
+                <div class="card d-flex flex-column w-100" style="max-width:18rem;">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNbzBO59t4NL_MeVPyqWcBQiqaUvl8VAetEComwAkfYBgjUtZJ3R162Yc&s=10"
+                        class="card-img-top" alt="Terrario">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">Terrario Cerrado Fácil</h5>
+                        <p class="card-text small text-white-50">Vidrio 20cm con fitonia y musgo, riego mínimo.</p>
+                        <div class="card-foot mt-auto">
+                            <p class="mb-2"><strong class="text-success fs-5">S/. 55.90</strong></p><button
+                                class="btn btn-success w-100" data-add-to-cart data-id="prin-5"
+                                data-nombre="Terrario Cerrado" data-precio="55.90"
+                                data-imagen="/img-carousel/maceta-4.jpg"><i class="bi bi-cart-plus me-1"></i> Agregar al
+                                carrito</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-4 col-md-6 d-flex justify-content-center product-card">
+                <div class="card d-flex flex-column w-100" style="max-width:18rem;">
+                    <img src="https://i.blogs.es/0bb86b/kit-cultivo-vintage/450_1000.jpg" class="card-img-top"
+                        alt="Siembra">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">Kit Siembra Completo</h5>
+                        <p class="card-text small text-white-50">Semillas, sustrato, macetitas y guía.</p>
+                        <div class="card-foot mt-auto">
+                            <p class="mb-2"><strong class="text-success fs-5">S/. 29.90</strong></p><button
+                                class="btn btn-success w-100" data-add-to-cart data-id="prin-6"
+                                data-nombre="Kit Siembra Completo" data-precio="29.90"
+                                data-imagen="/img-carousel/accesorios-3.png"><i class="bi bi-cart-plus me-1"></i>
+                                Agregar al carrito</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-4 col-md-6 d-flex justify-content-center product-card">
+                <div class="card d-flex flex-column w-100" style="max-width:18rem;">
+                    <img
+                        src="https://promart.vteximg.com.br/arquivos/ids/9975881-1000-1000/141982_20.jpg?v=639037966597800000"
+                        class="card-img-top" alt="Regalo">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">Caja Regalo GreenByte Starter</h5>
+                        <p class="card-text small text-white-50">Planta sorpresa + accesorio + fertilizante.</p>
+                        <div class="card-foot mt-auto">
+                            <p class="mb-2"><strong class="text-success fs-5">S/. 79.90</strong></p>
+                            <button class="btn btn-success w-100" data-add-to-cart data-id="prin-7"
+                                data-nombre="Caja Regalo Starter" data-precio="79.90"
+                                data-imagen="/img-carousel/accesorios-2.png"><i class="bi bi-cart-plus me-1"></i>
+                                Agregar al carrito</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-4 col-md-6 d-flex justify-content-center product-card">
+                <div class="card d-flex flex-column w-100" style="max-width:18rem;"><img
+                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUSMCOJPDF7dRKX5CxgUBYzAEK62JU87gRxFNrz1ekT1O5LSSUJRkRe0c&s=10">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">Suscripción Planta del Mes</h5>
+                        <p class="card-text small text-white-50">Planta fácil + tips y calendario de riego.</p>
+                        <div class="card-foot mt-auto">
+                            <p class="mb-2"><strong class="text-success fs-5">S/. 34.90</strong></p><button
+                                class="btn btn-success w-100" data-add-to-cart data-id="prin-8"
+                                data-nombre="Suscripción Planta Mes" data-precio="34.90"
+                                data-imagen="/plantas/exterior/planta-ext-1.webp"><i class="bi bi-cart-plus me-1"></i>
+                                Agregar al carrito</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <footer th:replace="~{fragments/footer :: footer}"></footer>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
     <script th:src="@{/js/cart.js}"></script>
     <script th:src="@{/js/auth.js}"></script>
 </body>
+
 </html>

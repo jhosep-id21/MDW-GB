@@ -1,4 +1,3 @@
-/* GreenByte Carrito - localStorage */
 const CART_KEY = 'greenbyte_cart';
 
 function getCart() {
@@ -21,7 +20,9 @@ function updateBadge() {
 function showToast(msg) {
     const el = document.getElementById('cartToast');
     const msgEl = document.getElementById('cartToastMsg');
-    if (!el || !msgEl) { alert(msg); return; }
+    if (!el || !msgEl) { 
+        alert(msg); return; 
+    }
     msgEl.textContent = msg;
     const toast = new bootstrap.Toast(el, { delay: 2000 });
     toast.show();
@@ -80,7 +81,6 @@ function renderCart() {
     if (!container) return;
     const cart = getCart();
 
-    // limpiar items previos (excepto empty placeholder)
     container.querySelectorAll('.cart-item').forEach(e => e.remove());
 
     if (cart.length === 0) {
@@ -115,7 +115,6 @@ function renderCart() {
     if (totalEl) totalEl.textContent = 'S/. ' + total.toFixed(2);
 }
 
-// Búsqueda en cards
 function filtrarProductos() {
     const q = (document.getElementById('searchInput')?.value || '').toLowerCase().trim();
     if (!q) {
@@ -128,7 +127,6 @@ function filtrarProductos() {
     });
 }
 
-// Delegación para botones "Agregar"
 document.addEventListener('click', (e) => {
     const btn = e.target.closest('[data-add-to-cart]');
     if (!btn) return;

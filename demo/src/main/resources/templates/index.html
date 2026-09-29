@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es-es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,6 +11,7 @@
     <link rel="stylesheet" th:href="@{/styles.css}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 </head>
+
 <body class="d-flex flex-column min-vh-100">
     <header th:replace="~{fragments/header :: navegador}"></header>
     <div th:replace="~{fragments/login :: login}"></div>
@@ -23,68 +25,126 @@
     </div>
 
     <main>
+        <!-- Hero con jerarquía visual y CTAs -->
+        <section class="container my-4">
+            <div class="gb-hero rounded-4 p-4 p-md-5">
+                <div class="row align-items-center g-3">
+                    <div class="col-lg-8">
+                        <span class="badge bg-success mb-2">🌿 Vivero online · Trujillo</span>
+                        <h1 class="fw-bold mb-2">Transforma tu hogar con naturaleza</h1>
+                        <p class="text-muted-hero mb-3">Plantas de interior y exterior, macetas y accesorios con guía de
+                            cuidado incluida. Compra en minutos y recibe en 24-48h.</p>
+                        <div class="d-flex gap-2 flex-wrap">
+                            <a th:href="@{/interior}" class="btn btn-success btn-lg">Ver plantas <i
+                                    class="bi bi-arrow-right ms-1"></i></a>
+                            <a th:href="@{/principiantes}" class="btn btn-outline-success btn-lg">Kits para
+                                principiantes</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <div class="container my-4 col-12 col-lg-8 mx-auto bg-dark rounded p-3">
-            <h2 class="text-center">Plantas</h2>
+            <h2 class="text-center text-white">Plantas que dan vida</h2>
+            <p class="text-center text-white-50 small">Una muestra de nuestro catálogo: usa los botones para explorar
+                cada colección.</p>
             <div id="carousel-greenbyte-plantas" class="carousel slide">
                 <div class="carousel-indicators">
-                    <button type="button" data-bs-target="#carousel-greenbyte-plantas" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                    <button type="button" data-bs-target="#carousel-greenbyte-plantas" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                    <button type="button" data-bs-target="#carousel-greenbyte-plantas" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                    <button type="button" data-bs-target="#carousel-greenbyte-plantas" data-bs-slide-to="3" aria-label="Slide 4"></button>
+                    <button type="button" data-bs-target="#carousel-greenbyte-plantas" data-bs-slide-to="0"
+                        class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#carousel-greenbyte-plantas" data-bs-slide-to="1"
+                        aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#carousel-greenbyte-plantas" data-bs-slide-to="2"
+                        aria-label="Slide 3"></button>
+                    <button type="button" data-bs-target="#carousel-greenbyte-plantas" data-bs-slide-to="3"
+                        aria-label="Slide 4"></button>
                 </div>
                 <div class="carousel-inner rounded">
-                    <div class="carousel-item"><img th:src="@{/img-carousel/image-mas-plantas.jpg}" class="d-block w-100" alt="..."></div>
-                    <div class="carousel-item active"><img th:src="@{/img-carousel/planta-1.jpg}" class="d-block w-100" alt="..."></div>
-                    <div class="carousel-item"><img th:src="@{/img-carousel/imagen-plantas.jpg}" class="d-block w-100" alt="..."></div>
-                    <div class="carousel-item"><img th:src="@{/img-carousel/planta-2.jpg}" class="d-block w-100" alt="..."></div>
+                    <div class="carousel-item"><img th:src="@{/img-carousel/image-mas-plantas.jpg}"
+                            class="d-block w-100" alt="..."></div>
+                    <div class="carousel-item active"><img th:src="@{/img-carousel/planta-1.jpg}" class="d-block w-100"
+                            alt="..."></div>
+                    <div class="carousel-item"><img th:src="@{/img-carousel/imagen-plantas.jpg}" class="d-block w-100"
+                            alt="..."></div>
+                    <div class="carousel-item"><img th:src="@{/img-carousel/planta-2.jpg}" class="d-block w-100"
+                            alt="..."></div>
                 </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carousel-greenbyte-plantas" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span><span class="visually-hidden">Previous</span>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carousel-greenbyte-plantas"
+                    data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span><span
+                        class="visually-hidden">Previous</span>
                 </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carousel-greenbyte-plantas" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span><span class="visually-hidden">Next</span>
+                <button class="carousel-control-next" type="button" data-bs-target="#carousel-greenbyte-plantas"
+                    data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span><span
+                        class="visually-hidden">Next</span>
                 </button>
             </div>
             <br>
-            <h2 class="text-center">Maceteros</h2>
+            <h2 class="text-center text-white">Maceteros con estilo</h2>
+            <p class="text-center text-white-50 small">Estilo en cada rincón. Maceteros de diseño geométrico que transforman tus espacios interiores.</p>
             <div id="carousel-greenbyte-maceteros" class="carousel slide">
                 <div class="carousel-indicators">
-                    <button type="button" data-bs-target="#carousel-greenbyte-maceteros" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                    <button type="button" data-bs-target="#carousel-greenbyte-maceteros" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                    <button type="button" data-bs-target="#carousel-greenbyte-maceteros" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                    <button type="button" data-bs-target="#carousel-greenbyte-maceteros" data-bs-slide-to="3" aria-label="Slide 4"></button>
+                    <button type="button" data-bs-target="#carousel-greenbyte-maceteros" data-bs-slide-to="0"
+                        class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#carousel-greenbyte-maceteros" data-bs-slide-to="1"
+                        aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#carousel-greenbyte-maceteros" data-bs-slide-to="2"
+                        aria-label="Slide 3"></button>
+                    <button type="button" data-bs-target="#carousel-greenbyte-maceteros" data-bs-slide-to="3"
+                        aria-label="Slide 4"></button>
                 </div>
                 <div class="carousel-inner rounded">
-                    <div class="carousel-item"><img th:src="@{/img-carousel/maceta-1.jpg}" alt="Maceta 1" class="d-block w-100"></div>
-                    <div class="carousel-item active"><img th:src="@{/img-carousel/maceta-2.jpg}" alt="Maceta 2" class="d-block w-100"></div>
-                    <div class="carousel-item"><img th:src="@{/img-carousel/maceta-3.jpg}" alt="Maceta 3" class="d-block w-100"></div>
-                    <div class="carousel-item"><img th:src="@{/img-carousel/maceta-4.jpg}" alt="Maceta 4" class="d-block w-100"></div>
+                    <div class="carousel-item"><img th:src="@{/img-carousel/maceta-1.jpg}" alt="Maceta 1"
+                            class="d-block w-100"></div>
+                    <div class="carousel-item active"><img th:src="@{/img-carousel/maceta-2.jpg}" alt="Maceta 2"
+                            class="d-block w-100"></div>
+                    <div class="carousel-item"><img th:src="@{/img-carousel/maceta-3.jpg}" alt="Maceta 3"
+                            class="d-block w-100"></div>
+                    <div class="carousel-item"><img th:src="@{/img-carousel/maceta-4.jpg}" alt="Maceta 4"
+                            class="d-block w-100"></div>
                 </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carousel-greenbyte-maceteros" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span><span class="visually-hidden">Previous</span>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carousel-greenbyte-maceteros"
+                    data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span><span
+                        class="visually-hidden">Previous</span>
                 </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carousel-greenbyte-maceteros" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span><span class="visually-hidden">Next</span>
+                <button class="carousel-control-next" type="button" data-bs-target="#carousel-greenbyte-maceteros"
+                    data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span><span
+                        class="visually-hidden">Next</span>
                 </button>
             </div>
             <br>
-            <h2 class="text-center">Accesorios</h2>
+            <h2 class="text-center text-white">Accesorios que protegen</h2>
+            <p class="text-center text-white-50 small">Cuidado con precisión. Tijeras de podar ergonómicas para mantener tus plantas sanas y con la forma perfecta.</p>
             <div id="carousel-greenbyte-accesorios" class="carousel slide">
                 <div class="carousel-indicators">
-                    <button type="button" data-bs-target="#carousel-greenbyte-accesorios" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                    <button type="button" data-bs-target="#carousel-greenbyte-accesorios" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                    <button type="button" data-bs-target="#carousel-greenbyte-accesorios" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                    <button type="button" data-bs-target="#carousel-greenbyte-accesorios" data-bs-slide-to="0"
+                        class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#carousel-greenbyte-accesorios" data-bs-slide-to="1"
+                        aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#carousel-greenbyte-accesorios" data-bs-slide-to="2"
+                        aria-label="Slide 3"></button>
                 </div>
                 <div class="carousel-inner rounded">
-                    <div class="carousel-item"><img th:src="@{/img-carousel/accesorios-1.png}" class="d-block w-100" alt="..."></div>
-                    <div class="carousel-item active"><img th:src="@{/img-carousel/accesorios-2.png}" class="d-block w-100" alt="..."></div>
-                    <div class="carousel-item"><img th:src="@{/img-carousel/accesorios-3.png}" class="d-block w-100" alt="..."></div>
+                    <div class="carousel-item"><img th:src="@{/img-carousel/accesorios-1.png}" class="d-block w-100"
+                            alt="..."></div>
+                    <div class="carousel-item active"><img th:src="@{/img-carousel/accesorios-2.png}"
+                            class="d-block w-100" alt="..."></div>
+                    <div class="carousel-item"><img th:src="@{/img-carousel/accesorios-3.png}" class="d-block w-100"
+                            alt="..."></div>
                 </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carousel-greenbyte-accesorios" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span><span class="visually-hidden">Previous</span>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carousel-greenbyte-accesorios"
+                    data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span><span
+                        class="visually-hidden">Previous</span>
                 </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carousel-greenbyte-accesorios" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span><span class="visually-hidden">Next</span>
+                <button class="carousel-control-next" type="button" data-bs-target="#carousel-greenbyte-accesorios"
+                    data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span><span
+                        class="visually-hidden">Next</span>
                 </button>
             </div>
             <br>
@@ -99,8 +159,10 @@
 
     <footer th:replace="~{fragments/footer :: footer}"></footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
     <script th:src="@{/js/cart.js}"></script>
     <script th:src="@{/js/auth.js}"></script>
 </body>
+
 </html>

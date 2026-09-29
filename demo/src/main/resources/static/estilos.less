@@ -1,0 +1,167 @@
+@gb-accent: #529f72;
+@dark-bg: #1a2e22;
+@white: #ffffff;
+
+:root {
+  --gb-accent: @gb-accent;
+}
+
+.contenedor-uno {
+  background: linear-gradient(to right, #0a3c20, #000000);
+}
+
+body {
+  background-color: #3b7a5b;
+  color: #000000;
+}
+
+.navbar-custom {
+  background-color: #f4f6f5;
+  border-bottom: 2px solid @gb-accent;
+}
+
+.brand-title {
+  color: @white;
+  font-weight: bold;
+  font-size: 1.4rem;
+
+  span {
+    color: @gb-accent;
+  }
+}
+
+/* Nav para categorias: lectura rápida */
+.nav-categories {
+  a.nav-link {
+    font-size: 1.02rem;
+    font-weight: 600;
+    letter-spacing: .01em;
+
+    &:hover {
+      color: @gb-accent;
+    }
+  }
+}
+
+/* Usuario: solo nombre recortado, correo completo en dropdown */
+.user-name {
+  max-width: 110px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 600;
+}
+
+/* Hero claro: contrasta con el fondo oscuro y resalta los verdes */
+.gb-hero {
+  background: linear-gradient(135deg, #FAF6EC 0%, #EAF5E6 60%, #DDF0D5 100%);
+  color: #1c2b21;
+  border: 1px solid rgba(46, 204, 113, .35);
+
+  .text-muted-hero {
+    color: #4c5f52;
+  }
+}
+
+/* Carrusel: flechas con contraste sobre fondo oscuro */
+.carousel-control-prev-icon, 
+.carousel-control-next-icon {
+  background-color: rgba(0, 0, 0, .55);
+  border: 1px solid rgba(255, 255, 255, .35);
+  border-radius: 50%;
+  width: 2.75rem;
+  height: 2.75rem;
+  background-size: 55% 55%;
+  opacity: 1;
+}
+
+.carousel-control-prev:hover .carousel-control-prev-icon, 
+.carousel-control-next:hover .carousel-control-next-icon {
+  background-color: rgba(46, 204, 113, .85);
+  border-color: @white;
+}
+
+.carousel-indicators {
+  [data-bs-target] {
+    opacity: .65;
+  }
+
+  .active {
+    opacity: 1;
+    background-color: @gb-accent;
+  }
+}
+
+.card {
+  border: 1px solid @gb-accent !important;
+  background: @dark-bg !important;
+  color: @white;
+  overflow: hidden;
+  transition: transform .15s ease, box-shadow .15s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(46, 204, 113, .25);
+  }
+}
+
+.card-img-top {
+  height: 200px;
+  object-fit: cover;
+}
+
+/* Cards de productos: altura pareja sin huecos raros */
+.product-card {
+  .btn-success {
+    background-color: @gb-accent;
+    border-color: @gb-accent;
+    color: #0a1a12;
+    font-weight: 600;
+  }
+
+  .card {
+    height: 100%;
+    border-radius: .75rem;
+  }
+
+  .card-body {
+    padding: 1rem;
+    gap: .25rem;
+  }
+
+  .card-title {
+    font-size: 1rem;
+    line-height: 1.3;
+    min-height: 2.6em;
+    margin-bottom: .25rem;
+  }
+
+  .card-text {
+    font-size: .85rem;
+    line-height: 1.4;
+    min-height: 3.6em;
+    margin-bottom: .5rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .card-foot {
+    margin-top: auto;
+    padding-top: .6rem;
+    border-top: 1px solid rgba(46, 204, 113, .25);
+
+    p {
+      margin-bottom: .5rem;
+    }
+  }
+}
+
+.offcanvas {
+  background-color: #0f1e14 !important;
+}
+
+#cart-count {
+  font-size: .65rem;
+}

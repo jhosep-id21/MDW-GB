@@ -1,25 +1,74 @@
-    <div th:fragment="login" class="modal fade" id="loginModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content bg-dark text-white border-success">
-                <div class="modal-header border-success">
-                    <h5 class="modal-title">Iniciar Sesión - GreenByte</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="form-login" onsubmit="return handleLogin(event)">
-                        <div class="mb-1 mt-2">
-                            <label class="form-label">Correo electrónico</label>
-                            <input type="email" name="email" id="email" class="form-control" placeholder="admin@greenbyte.com" required>
-                            <div class="form-text text-light opacity-75">Usa <b>admin@greenbyte.com</b> para rol Administrador. Cualquier otro correo entra como Cliente.</div>
-                        </div>
-                        <div class="mb-4">
-                            <label class="form-label">Contraseña</label>
-                            <input type="password" name="password" id="password" class="form-control" placeholder="cualquier contraseña" required>
-                        </div>
-                        <button type="submit" class="btn btn-success w-100 mb-2">Ingresar</button>
-                        <div class="text-center small"><span class="text-white-50">Demo sin backend: rol guardado en localStorage.</span></div>
-                    </form>
+<div th:fragment="login" class="modal fade" id="loginModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content bg-dark text-white border-success">
+            <div class="modal-header border-success">
+                <h5 class="modal-title">Mi cuenta - GreenByte</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <ul class="nav nav-tabs nav-fill mb-3" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="tab-login-btn" data-bs-toggle="tab"
+                            data-bs-target="#tab-login" type="button" role="tab">Iniciar Sesión</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="tab-reg-btn" data-bs-toggle="tab" data-bs-target="#tab-reg"
+                            type="button" role="tab">Registrarse</button>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <!-- LOGIN (validado en backend: GET /login + HttpSession) -->
+                    <div class="tab-pane fade show active" id="tab-login" role="tabpanel">
+                        <form th:action="@{/login}" method="get" id="form-login">
+                            <div class="mb-2">
+                                <label class="form-label">Correo electrónico</label>
+                                <input type="email" name="email" id="email" class="form-control" placeholder="tu@correo.com"
+                                    required>
+                            </div>
+                            <div class="mb-1">
+                                <label class="form-label">Contraseña</label>
+                                <input type="password" name="password" id="password" class="form-control" placeholder="Tu contraseña"
+                                    required>
+                            </div>
+                            <div class="form-text text-light opacity-75 mb-3">Admin demo: <b>admin@greenbyte.com</b> /
+                                <code>admin123</code>. Clientes: usa tu cuenta registrada abajo.</div>
+                            <button type="submit" class="btn btn-success w-100 mb-2">Ingresar</button>
+                            <div class="text-center small"><span class="text-white-50">¿Nuevo aquí? </span><a href="#"
+                                    onclick="irARegistro(event)" class="text-success">Crea tu cuenta gratis</a></div>
+                        </form>
+                    </div>
+                    <!-- REGISTRO -->
+                    <div class="tab-pane fade" id="tab-reg" role="tabpanel">
+                        <form id="form-reg" onsubmit="return handleRegister(event)">
+                            <div class="mb-2">
+                                <label class="form-label">Nombre completo</label>
+                                <input type="text" id="reg-nombre" class="form-control" placeholder="Ej: Ana Torres"
+                                    required>
+                            </div>
+                            <div class="mb-2">
+                                <label class="form-label">Correo electrónico</label>
+                                <input type="email" id="reg-email" class="form-control" placeholder="tu@correo.com"
+                                    required>
+                            </div>
+                            <div class="row">
+                                <div class="mb-2 col-6">
+                                    <label class="form-label">Contraseña</label>
+                                    <input type="password" id="reg-pass" class="form-control" minlength="4" required>
+                                </div>
+                                <div class="mb-2 col-6">
+                                    <label class="form-label">Repetir contraseña</label>
+                                    <input type="password" id="reg-pass2" class="form-control" minlength="4" required>
+                                </div>
+                            </div>
+                            <div id="reg-error" class="alert alert-danger py-2 small d-none"></div>
+                            <div id="reg-ok" class="alert alert-success py-2 small d-none"></div>
+                            <button type="submit" class="btn btn-success w-100 mb-2">Crear cuenta</button>
+                            <div class="text-center small text-white-50">Al registrarte aceptas nuestros términos. Tus
+                                credenciales se guardan en este navegador (demo sin backend).</div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
