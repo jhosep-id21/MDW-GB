@@ -73,7 +73,7 @@ public class Controladores {
         email = email.trim();
         if (email.equalsIgnoreCase("admin@greenbyte.com")) {
             if (!password.equals("admin123")) {
-                redirect.addFlashAttribute("error", "Contraseña de administrador incorrecta (usa admin123)");
+                redirect.addFlashAttribute("error", "Contraseña de administrador incorrecta");
                 return "redirect:/";
             }
             session.setAttribute("usuario", email);
