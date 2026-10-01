@@ -64,36 +64,37 @@ public class Controladores {
         return "tips-luz";
     }
 
-    @GetMapping("/login")
-    public String login(@RequestParam(required = false) String email, @RequestParam(required = false) String password, HttpSession session, RedirectAttributes redirect) {
-        if (email == null || email.isBlank() || password == null || password.isBlank()) {
-            redirect.addFlashAttribute("error", "Ingresa correo y contraseña");
+    @GetMapping("/iniciar-sesion")
+    public String iniciarSesion(@RequestParam(required = false) String correo,
+            @RequestParam(required = false) String clave, HttpSession session, RedirectAttributes redireccion) {
+        if (correo == null || correo.isBlank() || clave == null || clave.isBlank()) {
+            redireccion.addFlashAttribute("error", "Ingresa correo y contraseña");
             return "redirect:/";
         }
-        email = email.trim();
-        if (email.equalsIgnoreCase("admin@greenbyte.com")) {
-            if (!password.equals("admin123")) {
-                redirect.addFlashAttribute("error", "Contraseña de administrador incorrecta");
+        correo = correo.trim();
+        if (correo.equalsIgnoreCase("admin@greenbyte.com")) {
+            if (!clave.equals("admin123")) {
+                redireccion.addFlashAttribute("error", "Contraseña de administrador incorrecta");
                 return "redirect:/";
             }
-            session.setAttribute("usuario", email);
+            session.setAttribute("usuario", correo);
             session.setAttribute("nombre", "Admin");
             session.setAttribute("rol", "ADMIN");
             session.setAttribute("logueado", true);
             return "redirect:/administrador";
         }
-        String base = email.contains("@") ? email.substring(0, email.indexOf('@')) : email;
-        String nombre = base.length() > 12 ? base.substring(0, 12) + "…" : base;
-        session.setAttribute("usuario", email);
+        String prefijo = correo.contains("@") ? correo.substring(0, correo.indexOf('@')) : correo;
+        String nombre = prefijo.length() > 12 ? prefijo.substring(0, 12) + "…" : prefijo;
+        session.setAttribute("usuario", correo);
         session.setAttribute("nombre", nombre);
         session.setAttribute("rol", "USER");
         session.setAttribute("logueado", true);
-        redirect.addFlashAttribute("success", "¡Bienvenido " + nombre + "!");
+        redireccion.addFlashAttribute("success", "¡Bienvenido " + nombre + "!");
         return "redirect:/";
     }
 
-    @GetMapping("/logout")
-    public String logout(HttpSession session) {
+    @GetMapping("/cerrar-sesion")
+    public String cerrarSesion(HttpSession session) {
         session.invalidate();
         return "redirect:/";
     }

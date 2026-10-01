@@ -1,65 +1,65 @@
-const USERS_KEY = 'gb_users';
+const CLAVE_USUARIOS = 'gb_users';
 
-function getUsers() {
+function leerUsuarios() {
     try {
-        return JSON.parse(localStorage.getItem(USERS_KEY)) || {};
+        return JSON.parse(localStorage.getItem(CLAVE_USUARIOS)) || {};
     } catch {
         return {};
     }
 }
-function saveUsers(u) { 
-    localStorage.setItem(USERS_KEY, JSON.stringify(u)); 
+function guardarUsuarios(datos) { 
+    localStorage.setItem(CLAVE_USUARIOS, JSON.stringify(datos)); 
 }
 
 function irARegistro(e) {
     if (e) e.preventDefault();
-    document.getElementById('tab-reg-btn')?.click();
+    document.getElementById('pestana-registro')?.click();
 }
 
-function showMsg(id, msg, ok) {
-    const el = document.getElementById(id);
-    if (!el) { 
-        if (msg) alert(msg); return; 
+function mostrarMensaje(id, texto, exito) {
+    const elemento = document.getElementById(id);
+    if (!elemento) { 
+        if (texto) alert(texto); return; 
     }
-    if (!msg) { 
-        el.classList.add('d-none'); return; 
+    if (!texto) { 
+        elemento.classList.add('d-none'); return; 
     }
-    el.textContent = msg;
-    el.classList.remove('d-none', 'alert-danger', 'alert-success');
-    el.classList.add(ok ? 'alert-success' : 'alert-danger');
+    elemento.textContent = texto;
+    elemento.classList.remove('d-none', 'alert-danger', 'alert-success');
+    elemento.classList.add(exito ? 'alert-success' : 'alert-danger');
 }
 
-function handleRegister(e) {
+function crearCuenta(e) {
     e.preventDefault();
-    showMsg('reg-error', ''); showMsg('reg-ok', '');
-    const nombre = document.getElementById('reg-nombre')?.value?.trim();
-    const email = document.getElementById('reg-email')?.value?.trim().toLowerCase();
-    const p1 = document.getElementById('reg-pass')?.value;
-    const p2 = document.getElementById('reg-pass2')?.value;
-    if (!nombre || !email || !p1) { 
-        showMsg('reg-error', 'Completa todos los campos.'); 
+    mostrarMensaje('registro-error', ''); mostrarMensaje('registro-aviso', '');
+    const nombre = document.getElementById('registro-nombre')?.value?.trim();
+    const correo = document.getElementById('registro-correo')?.value?.trim().toLowerCase();
+    const clave1 = document.getElementById('registro-clave')?.value;
+    const clave2 = document.getElementById('registro-clave-repetida')?.value;
+    if (!nombre || !correo || !clave1) { 
+        mostrarMensaje('registro-error', 'Completa todos los campos.'); 
         return false; 
     }
-    if (p1 !== p2) { 
-        showMsg('reg-error', 'Las contraseñas no coinciden.'); 
+    if (clave1 !== clave2) { 
+        mostrarMensaje('registro-error', 'Las contraseñas no coinciden.'); 
         return false; 
     }
-    if (email === 'admin@greenbyte.com') { 
-        showMsg('reg-error', 'Ese correo está reservado para el administrador.'); 
+    if (correo === 'admin@greenbyte.com') { 
+        mostrarMensaje('registro-error', 'Ese correo está reservado para elemento administrador.'); 
         return false; 
     }
-    const users = getUsers();
-    if (users[email]) { 
-        showMsg('reg-error', 'Ese correo ya está registrado. Inicia sesión.'); 
+    const usuarios = leerUsuarios();
+    if (usuarios[correo]) { 
+        mostrarMensaje('registro-error', 'Ese correo ya está registrado. Inicia sesión.'); 
         return false; 
     }
-    users[email] = { 
-        nombre, pass: p1 
+    usuarios[correo] = { 
+        nombre, clave: clave1 
     };
-    saveUsers(users);
-    showMsg('reg-ok', '¡Cuenta creada! Redirigiendo para iniciar sesión...', true);
+    guardarUsuarios(usuarios);
+    mostrarMensaje('registro-aviso', '¡Cuenta creada! Redirigiendo para iniciar sesión...', true);
     setTimeout(() => {
-        window.location.href = '/login?email=' + encodeURIComponent(email) + '&password=' + encodeURIComponent(p1);
+        window.location.href = '/login?correo=' + encodeURIComponent(correo) + '&clave=' + encodeURIComponent(clave1);
     }, 800);
     return false;
 }

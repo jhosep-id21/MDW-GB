@@ -109,7 +109,7 @@
                             <label class="form-check-label" for="cAcepto">Acepto ser contactado por email</label>
                         </div>
                         <button type="submit" class="btn btn-success w-100">Enviar mensaje</button>
-                        <div id="contacto-ok" class="alert alert-success mt-3 d-none mb-0">¡Mensaje enviado! Te
+                        <div id="aviso-enviado" class="alert alert-success mt-3 d-none mb-0">¡Mensaje enviado! Te
                             contactaremos pronto</div>
                     </form>
                 </div>
@@ -143,7 +143,7 @@
     <script>
         function enviarContacto(e) {
             e.preventDefault();
-            document.getElementById('contacto-ok')?.classList.remove('d-none');
+            document.getElementById('aviso-enviado')?.classList.remove('d-none');
             return false;
         }
     </script>

@@ -22,7 +22,7 @@
             <h2 class="mt-3 fw-bold text-danger">Acceso restringido</h2>
             <p class="text-white-50">Solo usuarios con rol <b>ADMIN</b> pueden ver este panel.</p>
             <p class="small text-white-50">Inicia sesión con <code>admin@greenbyte.com</code> / <code>admin123</code>.</p>
-            <button class="btn btn-success mt-2" data-bs-toggle="modal" data-bs-target="#loginModal">Iniciar sesión como administrador</button>
+            <button class="btn btn-success mt-2" data-bs-toggle="modal" data-bs-target="#modal-acceso">Iniciar sesión como administrador</button>
             <a th:href="@{/}" class="btn btn-outline-light mt-2 ms-2">Volver al inicio</a>
         </div>
         <!-- Panel ADMIN (visible solo si session.rol == ADMIN) -->

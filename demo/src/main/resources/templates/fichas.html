@@ -20,12 +20,12 @@
         <h2 class="mb-1 text-white fw-bold"><i class="bi bi-journal-text text-white me-2"></i>Fichas Técnicas por Especie</h2>
         <p class="text-white-50 small mb-3">Filtra por nombre.</p>
         <div class="row mb-3">
-            <div class="col-md-6 mx-auto"><input id="filtroFichas" class="form-control"
+            <div class="col-md-6 mx-auto"><input id="filtro-fichas" class="form-control"
                     placeholder="Buscar: monstera, suculenta, riego..."></div>
         </div>
-        <div class="row g-3" id="gridFichas">
+        <div class="row g-3" id="rejilla-fichas">
             <!-- 8 fichas estáticas -->
-            <div class="col-md-6 col-lg-4 ficha-item">
+            <div class="col-md-6 col-lg-4 tarjeta-ficha">
                 <div class="card h-100 p-3">
                     <h5 class="card-title mb-1">Monstera Deliciosa <span class="badge bg-success ms-1">Interior</span>
                     </h5>
@@ -39,7 +39,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="col-md-6 col-lg-4 ficha-item">
+            <div class="col-md-6 col-lg-4 tarjeta-ficha">
                 <div class="card h-100 p-3">
                     <h5 class="card-title mb-1">Sansevieria <span class="badge bg-success">Interior</span></h5>
                     <p class="small text-white-50 mb-2">Lengua de suegra, indestructible.</p>
@@ -51,7 +51,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="col-md-6 col-lg-4 ficha-item">
+            <div class="col-md-6 col-lg-4 tarjeta-ficha">
                 <div class="card h-100 p-3">
                     <h5 class="card-title mb-1">Aloe Vera <span class="badge bg-success">Suculenta</span></h5>
                     <p class="small text-white-50 mb-2">Medicinal y resistente.</p>
@@ -63,7 +63,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="col-md-6 col-lg-4 ficha-item">
+            <div class="col-md-6 col-lg-4 tarjeta-ficha">
                 <div class="card h-100 p-3">
                     <h5 class="card-title mb-1">Geranio <span class="badge bg-warning text-dark">Exterior</span></h5>
                     <p class="small text-white-50 mb-2">Balcones a pleno sol.</p>
@@ -75,7 +75,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="col-md-6 col-lg-4 ficha-item">
+            <div class="col-md-6 col-lg-4 tarjeta-ficha">
                 <div class="card h-100 p-3">
                     <h5 class="card-title mb-1">Hortensia <span class="badge bg-warning text-dark">Exterior</span></h5>
                     <p class="small text-white-50 mb-2">Flores grandes, suelo ácido.</p>
@@ -87,7 +87,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="col-md-6 col-lg-4 ficha-item">
+            <div class="col-md-6 col-lg-4 tarjeta-ficha">
                 <div class="card h-100 p-3">
                     <h5 class="card-title mb-1">Menta <span class="badge bg-info text-dark">Aromática</span></h5>
                     <p class="small text-white-50 mb-2">Culinaria, invasiva.</p>
@@ -99,7 +99,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="col-md-6 col-lg-4 ficha-item">
+            <div class="col-md-6 col-lg-4 tarjeta-ficha">
                 <div class="card h-100 p-3">
                     <h5 class="card-title mb-1">Pothos Dorado <span class="badge bg-success">Colgante</span></h5>
                     <p class="small text-white-50 mb-2">Ideal para principiantes, purifica.</p>
@@ -111,7 +111,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="col-md-6 col-lg-4 ficha-item">
+            <div class="col-md-6 col-lg-4 tarjeta-ficha">
                 <div class="card h-100 p-3">
                     <h5 class="card-title mb-1">Lavanda <span class="badge bg-warning text-dark">Exterior</span></h5>
                     <p class="small text-white-50 mb-2">Aromática, atrae polinizadores.</p>
@@ -131,7 +131,7 @@
         crossorigin="anonymous"></script>
     <script th:src="@{/js/cart.js}"></script>
     <script th:src="@{/js/auth.js}"></script>
-    <script>document.getElementById('filtroFichas')?.addEventListener('input', e => { const q = e.target.value.toLowerCase(); document.querySelectorAll('.ficha-item').forEach(c => c.style.display = c.innerText.toLowerCase().includes(q) ? '' : 'none'); });</script>
+    <script>document.getElementById('filtro-fichas')?.addEventListener('input', e => { const textoBuscado = e.target.value.toLowerCase(); document.querySelectorAll('.tarjeta-ficha').forEach(c => c.style.display = c.innerText.toLowerCase().includes(textoBuscado) ? '' : 'none'); });</script>
 </body>
 
 </html>

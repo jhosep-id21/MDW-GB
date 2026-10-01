@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GreenByte</title>
+    <title>GreenByte - Tienda de plantas en Trujillo</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="icon" th:href="@{/iconos/ico-greenbyte-sinfondo.png}" type="image/png">
@@ -16,145 +16,217 @@
     <header th:replace="~{fragments/header :: navegador}"></header>
     <div th:replace="~{fragments/login :: login}"></div>
     <div th:replace="~{fragments/cart :: carrito}"></div>
+    <div th:replace="~{fragments/detalle :: detalle}"></div>
 
     <!-- Mensajes -->
     <div class="container mt-3">
         <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
         <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
-        <div th:if="${param.error}" class="alert alert-warning">No autorizado para esa página</div>
     </div>
 
     <main>
-        <!-- Hero con jerarquía visual y CTAs -->
+        <!-- HERO tienda -->
         <section class="container my-4">
-            <div class="gb-hero rounded-4 p-4 p-md-5">
-                <div class="row align-items-center g-3">
-                    <div class="col-lg-8">
-                        <span class="badge bg-success mb-2">🌿 Vivero online · Trujillo</span>
-                        <h1 class="fw-bold mb-2">Transforma tu hogar con naturaleza</h1>
-                        <p class="text-muted-hero mb-3">Plantas de interior y exterior, macetas y accesorios con guía de
-                            cuidado incluida. Compra en minutos y recibe en 24-48h.</p>
-                        <div class="d-flex gap-2 flex-wrap">
-                            <a th:href="@{/interior}" class="btn btn-success btn-lg">Ver plantas <i
+            <div class="heroe-portada rounded-4 p-4 p-md-5">
+                <div class="row align-items-center">
+                    <div class="col-lg-7">
+                        <span class="badge bg-success mb-3">🌿 Vivero online · Trujillo</span>
+                        <h1 class="display-5 fw-bold">Plantas para tu espacio</h1>
+                        <p class="lead texto-suave-heroe mb-4">Encuentra la planta ideal para ti. Llenamos tu hogar de
+                            naturaleza con especies seleccionadas y guía de cuidado incluida.</p>
+                        <div class="d-flex flex-wrap gap-2">
+                            <a th:href="@{/interior}" class="btn btn-success btn-lg">Comprar plantas <i
                                     class="bi bi-arrow-right ms-1"></i></a>
-                            <a th:href="@{/principiantes}" class="btn btn-outline-success btn-lg">Kits para
-                                principiantes</a>
+                            <a th:href="@{/principiantes}" class="btn btn-outline-success btn-lg">🌱 Soy
+                                principiante</a>
+                        </div>
+                        <div class="d-flex gap-4 mt-4 flex-wrap">
+                            <div><strong class="fs-5">100%</strong><br><small class="texto-suave-heroe">Garantía de
+                                    frescura</small></div>
+                            <div><strong class="fs-5">+40</strong><br><small class="texto-suave-heroe">Productos
+                                    únicos</small></div>
+                            <div><strong class="fs-5">24-48h</strong><br><small class="texto-suave-heroe">Delivery en
+                                    Trujillo</small></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-5 text-center mt-4 mt-lg-0">
+                        <img th:src="@{/img-carousel/image-mas-plantas.jpg}" class="img-fluid rounded-4"
+                            alt="Plantas GreenByte">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="container mb-4">
+            <div id="carousel-promo" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner rounded-4">
+                    <div class="carousel-item active">
+                        <div class="promo-carrusel p-4 p-md-5 text-center">
+                            <h3 class="fw-bold mb-1">🌿 Tu primera planta empieza aquí</h3>
+                            <p class="mb-3">Plantas fáciles de cuidar desde <strong>S/. 19.90</strong></p>
+                            <a th:href="@{/principiantes}" class="btn btn-success">Ver kits</a>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="promo-carrusel promo-carrusel-alt p-4 p-md-5 text-center">
+                            <h3 class="fw-bold mb-1">🏺 Dale casa nueva a tu planta</h3>
+                            <p class="mb-3">Macetas de cerámica, terracota y más desde <strong>S/. 28.90</strong></p>
+                            <a th:href="@{/macetas}" class="btn btn-success">Ver macetas</a>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carousel-promo"
+                    data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span><span
+                        class="visually-hidden">Anterior</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carousel-promo"
+                    data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span><span
+                        class="visually-hidden">Siguiente</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- CATEGORÍAS -->
+        <section class="container mb-4" id="categorias">
+            <h2 class="text-center text-white mb-1">Categorías</h2>
+            <p class="text-center text-white-50 small mb-3">Entra a cada colección y agrega al carrito</p>
+            <div class="row g-3 justify-content-center">
+                <div class="col-12 col-md-4 col-lg-2"><a th:href="@{/interior}" class="mosaico-categoria"><img
+                            th:src="@{/plantas/interior/planta-int-4.webp}" alt="Interior"><span>Interior</span></a>
+                </div>
+                <div class="col-12 col-md-4 col-lg-2"><a th:href="@{/exterior}" class="mosaico-categoria"><img
+                            th:src="@{/plantas/exterior/planta-ext-4.webp}" alt="Exterior"><span>Exterior</span></a>
+                </div>
+                <div class="col-12 col-md-4 col-lg-2"><a th:href="@{/macetas}" class="mosaico-categoria"><img
+                            th:src="@{/img-carousel/maceta-2.jpg}" alt="Macetas"><span>Macetas</span></a></div>
+                <div class="col-12 col-md-4 col-lg-2"><a th:href="@{/accesorios}" class="mosaico-categoria"><img
+                            th:src="@{/img-carousel/accesorios-2.png}" alt="Accesorios"><span>Accesorios</span></a>
+                </div>
+                <div class="col-12 col-md-4 col-lg-2"><a th:href="@{/principiantes}" class="mosaico-categoria"><img
+                            th:src="@{/plantas/interior/planta-int-3.webp}" alt="Principiantes"><span>
+                            Principiantes</span></a></div>
+            </div>
+        </section>
+
+        <!-- MÁS VENDIDAS -->
+        <section class="container mb-4" id="productos">
+            <div class="seccion-clara rounded-4 p-3 p-md-4">
+                <h2 class="text-center mb-1">Más vendidas</h2>
+                <p class="text-center text-muted small mb-3">Las favoritas de Trujillo Dale click en "Ver detalle" para
+                    más info</p>
+                <div class="row g-3 justify-content-center">
+                    <div class="col-12 col-lg-3 col-sm-6 d-flex justify-content-center tarjeta-producto">
+                        <div class="tarjeta-tienda">
+                            <span class="insignia-destacada">MÁS VENDIDA</span>
+                            <img th:src="@{/plantas/interior/planta-int-1.webp}" alt="Monstera Deliciosa">
+                            <div class="cuerpo-tarjeta">
+                                <h5>Monstera Deliciosa</h5>
+                                <p class="etiqueta-categoria">Planta de interior</p>
+                                <p class="descripcion-tarjeta">Hojas fenestradas, luz indirecta brillante. Muy
+                                    decorativa.</p>
+                                <p class="precio-tarjeta">S/. 89.90</p>
+                                <button class="btn btn-outline-success w-100 mb-2 btn-detalle" type="button">Ver
+                                    detalle</button>
+                                <button class="btn btn-success w-100" data-agregar-carrito data-id="int-5"
+                                    data-nombre="Monstera Deliciosa" data-precio="89.90"
+                                    data-imagen="/plantas/interior/planta-int-1.webp"><i
+                                        class="bi bi-cart-plus me-1"></i> Comprar</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-3 col-sm-6 d-flex justify-content-center tarjeta-producto">
+                        <div class="tarjeta-tienda">
+                            <img th:src="@{/plantas/interior/planta-int-2.webp}" alt="Sansevieria">
+                            <div class="cuerpo-tarjeta">
+                                <h5>Sansevieria Trifasciata</h5>
+                                <p class="etiqueta-categoria">Planta de interior</p>
+                                <p class="descripcion-tarjeta">Purificadora y casi indestructible. Tolera poca luz.</p>
+                                <p class="precio-tarjeta">S/. 45.90</p>
+                                <button class="btn btn-outline-success w-100 mb-2 btn-detalle" type="button">Ver
+                                    detalle</button>
+                                <button class="btn btn-success w-100" data-agregar-carrito data-id="int-6"
+                                    data-nombre="Sansevieria Trifasciata" data-precio="45.90"
+                                    data-imagen="/plantas/interior/planta-int-2.webp"><i
+                                        class="bi bi-cart-plus me-1"></i> Comprar</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-3 col-sm-6 d-flex justify-content-center tarjeta-producto">
+                        <div class="tarjeta-tienda">
+                            <img th:src="@{/plantas/exterior/planta-ext-1.webp}" alt="Geranio">
+                            <div class="cuerpo-tarjeta">
+                                <h5>Geranio</h5>
+                                <p class="etiqueta-categoria">Para exterior</p>
+                                <p class="descripcion-tarjeta">Florífera de colores vivos, ideal para balcones soleados.
+                                </p>
+                                <p class="precio-tarjeta">S/. 49.90</p>
+                                <button class="btn btn-outline-success w-100 mb-2 btn-detalle" type="button">Ver
+                                    detalle</button>
+                                <button class="btn btn-success w-100" data-agregar-carrito data-id="ext-1"
+                                    data-nombre="Geranio" data-precio="49.90"
+                                    data-imagen="/plantas/exterior/planta-ext-1.webp"><i
+                                        class="bi bi-cart-plus me-1"></i> Comprar</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-3 col-sm-6 d-flex justify-content-center tarjeta-producto">
+                        <div class="tarjeta-tienda">
+                            <img th:src="@{/plantas/interior/planta-int-3.webp}" alt="Pothos">
+                            <div class="cuerpo-tarjeta">
+                                <h5>Pothos Dorado</h5>
+                                <p class="etiqueta-categoria">Planta de interior</p>
+                                <p class="descripcion-tarjeta">Enredadera colgante de fácil cuidado. Ideal para
+                                    estanterías.</p>
+                                <p class="precio-tarjeta">S/. 24.90</p>
+                                <button class="btn btn-outline-success w-100 mb-2 btn-detalle" type="button">Ver
+                                    detalle</button>
+                                <button class="btn btn-success w-100" data-agregar-carrito data-id="int-7"
+                                    data-nombre="Pothos Dorado" data-precio="24.90"
+                                    data-imagen="/plantas/interior/planta-int-3.webp"><i
+                                        class="bi bi-cart-plus me-1"></i> Comprar</button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <div class="container my-4 col-12 col-lg-8 mx-auto bg-dark rounded p-3">
-            <h2 class="text-center text-white">Plantas que dan vida</h2>
-            <p class="text-center text-white-50 small">Una muestra de nuestro catálogo: usa los botones para explorar
-                cada colección.</p>
-            <div id="carousel-greenbyte-plantas" class="carousel slide">
-                <div class="carousel-indicators">
-                    <button type="button" data-bs-target="#carousel-greenbyte-plantas" data-bs-slide-to="0"
-                        class="active" aria-current="true" aria-label="Slide 1"></button>
-                    <button type="button" data-bs-target="#carousel-greenbyte-plantas" data-bs-slide-to="1"
-                        aria-label="Slide 2"></button>
-                    <button type="button" data-bs-target="#carousel-greenbyte-plantas" data-bs-slide-to="2"
-                        aria-label="Slide 3"></button>
-                    <button type="button" data-bs-target="#carousel-greenbyte-plantas" data-bs-slide-to="3"
-                        aria-label="Slide 4"></button>
+        <!-- AYUDA A ELEGIR -->
+        <section class="container mb-4">
+            <div class="heroe-portada rounded-4 p-4 p-md-5 text-center">
+                <h2 class="fw-bold mb-1">🌱 ¿No sabes qué planta elegir?</h2>
+                <p class="texto-suave-heroe mb-3">Te ayudamos a encontrarla según tu luz, tu espacio y tu experiencia.
+                </p>
+                <div class="d-flex gap-2 justify-content-center flex-wrap">
+                    <a th:href="@{/tips-luz}" class="btn btn-success btn-lg">Descubrir mi planta</a>
+                    <a th:href="@{/calculadora-riego}" class="btn btn-outline-success btn-lg">Calcular mi riego</a>
                 </div>
-                <div class="carousel-inner rounded">
-                    <div class="carousel-item"><img th:src="@{/img-carousel/image-mas-plantas.jpg}"
-                            class="d-block w-100" alt="..."></div>
-                    <div class="carousel-item active"><img th:src="@{/img-carousel/planta-1.jpg}" class="d-block w-100"
-                            alt="..."></div>
-                    <div class="carousel-item"><img th:src="@{/img-carousel/imagen-plantas.jpg}" class="d-block w-100"
-                            alt="..."></div>
-                    <div class="carousel-item"><img th:src="@{/img-carousel/planta-2.jpg}" class="d-block w-100"
-                            alt="..."></div>
-                </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carousel-greenbyte-plantas"
-                    data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span><span
-                        class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carousel-greenbyte-plantas"
-                    data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span><span
-                        class="visually-hidden">Next</span>
-                </button>
             </div>
-            <br>
-            <h2 class="text-center text-white">Maceteros con estilo</h2>
-            <p class="text-center text-white-50 small">Estilo en cada rincón. Maceteros de diseño geométrico que transforman tus espacios interiores.</p>
-            <div id="carousel-greenbyte-maceteros" class="carousel slide">
-                <div class="carousel-indicators">
-                    <button type="button" data-bs-target="#carousel-greenbyte-maceteros" data-bs-slide-to="0"
-                        class="active" aria-current="true" aria-label="Slide 1"></button>
-                    <button type="button" data-bs-target="#carousel-greenbyte-maceteros" data-bs-slide-to="1"
-                        aria-label="Slide 2"></button>
-                    <button type="button" data-bs-target="#carousel-greenbyte-maceteros" data-bs-slide-to="2"
-                        aria-label="Slide 3"></button>
-                    <button type="button" data-bs-target="#carousel-greenbyte-maceteros" data-bs-slide-to="3"
-                        aria-label="Slide 4"></button>
-                </div>
-                <div class="carousel-inner rounded">
-                    <div class="carousel-item"><img th:src="@{/img-carousel/maceta-1.jpg}" alt="Maceta 1"
-                            class="d-block w-100"></div>
-                    <div class="carousel-item active"><img th:src="@{/img-carousel/maceta-2.jpg}" alt="Maceta 2"
-                            class="d-block w-100"></div>
-                    <div class="carousel-item"><img th:src="@{/img-carousel/maceta-3.jpg}" alt="Maceta 3"
-                            class="d-block w-100"></div>
-                    <div class="carousel-item"><img th:src="@{/img-carousel/maceta-4.jpg}" alt="Maceta 4"
-                            class="d-block w-100"></div>
-                </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carousel-greenbyte-maceteros"
-                    data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span><span
-                        class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carousel-greenbyte-maceteros"
-                    data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span><span
-                        class="visually-hidden">Next</span>
-                </button>
+        </section>
+
+        <!-- CUIDA TU PLANTA -->
+        <section class="container mb-4">
+            <h2 class="text-center text-white mb-3">💚 Cuida tu planta</h2>
+            <div class="row g-3 justify-content-center">
+                <div class="col-md-4"><a th:href="@{/fichas}" class="tarjeta-cuidado"><i
+                            class="bi bi-journal-text fs-3 text-success"></i>
+                        <h5>Fichas técnicas</h5>
+                        <p>Luz, riego y temperatura por especie.</p>
+                    </a></div>
+                <div class="col-md-4"><a th:href="@{/calculadora-riego}" class="tarjeta-cuidado"><i
+                            class="bi bi-droplet fs-3 text-success"></i>
+                        <h5>Calculadora de riego</h5>
+                        <p>Cada cuántos días y cuánta agua.</p>
+                    </a></div>
+                <div class="col-md-4"><a th:href="@{/tips-luz}" class="tarjeta-cuidado"><i
+                            class="bi bi-sun fs-3 text-success"></i>
+                        <h5>Tips de iluminación</h5>
+                        <p>Qué planta va con tu luz.</p>
+                    </a></div>
             </div>
-            <br>
-            <h2 class="text-center text-white">Accesorios que protegen</h2>
-            <p class="text-center text-white-50 small">Cuidado con precisión. Tijeras de podar ergonómicas para mantener tus plantas sanas y con la forma perfecta.</p>
-            <div id="carousel-greenbyte-accesorios" class="carousel slide">
-                <div class="carousel-indicators">
-                    <button type="button" data-bs-target="#carousel-greenbyte-accesorios" data-bs-slide-to="0"
-                        class="active" aria-current="true" aria-label="Slide 1"></button>
-                    <button type="button" data-bs-target="#carousel-greenbyte-accesorios" data-bs-slide-to="1"
-                        aria-label="Slide 2"></button>
-                    <button type="button" data-bs-target="#carousel-greenbyte-accesorios" data-bs-slide-to="2"
-                        aria-label="Slide 3"></button>
-                </div>
-                <div class="carousel-inner rounded">
-                    <div class="carousel-item"><img th:src="@{/img-carousel/accesorios-1.png}" class="d-block w-100"
-                            alt="..."></div>
-                    <div class="carousel-item active"><img th:src="@{/img-carousel/accesorios-2.png}"
-                            class="d-block w-100" alt="..."></div>
-                    <div class="carousel-item"><img th:src="@{/img-carousel/accesorios-3.png}" class="d-block w-100"
-                            alt="..."></div>
-                </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carousel-greenbyte-accesorios"
-                    data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span><span
-                        class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carousel-greenbyte-accesorios"
-                    data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span><span
-                        class="visually-hidden">Next</span>
-                </button>
-            </div>
-            <br>
-            <div class="d-flex gap-2 justify-content-center flex-wrap">
-                <a th:href="@{/interior}" class="btn btn-success">Ver Interior</a>
-                <a th:href="@{/macetas}" class="btn btn-outline-success">Ver Macetas</a>
-                <a th:href="@{/accesorios}" class="btn btn-outline-success">Ver Accesorios</a>
-                <a th:href="@{/principiantes}" class="btn btn-outline-success">Kits Principiantes</a>
-            </div>
-        </div>
+        </section>
     </main>
 
     <footer th:replace="~{fragments/footer :: footer}"></footer>
@@ -163,6 +235,7 @@
         crossorigin="anonymous"></script>
     <script th:src="@{/js/cart.js}"></script>
     <script th:src="@{/js/auth.js}"></script>
+    <script th:src="@{/js/detalle.js}"></script>
 </body>
 
 </html>

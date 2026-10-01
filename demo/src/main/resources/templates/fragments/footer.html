@@ -1,5 +1,47 @@
-    <footer th:fragment="footer" class="bg-dark text-white py-4 mt-auto">
-        <div class="container text-center">
-            <p>&copy; 2026 GreenByte. Todos los derechos reservados.</p>
+<footer class="pie-pagina mt-5">
+    <div class="container py-5">
+
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <h4 class="footer-logo">
+                    GreenByte
+                </h4>
+                <p>
+                    Encuentra plantas, macetas y accesorios para llenar de vida tus espacios.
+                </p>
+            </div>
+            <div class="col-md-3 mb-4">
+                <h5>Explorar</h5>
+
+                <ul class="list-unstyled">
+                    <li><a th:href="@{/interior}">Interior</a></li>
+                    <li><a th:href="@{/exterior}">Exterior</a></li>
+                    <li><a th:href="@{/macetas}">Macetas</a></li>
+                    <li><a th:href="@{/accesorios}">Accesorios</a></li>
+                </ul>
+            </div>
+            <div class="col-md-3 mb-4">
+                <h5>Ayuda</h5>
+
+                <ul class="list-unstyled">
+                    <li><a th:href="@{/fichas}">Manual Byte</a></li>
+                    <li><a th:href="@{/contactanos}">Contacto</a></li>
+                    <li><a th:href="@{/contactanos}">Nosotros</a></li>
+                </ul>
+            </div>
+
+            <div class="col-md-2 mb-4">
+                <h5>Síguenos</h5>
+                <ul class="list-unstyled">
+                    <li>Instagram</li>
+                    <li>Facebook</li>
+                    <li>WhatsApp</li>
+                </ul>
+            </div>
         </div>
-    </footer>
+        <hr>
+        <div class="text-center">
+            © 2026 GreenByte - Cultivando espacios con vida <a th:href="@{/}">greenbyte.com</a>
+        </div>
+    </div>
+</footer>

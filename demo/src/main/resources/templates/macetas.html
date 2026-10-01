@@ -16,6 +16,7 @@
     <header th:replace="~{fragments/header :: navegador}"></header>
     <div th:replace="~{fragments/login :: login}"></div>
     <div th:replace="~{fragments/cart :: carrito}"></div>
+    <div th:replace="~{fragments/detalle :: detalle}"></div>
     <div class="container py-4">
         <div class="d-flex justify-content-between align-items-center mb-3">
             <h2 class="mb-0 text-white fw-bold"><i class="bi bi-box-seam me-2 text-white"></i> Todo Macetas</h2>
@@ -23,135 +24,119 @@
         </div>
         <p class="text-white-50">Cerámica, terracota, colgantes y autorriego.</p>
         <div class="row align-items-stretch justify-content-center g-3 mt-2">
-            <div class="col-xl-3 col-lg-4 col-md-6 d-flex justify-content-center product-card">
-                <div class="card d-flex flex-column w-100" style="max-width:18rem;"><img
+            <div class="col-xl-3 col-lg-4 col-md-6 d-flex justify-content-center tarjeta-producto">
+                <div class="tarjeta-tienda"><img
                         th:src="@{/img-carousel/maceta-1.jpg}" class="card-img-top" alt="Maceta Cerámica">
-                    <div class="card-body d-flex flex-column">
-                        <h5 class="card-title">Maceta Cerámica Blanca Minimalista</h5>
-                        <p class="card-text small text-white-50">Cerámica esmaltada 16cm, ideal para interiores. Con
+                    <div class="cuerpo-tarjeta">
+                        <h5>Maceta Cerámica Blanca Minimalista</h5>
+<p class="etiqueta-categoria">Maceta y macetero</p>
+                        <p class="descripcion-tarjeta">Cerámica esmaltada 16cm, ideal para interiores. Con
                             drenaje.</p>
-                        <div class="card-foot mt-auto">
-                            <p class="mb-2"><strong class="text-success fs-5">S/. 45.90</strong></p><button
-                                class="btn btn-success w-100" data-add-to-cart data-id="mac-1"
+                        <p class="precio-tarjeta">S/. 45.90</p><button class="btn btn-outline-success w-100 mb-2 btn-detalle" type="button"><i class="bi bi-eye me-1"></i> Ver detalle</button><button
+                                class="btn btn-success w-100" data-agregar-carrito data-id="mac-1"
                                 data-nombre="Maceta Cerámica Blanca Minimalista" data-precio="45.90"
-                                data-imagen="/img-carousel/maceta-1.jpg"><i class="bi bi-cart-plus me-1"></i> Agregar al
-                                carrito</button>
-                        </div>
+                                data-imagen="/img-carousel/maceta-1.jpg"><i class="bi bi-cart-plus me-1"></i> Comprar</button>
                     </div>
                 </div>
             </div>
-            <div class="col-xl-3 col-lg-4 col-md-6 d-flex justify-content-center product-card">
-                <div class="card d-flex flex-column w-100" style="max-width:18rem;"><img
+            <div class="col-xl-3 col-lg-4 col-md-6 d-flex justify-content-center tarjeta-producto">
+                <div class="tarjeta-tienda"><img
                         th:src="@{/img-carousel/maceta-2.jpg}" class="card-img-top" alt="Terracota">
-                    <div class="card-body d-flex flex-column">
-                        <h5 class="card-title">Maceta Terracota Rústica</h5>
-                        <p class="card-text small text-white-50">Barro natural 20cm, respirable para suculentas.</p>
-                        <div class="card-foot mt-auto">
-                            <p class="mb-2"><strong class="text-success fs-5">S/. 32.90</strong></p><button
-                                class="btn btn-success w-100" data-add-to-cart data-id="mac-2"
+                    <div class="cuerpo-tarjeta">
+                        <h5>Maceta Terracota Rústica</h5>
+<p class="etiqueta-categoria">Maceta y macetero</p>
+                        <p class="descripcion-tarjeta">Barro natural 20cm, respirable para suculentas.</p>
+                        <p class="precio-tarjeta">S/. 32.90</p><button class="btn btn-outline-success w-100 mb-2 btn-detalle" type="button"><i class="bi bi-eye me-1"></i> Ver detalle</button><button
+                                class="btn btn-success w-100" data-agregar-carrito data-id="mac-2"
                                 data-nombre="Maceta Terracota Rústica" data-precio="32.90"
-                                data-imagen="/img-carousel/maceta-2.jpg"><i class="bi bi-cart-plus me-1"></i> Agregar al
-                                carrito</button>
-                        </div>
+                                data-imagen="/img-carousel/maceta-2.jpg"><i class="bi bi-cart-plus me-1"></i> Comprar</button>
                     </div>
                 </div>
             </div>
-            <div class="col-xl-3 col-lg-4 col-md-6 d-flex justify-content-center product-card">
-                <div class="card d-flex flex-column w-100" style="max-width:18rem;"><img
+            <div class="col-xl-3 col-lg-4 col-md-6 d-flex justify-content-center tarjeta-producto">
+                <div class="tarjeta-tienda"><img
                         th:src="@{/img-carousel/maceta-4.jpg}" class="card-img-top" alt="Colgante">
-                    <div class="card-body d-flex flex-column">
-                        <h5 class="card-title">Maceta Colgante Yute Trenzado</h5>
-                        <p class="card-text small text-white-50">Soporte yute + maceta 14cm, estilo boho.</p>
-                        <div class="card-foot mt-auto">
-                            <p class="mb-2"><strong class="text-success fs-5">S/. 55.00</strong></p><button
-                                class="btn btn-success w-100" data-add-to-cart data-id="mac-3"
+                    <div class="cuerpo-tarjeta">
+                        <h5>Maceta Colgante Yute Trenzado</h5>
+<p class="etiqueta-categoria">Maceta y macetero</p>
+                        <p class="descripcion-tarjeta">Soporte yute + maceta 14cm, estilo boho.</p>
+                        <p class="precio-tarjeta">S/. 55.00</p><button class="btn btn-outline-success w-100 mb-2 btn-detalle" type="button"><i class="bi bi-eye me-1"></i> Ver detalle</button><button
+                                class="btn btn-success w-100" data-agregar-carrito data-id="mac-3"
                                 data-nombre="Maceta Colgante Yute Trenzado" data-precio="55.00"
-                                data-imagen="/img-carousel/maceta-4.jpg"><i class="bi bi-cart-plus me-1"></i> Agregar al
-                                carrito</button>
-                        </div>
+                                data-imagen="/img-carousel/maceta-4.jpg"><i class="bi bi-cart-plus me-1"></i> Comprar</button>
                     </div>
                 </div>
             </div>
-            <div class="col-xl-3 col-lg-4 col-md-6 d-flex justify-content-center product-card">
-                <div class="card d-flex flex-column w-100" style="max-width:18rem;"><img
+            <div class="col-xl-3 col-lg-4 col-md-6 d-flex justify-content-center tarjeta-producto">
+                <div class="tarjeta-tienda"><img
                         th:src="@{/img-carousel/maceta-3.jpg}" class="card-img-top" alt="Cemento">
-                    <div class="card-body d-flex flex-column">
-                        <h5 class="card-title">Maceta Cemento Geométrica</h5>
-                        <p class="card-text small text-white-50">Cemento pulido 18cm, diseño hexagonal.</p>
-                        <div class="card-foot mt-auto">
-                            <p class="mb-2"><strong class="text-success fs-5">S/. 49.90</strong></p><button
-                                class="btn btn-success w-100" data-add-to-cart data-id="mac-4"
+                    <div class="cuerpo-tarjeta">
+                        <h5>Maceta Cemento Geométrica</h5>
+<p class="etiqueta-categoria">Maceta y macetero</p>
+                        <p class="descripcion-tarjeta">Cemento pulido 18cm, diseño hexagonal.</p>
+                        <p class="precio-tarjeta">S/. 49.90</p><button class="btn btn-outline-success w-100 mb-2 btn-detalle" type="button"><i class="bi bi-eye me-1"></i> Ver detalle</button><button
+                                class="btn btn-success w-100" data-agregar-carrito data-id="mac-4"
                                 data-nombre="Maceta Cemento Geométrica" data-precio="49.90"
-                                data-imagen="/img-carousel/maceta-3.jpg"><i class="bi bi-cart-plus me-1"></i> Agregar al
-                                carrito</button>
-                        </div>
+                                data-imagen="/img-carousel/maceta-3.jpg"><i class="bi bi-cart-plus me-1"></i> Comprar</button>
                     </div>
                 </div>
             </div>
-            <div class="col-xl-3 col-lg-4 col-md-6 d-flex justify-content-center product-card">
-                <div class="card d-flex flex-column w-100" style="max-width:18rem;">
+            <div class="col-xl-3 col-lg-4 col-md-6 d-flex justify-content-center tarjeta-producto">
+                <div class="tarjeta-tienda">
                     <img
                         src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLa9Uh2HZVwNxDXhdRPJZR0bry_CCs_XnTG_7JO5nxPRT--FEZMcI1J-E&s=10" class="card-img-top" alt="Set Pastel">
-                    <div class="card-body d-flex flex-column">
-                        <h5 class="card-title">Set 3 Macetas Pastel</h5>
-                        <p class="card-text small text-white-50">Pack 12/14/16cm en tonos pastel.</p>
-                        <div class="card-foot mt-auto">
-                            <p class="mb-2"><strong class="text-success fs-5">S/. 39.90</strong></p><button
-                                class="btn btn-success w-100" data-add-to-cart data-id="mac-5"
+                    <div class="cuerpo-tarjeta">
+                        <h5>Set 3 Macetas Pastel</h5>
+<p class="etiqueta-categoria">Maceta y macetero</p>
+                        <p class="descripcion-tarjeta">Pack 12/14/16cm en tonos pastel.</p>
+                        <p class="precio-tarjeta">S/. 39.90</p><button class="btn btn-outline-success w-100 mb-2 btn-detalle" type="button"><i class="bi bi-eye me-1"></i> Ver detalle</button><button
+                                class="btn btn-success w-100" data-agregar-carrito data-id="mac-5"
                                 data-nombre="Set 3 Macetas Pastel" data-precio="39.90"
-                                data-imagen="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLa9Uh2HZVwNxDXhdRPJZR0bry_CCs_XnTG_7JO5nxPRT--FEZMcI1J-E&s=10"><i class="bi bi-cart-plus me-1"></i> Agregar al
-                                carrito</button>
-                        </div>
+                                data-imagen="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLa9Uh2HZVwNxDXhdRPJZR0bry_CCs_XnTG_7JO5nxPRT--FEZMcI1J-E&s=10"><i class="bi bi-cart-plus me-1"></i> Comprar</button>
                     </div>
                 </div>
             </div>
-            <div class="col-xl-3 col-lg-4 col-md-6 d-flex justify-content-center product-card">
-                <div class="card d-flex flex-column w-100" style="max-width:18rem;">
+            <div class="col-xl-3 col-lg-4 col-md-6 d-flex justify-content-center tarjeta-producto">
+                <div class="tarjeta-tienda">
                     <img
                         src="https://hortalia.net/cdn/shop/files/05-02.jpg?v=1780323966&width=1080" class="card-img-top" alt="Autorriego">
-                    <div class="card-body d-flex flex-column">
-                        <h5 class="card-title">Maceta Autorriego 24cm</h5>
-                        <p class="card-text small text-white-50">Reserva de agua, ideal para vacaciones.</p>
-                        <div class="card-foot mt-auto">
-                            <p class="mb-2"><strong class="text-success fs-5">S/. 69.90</strong></p><button
-                                class="btn btn-success w-100" data-add-to-cart data-id="mac-6"
+                    <div class="cuerpo-tarjeta">
+                        <h5>Maceta Autorriego 24cm</h5>
+<p class="etiqueta-categoria">Maceta y macetero</p>
+                        <p class="descripcion-tarjeta">Reserva de agua, ideal para vacaciones.</p>
+                        <p class="precio-tarjeta">S/. 69.90</p><button class="btn btn-outline-success w-100 mb-2 btn-detalle" type="button"><i class="bi bi-eye me-1"></i> Ver detalle</button><button
+                                class="btn btn-success w-100" data-agregar-carrito data-id="mac-6"
                                 data-nombre="Maceta Autorriego 24cm" data-precio="69.90"
-                                data-imagen="https://hortalia.net/cdn/shop/files/05-02.jpg?v=1780323966&width=1080"><i class="bi bi-cart-plus me-1"></i> Agregar al
-                                carrito</button>
-                        </div>
+                                data-imagen="https://hortalia.net/cdn/shop/files/05-02.jpg?v=1780323966&width=1080"><i class="bi bi-cart-plus me-1"></i> Comprar</button>
                     </div>
                 </div>
             </div>
-            <div class="col-xl-3 col-lg-4 col-md-6 d-flex justify-content-center product-card">
-                <div class="card d-flex flex-column w-100" style="max-width:18rem;">
+            <div class="col-xl-3 col-lg-4 col-md-6 d-flex justify-content-center tarjeta-producto">
+                <div class="tarjeta-tienda">
                     <img
                         src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVQdlfS_ecr_c_YdUX9QIF_D9lv9eNecwo-Ofa5Z5KTf2CoOtqkAygDt4&s=10" class="card-img-top" alt="Madera">
-                    <div class="card-body d-flex flex-column">
-                        <h5 class="card-title">Macetero Madera Rectangular</h5>
-                        <p class="card-text small text-white-50">Madera tratada 40cm para balcón.</p>
-                        <div class="card-foot mt-auto">
-                            <p class="mb-2"><strong class="text-success fs-5">S/. 89.90</strong></p><button
-                                class="btn btn-success w-100" data-add-to-cart data-id="mac-7"
+                    <div class="cuerpo-tarjeta">
+                        <h5>Macetero Madera Rectangular</h5>
+<p class="etiqueta-categoria">Maceta y macetero</p>
+                        <p class="descripcion-tarjeta">Madera tratada 40cm para balcón.</p>
+                        <p class="precio-tarjeta">S/. 89.90</p><button class="btn btn-outline-success w-100 mb-2 btn-detalle" type="button"><i class="bi bi-eye me-1"></i> Ver detalle</button><button
+                                class="btn btn-success w-100" data-agregar-carrito data-id="mac-7"
                                 data-nombre="Macetero Madera Rectangular" data-precio="89.90"
-                                data-imagen="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVQdlfS_ecr_c_YdUX9QIF_D9lv9eNecwo-Ofa5Z5KTf2CoOtqkAygDt4&s=10"><i class="bi bi-cart-plus me-1"></i> Agregar al
-                                carrito</button>
-                        </div>
+                                data-imagen="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVQdlfS_ecr_c_YdUX9QIF_D9lv9eNecwo-Ofa5Z5KTf2CoOtqkAygDt4&s=10"><i class="bi bi-cart-plus me-1"></i> Comprar</button>
                     </div>
                 </div>
             </div>
-            <div class="col-xl-3 col-lg-4 col-md-6 d-flex justify-content-center product-card">
-                <div class="card d-flex flex-column w-100" style="max-width:18rem;"><img
+            <div class="col-xl-3 col-lg-4 col-md-6 d-flex justify-content-center tarjeta-producto">
+                <div class="tarjeta-tienda"><img
                         src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGEs8utPO6n0AUF0oscl1D791TLqlc7lqHdkIYHcVsMi-7u1on75S_TtnZ&s=10" class="card-img-top" alt="Vidrio">
-                    <div class="card-body d-flex flex-column">
-                        <h5 class="card-title">Maceta Vidrio Terrario 15cm</h5>
-                        <p class="card-text small text-white-50">Vidrio soplado para terrarios y suculentas.</p>
-                        <div class="card-foot mt-auto">
-                            <p class="mb-2"><strong class="text-success fs-5">S/. 28.90</strong></p><button
-                                class="btn btn-success w-100" data-add-to-cart data-id="mac-8"
+                    <div class="cuerpo-tarjeta">
+                        <h5>Maceta Vidrio Terrario 15cm</h5>
+<p class="etiqueta-categoria">Maceta y macetero</p>
+                        <p class="descripcion-tarjeta">Vidrio soplado para terrarios y suculentas.</p>
+                        <p class="precio-tarjeta">S/. 28.90</p><button class="btn btn-outline-success w-100 mb-2 btn-detalle" type="button"><i class="bi bi-eye me-1"></i> Ver detalle</button><button
+                                class="btn btn-success w-100" data-agregar-carrito data-id="mac-8"
                                 data-nombre="Maceta Vidrio Terrario 15cm" data-precio="28.90"
-                                data-imagen="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGEs8utPO6n0AUF0oscl1D791TLqlc7lqHdkIYHcVsMi-7u1on75S_TtnZ&s=10"><i class="bi bi-cart-plus me-1"></i> Agregar al
-                                carrito</button>
-                        </div>
+                                data-imagen="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGEs8utPO6n0AUF0oscl1D791TLqlc7lqHdkIYHcVsMi-7u1on75S_TtnZ&s=10"><i class="bi bi-cart-plus me-1"></i> Comprar</button>
                     </div>
                 </div>
             </div>
@@ -163,6 +148,7 @@
         crossorigin="anonymous"></script>
     <script th:src="@{/js/cart.js}"></script>
     <script th:src="@{/js/auth.js}"></script>
+    <script th:src="@{/js/detalle.js}"></script>
 </body>
 
 </html>

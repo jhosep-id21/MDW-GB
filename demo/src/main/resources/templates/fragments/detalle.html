@@ -1,0 +1,31 @@
+<div th:fragment="detalle" class="modal fade" id="modal-detalle" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content contenido-detalle">
+            <button type="button" class="btn-close cerrar-detalle" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            <div class="row g-0">
+                <div class="col-md-6 marco-foto-detalle">
+                    <img id="foto-detalle" src="" alt="Foto del producto">
+                </div>
+                <div class="col-md-6 p-3 p-md-4 d-flex flex-column">
+                    <span class="badge bg-success align-self-start mb-2">GreenByte · Trujillo</span>
+                    <h3 id="nombre-detalle" class="fw-bold mb-1">Producto</h3>
+                    <p id="descripcion-detalle" class="text-muted small mb-2">Descripción</p>
+                    <p class="fs-4 fw-bold text-success mb-3" id="precio-detalle">S/. 0.00</p>
+                    <ul class="small text-muted mb-3 ps-3">
+                        <li>Revisa su ficha en <a th:href="@{/fichas}">Fichas técnicas</a></li>
+                        <li>Calcula su riego en <a th:href="@{/calculadora-riego}">Calculadora de riego</a></li>
+                        <li>Garantía de 30 días</li>
+                    </ul>
+                    <div class="d-flex align-items-center gap-2 mb-3">
+                        <button class="btn btn-outline-success" type="button" onclick="cambiarCantidadDetalle(-1)">−</button>
+                        <span id="cantidad-detalle" class="fw-bold fs-5">1</span>
+                        <button class="btn btn-outline-success" type="button" onclick="cambiarCantidadDetalle(1)">+</button>
+                    </div>
+                    <button class="btn btn-success btn-lg w-100 mt-auto" type="button" onclick="agregarDetalle()">
+                        <i class="bi bi-cart-plus me-1"></i>Agregar al carrito
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
