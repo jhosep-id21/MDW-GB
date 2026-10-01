@@ -59,7 +59,7 @@ function crearCuenta(e) {
     guardarUsuarios(usuarios);
     mostrarMensaje('registro-aviso', '¡Cuenta creada! Redirigiendo para iniciar sesión...', true);
     setTimeout(() => {
-        window.location.href = '/login?correo=' + encodeURIComponent(correo) + '&clave=' + encodeURIComponent(clave1);
+        window.location.href = '/iniciar-sesion?correo=' + encodeURIComponent(correo) + '&clave=' + encodeURIComponent(clave1);
     }, 800);
     return false;
 }
