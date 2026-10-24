@@ -1,0 +1,607 @@
+@verde-marca: #529f72;
+@verde-claro: #8fd19e;
+@verde-profundo: #2d513b;
+@borde-verde: #52705d;
+@borde-tenue: rgba(46, 204, 113, 0.25);
+
+//colores para fondos
+@fondo-oscuro: #1a2e22;
+@fondo-barra: #1b2d23;
+@fondo-cuerpo: #c2c6c4;
+@fondo-carrito: #0f1e14;
+
+//colores para textos
+@blanco: #ffffff;
+@negro: #000000;
+@texto-claro: #a16826;
+@texto-suave: #cbd8ce;
+@texto-apagado: #aebdb2;
+
+//estilos base
+body {
+  background-color: @fondo-cuerpo;
+  font-family: 'Roboto', sans-serif;
+}
+
+//header y navbar
+.barra-nav {
+  background-color: @fondo-barra;
+  border-bottom: 1px solid @borde-verde;
+
+  .navbar-brand {
+    color: @blanco;
+  }
+
+  .titulo-marca {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: @negro;
+
+    span {
+      color: @verde-claro;
+    }
+  }
+
+  .nav-link {
+    color: @texto-claro;
+
+    &:hover {
+      color: @verde-claro;
+    }
+  }
+
+  #buscador-productos {
+    min-width: 220px;
+    border: 1px solid @borde-verde;
+
+    &:focus {
+      border-color: @verde-claro;
+      box-shadow: 0 0 0 0.2rem rgba(143, 209, 158, 0.15);
+    }
+  }
+
+  .btn-outline-light {
+    border-color: @borde-verde;
+
+    &:hover {
+      background-color: @verde-profundo;
+      border-color: @verde-claro;
+    }
+  }
+}
+
+.navbar-custom {
+  background-color: #f4f6f5;
+  border-bottom: 2px solid @verde-marca;
+}
+
+/* Nav para categorías: lectura rápida */
+.menu-categorias {
+  background-color: #243a2c;
+  border-bottom: 1px solid @borde-verde;
+
+  a.nav-link {
+    font-size: 1.02rem;
+    font-weight: 600;
+    letter-spacing: .01em;
+    color: @texto-claro;
+
+    &:hover {
+      color: @blanco;
+      background-color: @verde-profundo;
+      border-radius: 6px;
+    }
+  }
+}
+
+/* Usuario: recortado en header */
+.nombre-usuario {
+  max-width: 110px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 600;
+}
+
+//hero
+.heroe-portada {
+  background: linear-gradient(135deg, #FAF6EC 0%, #EAF5E6 60%, #DDF0D5 100%);
+  color: #1c2b21;
+  border: 1px solid rgba(46, 204, 113, 0.35);
+
+  .texto-suave-heroe {
+    color: #4c5f52;
+  }
+}
+
+//carrousel
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  background-color: rgba(0, 0, 0, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 50%;
+  width: 2.75rem;
+  height: 2.75rem;
+  background-size: 55% 55%;
+  opacity: 1;
+}
+
+.carousel-control-prev:hover .carousel-control-prev-icon,
+.carousel-control-next:hover .carousel-control-next-icon {
+  background-color: rgba(46, 204, 113, 0.85);
+  border-color: @blanco;
+}
+
+.carousel-indicators {
+  [data-bs-target] {
+    opacity: 0.65;
+  }
+
+  .active {
+    opacity: 1;
+    background-color: @verde-marca;
+  }
+}
+
+// cards y productos
+.card {
+  border: 1px solid @verde-marca !important;
+  background: @fondo-oscuro !important;
+  color: @blanco;
+  overflow: hidden;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(46, 204, 113, 0.25);
+  }
+
+  .card-img-top {
+    height: 200px;
+    object-fit: cover;
+  }
+}
+
+//card de productos
+.tarjeta-producto {
+  .card {
+    height: 100%;
+    border-radius: 0.75rem;
+  }
+
+  .btn-success {
+    background-color: @verde-marca;
+    border-color: @verde-marca;
+    color: #0a1a12;
+    font-weight: 600;
+  }
+
+  .card-body {
+    padding: 1rem;
+    gap: 0.25rem;
+  }
+
+  .card-title {
+    font-size: 1rem;
+    line-height: 1.3;
+    min-height: 2.6em;
+    margin-bottom: 0.25rem;
+  }
+
+  .card-text {
+    font-size: 0.85rem;
+    line-height: 1.4;
+    min-height: 3.6em;
+    margin-bottom: 0.5rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .pie-tarjeta {
+    margin-top: auto;
+    padding-top: 0.6rem;
+    border-top: 1px solid @borde-tenue;
+
+    p {
+      margin-bottom: 0.5rem;
+    }
+  }
+}
+
+//carrito y componentes
+.offcanvas {
+  background-color: #fbeece;
+}
+
+#contador-carrito {
+  font-size: 0.65rem;
+}
+
+//para secciones claras
+@seccion-clara-bg: #FAF6EC;
+@section-ink: #1c2b21;
+
+.seccion-clara {
+  background: @seccion-clara-bg;
+  color: @section-ink;
+  border: 1px solid rgba(46, 204, 113, 0.35);
+}
+
+.promo-carrusel {
+  background: linear-gradient(135deg, #1a2e22 0%, #2d513b 100%);
+  color: @blanco;
+}
+
+.promo-carrusel-alt {
+  background: linear-gradient(135deg, #2d513b 0%, @verde-marca 100%);
+}
+
+.mosaico-categoria {
+  display: block;
+  background: @seccion-clara-bg;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  text-decoration: none;
+  color: @section-ink;
+  font-weight: 600;
+  text-align: center;
+  border: 1px solid rgba(46, 204, 113, 0.35);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(46, 204, 113, 0.25);
+    color: @section-ink;
+  }
+
+  img {
+    width: 100%;
+    height: 90px;
+    object-fit: cover;
+  }
+
+  span {
+    display: block;
+    padding: 0.5rem 0.25rem;
+    font-size: 0.9rem;
+  }
+}
+
+.tarjeta-tienda {
+  position: relative;
+  background: @blanco;
+  color: @section-ink;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  width: 100%;
+  max-width: 18rem;
+  border: 1px solid rgba(46, 204, 113, 0.4);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(46, 204, 113, 0.35);
+  }
+
+  img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+  }
+}
+
+.cuerpo-tarjeta {
+  padding: 0.9rem;
+
+  h5 {
+    font-size: 1rem;
+    margin-bottom: 0.1rem;
+    color: @section-ink;
+  }
+}
+
+.etiqueta-categoria {
+  font-size: 0.75rem;
+  color: #6b7d70;
+  margin-bottom: 0.4rem;
+}
+
+.descripcion-tarjeta {
+  font-size: 0.85rem;
+  color: #4c5f52;
+  min-height: 3.6em;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-bottom: 0.5rem;
+}
+
+.precio-tarjeta {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #2d7a4b;
+  margin-bottom: 0.6rem;
+}
+
+.insignia-destacada {
+  position: absolute;
+  top: 0.6rem;
+  left: 0.6rem;
+  background: #2d7a4b;
+  color: @blanco;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+}
+
+.tarjeta-cuidado {
+  display: block;
+  background: @fondo-oscuro;
+  border: 1px solid @verde-marca;
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  text-align: center;
+  text-decoration: none;
+  color: @blanco;
+  height: 100%;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(46, 204, 113, 0.25);
+    color: @blanco;
+  }
+
+  p {
+    color: @texto-suave;
+    font-size: 0.9rem;
+    margin-bottom: 0;
+  }
+}
+
+// Modal detalle producto
+.contenido-detalle {
+  background: @seccion-clara-bg;
+  color: @section-ink;
+  border: 1px solid rgba(46, 204, 113, 0.4);
+  overflow: hidden;
+}
+
+.cerrar-detalle {
+  position: absolute;
+  top: 0.6rem;
+  right: 0.6rem;
+  z-index: 5;
+}
+
+.marco-foto-detalle {
+  background: @blanco;
+  min-height: 280px;
+
+  img {
+    width: 100%;
+    height: 100%;
+    max-height: 420px;
+    object-fit: cover;
+  }
+}
+
+// Tarjetas claras para Tips de luz
+.tarjeta-consejo {
+  background: @seccion-clara-bg !important;
+  color: @section-ink;
+  border-color: rgba(46, 204, 113, 0.4) !important;
+
+  h5 {
+    color: @section-ink;
+  }
+
+  .text-white-50 {
+    color: #4c5f52 !important;
+  }
+
+  ul {
+    color: @section-ink;
+  }
+}
+
+//footer
+.pie-pagina {
+  background-color: @fondo-barra;
+  color: @texto-claro;
+
+  h4 {
+    color: @blanco;
+  }
+
+  h5 {
+    color: @verde-claro;
+    margin-bottom: 1rem;
+  }
+
+  p {
+    color: @texto-suave;
+    line-height: 1.6;
+  }
+
+  a {
+    color: #d9e9dc;
+    text-decoration: none;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: @verde-claro;
+    }
+  }
+
+  li {
+    margin-bottom: 0.5rem;
+  }
+
+  hr {
+    border-color: @borde-verde;
+  }
+
+  .text-center {
+    color: @texto-apagado;
+  }
+}
+
+// --- ESTILOS ESPINITAS (Marca GreenByte) ---
+@color-marca: #8C5B46;
+@color-fondo: #F4F3F1;
+@color-sobre: #6b4332;
+
+/* Barra principal */
+.espinitas-style {
+  background-color: @color-fondo;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+/* Logo y Marca */
+.navbar-brand {
+  color: @color-marca !important;
+  font-weight: 700;
+  font-size: 1.4rem;
+  letter-spacing: 1px;
+}
+
+.titulo-marca span {
+  font-weight: 450; /* Para diferenciar "Green" de "Byte" sutilmente */
+}
+
+/* Enlaces Centrales */
+.nav-link {
+  color: @color-marca !important;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: opacity 0.2s ease;
+
+  &:hover, &.active {
+    opacity: 0.7;
+  }
+}
+
+/* Buscador Minimalista */
+.buscador-minimalista {
+  position: relative;
+  width: 200px;
+
+  .form-control {
+    background-color: transparent;
+    border: 1px solid #d1cfcd;
+    border-radius: 20px;
+    color: @color-marca;
+    font-size: 0.9rem;
+    padding-right: 35px;
+
+    &:focus {
+      box-shadow: none;
+      border-color: @color-marca;
+      background-color: #fff;
+    }
+
+    &::placeholder {
+      color: #a89a94;
+    }
+  }
+}
+
+.btn-buscar {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: @color-marca;
+  padding: 0;
+  font-size: 1rem;
+}
+
+/* Texto Promocional */
+.promo-text {
+  color: @color-marca;
+  font-weight: 500;
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+}
+
+/* Botón de Carrito */
+.btn-carrito-minimalista {
+  background: transparent;
+  border: none;
+  color: @color-marca;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: opacity 0.2s;
+
+  &:hover {
+    opacity: 0.7;
+  }
+
+  .contador-numero {
+    position: absolute;
+    top: -5px;
+    right: -8px;
+    background-color: @color-marca;
+    color: @color-fondo;
+    font-size: 0.65rem;
+    font-weight: bold;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+/* Dropdowns */
+.dropdown-menu {
+  border: none;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  border-radius: 8px;
+
+  .dropdown-item {
+    color: @color-marca;
+    font-size: 0.9rem;
+
+    &:hover {
+      background-color: @color-fondo;
+      color: @color-sobre;
+    }
+  }
+}
+
+/* Sub-barra de Categorías */
+.menu-categorias {
+  background-color: #ffffff;
+  border-bottom: 1px solid #e0e0e0;
+
+  .nav-link {
+    font-size: 0.85rem;
+    color: @color-marca !important;
+    text-decoration: none;
+
+    &:hover {
+      color: @color-sobre !important;
+    }
+  }
+
+  .overflow-x-auto {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+}

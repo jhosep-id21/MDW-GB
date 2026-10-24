@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es-es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GreenByte - Plantas de Interior</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="icon" th:href="@{/iconos/ico-greenbyte-sinfondo.png}" type="image/png">
+    <link rel="stylesheet" th:href="@{/styles.css}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+    <header th:replace="~{fragments/header-productos :: header-productos}"></header>
+    <div th:replace="~{fragments/login :: login}"></div>
+    <div th:replace="~{fragments/cart :: carrito}"></div>
+    <div th:replace="~{fragments/detalle :: detalle}"></div>
+    <div class="container py-4">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2 class="mb-0 text-white fw-bold"><i class="bi bi-flower1 me-2 text-white"></i> Plantas de Interior</h2>
+            <span class="badge bg-success">8 productos</span>
+        </div>
+        <p class="text-white-50">Ideales para iluminar tu hogar con poca luz directa.</p>
+        <div class="row align-items-stretch justify-content-center g-3 mt-2">
+            <div class="col-xl-3 col-lg-4 col-md-6 d-flex justify-content-center tarjeta-producto">
+                <div class="tarjeta-tienda"><img
+                        th:src="@{/plantas/interior/planta-int-1.webp}" class="card-img-top" alt="Violeta Africana">
+                    <div class="cuerpo-tarjeta">
+                        <h5>Violeta Africana</h5>
+<p class="etiqueta-categoria">Planta de interior</p>
+                        <p class="descripcion-tarjeta">Planta compacta de flores violetas. Prefiere luz
+                            indirecta y riego moderado.</p>
+                        <p class="precio-tarjeta">S/. 39.90</p><button class="btn btn-outline-success w-100 mb-2 btn-detalle" type="button"><i class="bi bi-eye me-1"></i> Ver detalle</button><button
+                                class="btn btn-success w-100" data-agregar-carrito data-id="int-1"
+                                data-nombre="Violeta Africana" data-precio="39.90"
+                                data-imagen="/plantas/interior/planta-int-1.webp"><i class="bi bi-cart-plus me-1"></i>
+                                Comprar</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-4 col-md-6 d-flex justify-content-center tarjeta-producto">
+                <div class="tarjeta-tienda"><img
+                        th:src="@{/plantas/interior/planta-int-2.webp}" class="card-img-top" alt="Aloe Vera">
+                    <div class="cuerpo-tarjeta">
+                        <h5>Aloe Vera</h5>
+<p class="etiqueta-categoria">Planta de interior</p>
+                        <p class="descripcion-tarjeta">Suculenta resistente. Mucha luz y poco riego; deja
+                            secar la tierra.</p>
+                        <p class="precio-tarjeta">S/. 29.90</p><button class="btn btn-outline-success w-100 mb-2 btn-detalle" type="button"><i class="bi bi-eye me-1"></i> Ver detalle</button><button
+                                class="btn btn-success w-100" data-agregar-carrito data-id="int-2" data-nombre="Aloe Vera"
+                                data-precio="29.90" data-imagen="/plantas/interior/planta-int-2.webp"><i
+                                    class="bi bi-cart-plus me-1"></i> Comprar</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-4 col-md-6 d-flex justify-content-center tarjeta-producto">
+                <div class="tarjeta-tienda">
+                    <img
+                        src="https://i0.wp.com/viveroplantas.com/wp-content/uploads/2026/05/menta-hero-usos-casa-1a492c0b-eab1-4904-a79a-298fcb153a89.jpg?fit=1024%2C1024&ssl=1" class="card-img-top" alt="Menta">
+                    <div class="cuerpo-tarjeta">
+                        <h5>Menta</h5>
+<p class="etiqueta-categoria">Planta de interior</p>
+                        <p class="descripcion-tarjeta">Hierba aromática ideal para infusiones. Buena luz y
+                            tierra húmeda.</p>
+                        <p class="precio-tarjeta">S/. 19.90</p><button class="btn btn-outline-success w-100 mb-2 btn-detalle" type="button"><i class="bi bi-eye me-1"></i> Ver detalle</button><button
+                                class="btn btn-success w-100" data-agregar-carrito data-id="int-3" data-nombre="Menta"
+                                data-precio="19.90" data-imagen="https://i0.wp.com/viveroplantas.com/wp-content/uploads/2026/05/menta-hero-usos-casa-1a492c0b-eab1-4904-a79a-298fcb153a89.jpg?fit=1024%2C1024&ssl=1"><i
+                                    class="bi bi-cart-plus me-1"></i> Comprar</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-4 col-md-6 d-flex justify-content-center tarjeta-producto">
+                <div class="tarjeta-tienda"><img
+                        th:src="@{/plantas/interior/planta-int-4.webp}" class="card-img-top" alt="Peperomia Verde">
+                    <div class="cuerpo-tarjeta">
+                        <h5>Peperomia Verde</h5>
+<p class="etiqueta-categoria">Planta de interior</p>
+                        <p class="descripcion-tarjeta">Hojas verdes brillantes, perfecta para interiores con
+                            luz indirecta.</p>
+                        <p class="precio-tarjeta">S/. 34.90</p><button class="btn btn-outline-success w-100 mb-2 btn-detalle" type="button"><i class="bi bi-eye me-1"></i> Ver detalle</button><button
+                                class="btn btn-success w-100" data-agregar-carrito data-id="int-4"
+                                data-nombre="Peperomia Verde" data-precio="34.90"
+                                data-imagen="/plantas/interior/planta-int-4.webp"><i class="bi bi-cart-plus me-1"></i>
+                                Comprar</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-4 col-md-6 d-flex justify-content-center tarjeta-producto">
+                <div class="tarjeta-tienda">
+                    <img
+                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7k-ZXb1fOobL6PXqygCakMk7xfjUpBBsuKB-l9lGUqb0unmhn0rzCnhQ&s=10" class="card-img-top" alt="Monstera Deliciosa">
+                    <div class="cuerpo-tarjeta">
+                        <h5>Monstera Deliciosa</h5>
+<p class="etiqueta-categoria">Planta de interior</p>
+                        <p class="descripcion-tarjeta">Hojas fenestradas, luz indirecta brillante. Muy
+                            decorativa.</p>
+                        <p class="precio-tarjeta">S/. 89.90</p><button class="btn btn-outline-success w-100 mb-2 btn-detalle" type="button"><i class="bi bi-eye me-1"></i> Ver detalle</button><button
+                                class="btn btn-success w-100" data-agregar-carrito data-id="int-5"
+                                data-nombre="Monstera Deliciosa" data-precio="89.90"
+                                data-imagen="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7k-ZXb1fOobL6PXqygCakMk7xfjUpBBsuKB-l9lGUqb0unmhn0rzCnhQ&s=10"><i class="bi bi-cart-plus me-1"></i>
+                                Comprar</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-4 col-md-6 d-flex justify-content-center tarjeta-producto">
+                <div class="tarjeta-tienda">
+                    <img
+                        src="https://static.wixstatic.com/media/b4df8d_602e2b8e6f9c4928a5aa45754971a898~mv2.jpg/v1/fill/w_560,h_746,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/b4df8d_602e2b8e6f9c4928a5aa45754971a898~mv2.jpg" class="card-img-top" alt="Sansevieria">
+                    <div class="cuerpo-tarjeta">
+                        <h5>Sansevieria Trifasciata</h5>
+<p class="etiqueta-categoria">Planta de interior</p>
+                        <p class="descripcion-tarjeta">Purificadora y casi indestructible. Tolera poca luz y
+                            riego escaso.</p>
+                        <p class="precio-tarjeta">S/. 45.90</p><button class="btn btn-outline-success w-100 mb-2 btn-detalle" type="button"><i class="bi bi-eye me-1"></i> Ver detalle</button><button
+                                class="btn btn-success w-100" data-agregar-carrito data-id="int-6"
+                                data-nombre="Sansevieria Trifasciata" data-precio="45.90"
+                                data-imagen="https://static.wixstatic.com/media/b4df8d_602e2b8e6f9c4928a5aa45754971a898~mv2.jpg/v1/fill/w_560,h_746,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/b4df8d_602e2b8e6f9c4928a5aa45754971a898~mv2.jpg"><i class="bi bi-cart-plus me-1"></i>
+                                Comprar</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-4 col-md-6 d-flex justify-content-center tarjeta-producto">
+                <div class="tarjeta-tienda">
+                    <img
+                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQAuftEjjW1jiJxE1Syf5JgHTRFVzrBroAX6VgsdHMZiUqTJD3m8ACdr319&s=10" class="card-img-top" alt="Pothos">
+                    <div class="cuerpo-tarjeta">
+                        <h5>Pothos Dorado</h5>
+<p class="etiqueta-categoria">Planta de interior</p>
+                        <p class="descripcion-tarjeta">Enredadera colgante de fácil cuidado. Ideal para
+                            estanterías.</p>
+                        <p class="precio-tarjeta">S/. 24.90</p><button class="btn btn-outline-success w-100 mb-2 btn-detalle" type="button"><i class="bi bi-eye me-1"></i> Ver detalle</button><button
+                                class="btn btn-success w-100" data-agregar-carrito data-id="int-7"
+                                data-nombre="Pothos Dorado" data-precio="24.90"
+                                data-imagen="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQAuftEjjW1jiJxE1Syf5JgHTRFVzrBroAX6VgsdHMZiUqTJD3m8ACdr319&s=10"><i class="bi bi-cart-plus me-1"></i>
+                                Comprar</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-4 col-md-6 d-flex justify-content-center tarjeta-producto">
+                <div class="tarjeta-tienda">
+                    <img
+                        src="https://pepinplantcare.com/cdn/shop/articles/Design-sans-titre_9acbdcbd-87f5-43d6-b0d2-3ed0bc2ea79a.webp?v=1725023116&width=800" class="card-img-top" alt="Ficus">
+                    <div class="cuerpo-tarjeta">
+                        <h5>Ficus Lyrata</h5>
+<p class="etiqueta-categoria">Planta de interior</p>
+                        <p class="descripcion-tarjeta">Elegante y escultural. Luz brillante indirecta y riego
+                            moderado.</p>
+                        <p class="precio-tarjeta">S/. 95.90</p><button class="btn btn-outline-success w-100 mb-2 btn-detalle" type="button"><i class="bi bi-eye me-1"></i> Ver detalle</button><button
+                                class="btn btn-success w-100" data-agregar-carrito data-id="int-8"
+                                data-nombre="Ficus Lyrata" data-precio="95.90"
+                                data-imagen="https://pepinplantcare.com/cdn/shop/articles/Design-sans-titre_9acbdcbd-87f5-43d6-b0d2-3ed0bc2ea79a.webp?v=1725023116&width=800"><i class="bi bi-cart-plus me-1"></i>
+                                Comprar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer th:replace="~{fragments/footer :: footer}"></footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+    <script th:src="@{/js/cart.js}"></script>
+    <script th:src="@{/js/auth.js}"></script>
+    <script th:src="@{/js/detalle.js}"></script>
+</body>
+
+</html>

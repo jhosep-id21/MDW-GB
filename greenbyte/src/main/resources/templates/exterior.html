@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es-es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GreenByte - Para Exterior</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="icon" th:href="@{/iconos/ico-greenbyte-sinfondo.png}" type="image/png">
+    <link rel="stylesheet" th:href="@{/styles.css}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+    <header th:replace="~{fragments/header-productos :: header-productos}"></header>
+    <div th:replace="~{fragments/login :: login}"></div>
+    <div th:replace="~{fragments/cart :: carrito}"></div>
+    <div th:replace="~{fragments/detalle :: detalle}"></div>
+    <div class="container py-4">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2 class="mb-0 text-white fw-bold"><i class="bi bi-sun me-2 text-white"></i> Para Exterior</h2>
+            <span class="badge bg-success">8 productos</span>
+        </div>
+        <p class="text-white-50">Resistentes al sol y perfectas para jardín, balcón y terraza.</p>
+        <div class="row align-items-stretch justify-content-center g-3 mt-2">
+            <div class="col-xl-3 col-lg-4 col-md-6 d-flex justify-content-center tarjeta-producto">
+                <div class="tarjeta-tienda"><img
+                        th:src="@{/plantas/exterior/planta-ext-1.webp}" class="card-img-top" alt="Geranio">
+                    <div class="cuerpo-tarjeta">
+                        <h5>Geranio</h5>
+<p class="etiqueta-categoria">Para exterior</p>
+                        <p class="descripcion-tarjeta">Florífera de colores vivos, ideal para balcones
+                            soleados.</p>
+                        <p class="precio-tarjeta">S/. 49.90</p>
+                            <button class="btn btn-outline-success w-100 mb-2 btn-detalle" type="button"><i class="bi bi-eye me-1"></i> Ver detalle</button>
+                            <button class="btn btn-success w-100" data-agregar-carrito data-id="ext-1" data-nombre="Geranio"
+                                data-precio="49.90" data-imagen="/plantas/exterior/planta-ext-1.webp"><i
+                                    class="bi bi-cart-plus me-1"></i> Comprar</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-4 col-md-6 d-flex justify-content-center tarjeta-producto">
+                <div class="tarjeta-tienda"><img
+                        th:src="@{/plantas/exterior/planta-ext-2.webp}" class="card-img-top" alt="Hiedra">
+                    <div class="cuerpo-tarjeta">
+                        <h5>Hiedra Inglesa</h5>
+<p class="etiqueta-categoria">Para exterior</p>
+                        <p class="descripcion-tarjeta">Enredadera frondosa que cubre muros y pérgolas.</p>
+                        <p class="precio-tarjeta">S/. 59.90</p>
+                            <button class="btn btn-outline-success w-100 mb-2 btn-detalle" type="button"><i class="bi bi-eye me-1"></i> Ver detalle</button>
+                            <button class="btn btn-success w-100" data-agregar-carrito data-id="ext-2"
+                                data-nombre="Hiedra Inglesa" data-precio="59.90"
+                                data-imagen="/plantas/exterior/planta-ext-2.webp"><i class="bi bi-cart-plus me-1"></i>
+                                Comprar</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-4 col-md-6 d-flex justify-content-center tarjeta-producto">
+                <div class="tarjeta-tienda"><img
+                        th:src="@{/plantas/exterior/planta-ext-3.webp}" class="card-img-top" alt="Hortensia">
+                    <div class="cuerpo-tarjeta">
+                        <h5>Hortensia</h5>
+<p class="etiqueta-categoria">Para exterior</p>
+                        <p class="descripcion-tarjeta">Arbusto de grandes flores. Prefiere semisombra y riego
+                            frecuente.</p>
+                        <p class="precio-tarjeta">S/. 79.90</p><button class="btn btn-outline-success w-100 mb-2 btn-detalle" type="button"><i class="bi bi-eye me-1"></i> Ver detalle</button><button
+                                class="btn btn-success w-100" data-agregar-carrito data-id="ext-3" data-nombre="Hortensia"
+                                data-precio="79.90" data-imagen="/plantas/exterior/planta-ext-3.webp"><i
+                                    class="bi bi-cart-plus me-1"></i> Comprar</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-4 col-md-6 d-flex justify-content-center tarjeta-producto">
+                <div class="tarjeta-tienda"><img
+                        th:src="@{/plantas/exterior/planta-ext-4.webp}" class="card-img-top" alt="Sheflera">
+                    <div class="cuerpo-tarjeta">
+                        <h5>Sheflera</h5>
+<p class="etiqueta-categoria">Para exterior</p>
+                        <p class="descripcion-tarjeta">Hojas en forma de paraguas, ideal para patios
+                            protegidos.</p>
+                        <p class="precio-tarjeta">S/. 99.90</p><button class="btn btn-outline-success w-100 mb-2 btn-detalle" type="button"><i class="bi bi-eye me-1"></i> Ver detalle</button><button
+                                class="btn btn-success w-100" data-agregar-carrito data-id="ext-4" data-nombre="Sheflera"
+                                data-precio="99.90" data-imagen="/plantas/exterior/planta-ext-4.webp"><i
+                                    class="bi bi-cart-plus me-1"></i> Comprar</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-4 col-md-6 d-flex justify-content-center tarjeta-producto">
+                <div class="tarjeta-tienda">
+                    <img
+                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEMH96sNRtyWEZlPaNQz8ihyLF5_IQf2_OfWrgDRnsnR0rSt5n6yBR4rLK&s=10" class="card-img-top" alt="Lavanda">
+                    <div class="cuerpo-tarjeta">
+                        <h5>Lavanda</h5>
+<p class="etiqueta-categoria">Para exterior</p>
+                        <p class="descripcion-tarjeta">Aromática de flores moradas, pleno sol y poco riego.
+                        </p>
+                        <p class="precio-tarjeta">S/. 35.90</p><button class="btn btn-outline-success w-100 mb-2 btn-detalle" type="button"><i class="bi bi-eye me-1"></i> Ver detalle</button><button
+                                class="btn btn-success w-100" data-agregar-carrito data-id="ext-5" data-nombre="Lavanda"
+                                data-precio="35.90" data-imagen="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEMH96sNRtyWEZlPaNQz8ihyLF5_IQf2_OfWrgDRnsnR0rSt5n6yBR4rLK&s=10"><i
+                                    class="bi bi-cart-plus me-1"></i> Comprar</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-4 col-md-6 d-flex justify-content-center tarjeta-producto">
+                <div class="tarjeta-tienda">
+                    <img
+                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSikP_ePOxC-iIdLLE09YIvRKdDKE8ryhT92yMmf59qbQLLb6b-ifg97wFR&s=10" class="card-img-top" alt="Buganvilla">
+                    <div class="cuerpo-tarjeta">
+                        <h5>Buganvilla</h5>
+<p class="etiqueta-categoria">Para exterior</p>
+                        <p class="descripcion-tarjeta">Trepadora fucsia de pleno sol, floración espectacular.
+                        </p>
+                        <p class="precio-tarjeta">S/. 69.90</p><button class="btn btn-outline-success w-100 mb-2 btn-detalle" type="button"><i class="bi bi-eye me-1"></i> Ver detalle</button><button
+                                class="btn btn-success w-100" data-agregar-carrito data-id="ext-6" data-nombre="Buganvilla"
+                                data-precio="69.90" data-imagen="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSikP_ePOxC-iIdLLE09YIvRKdDKE8ryhT92yMmf59qbQLLb6b-ifg97wFR&s=10"><i
+                                    class="bi bi-cart-plus me-1"></i> Comprar</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-4 col-md-6 d-flex justify-content-center tarjeta-producto">
+                <div class="tarjeta-tienda">
+                    <img
+                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSaECU0Q3DMNzc1wzk9gP53ouyTttgbiJbIhJaL51Ov4FZhIQINekuDK28&s=10" class="card-img-top" alt="Helecho">
+                    <div class="cuerpo-tarjeta">
+                        <h5>Helecho Boston</h5>
+<p class="etiqueta-categoria">Para exterior</p>
+                        <p class="descripcion-tarjeta">Follaje colgante para terrazas sombreadas.</p>
+                        <p class="precio-tarjeta">S/. 42.90</p><button class="btn btn-outline-success w-100 mb-2 btn-detalle" type="button"><i class="bi bi-eye me-1"></i> Ver detalle</button><button
+                                class="btn btn-success w-100" data-agregar-carrito data-id="ext-7"
+                                data-nombre="Helecho Boston" data-precio="42.90"
+                                data-imagen="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSaECU0Q3DMNzc1wzk9gP53ouyTttgbiJbIhJaL51Ov4FZhIQINekuDK28&s=10"><i class="bi bi-cart-plus me-1"></i>
+                                Comprar</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-4 col-md-6 d-flex justify-content-center tarjeta-producto">
+                <div class="tarjeta-tienda">
+                    <img
+                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTj47RuZlpKPyx001AlUzsfOVaE5XeaJki1bBl1VJeAQ4at73HfBJe-CT0&s=10" class="card-img-top" alt="Rosal">
+                    <div class="cuerpo-tarjeta">
+                        <h5>Rosal Mini</h5>
+<p class="etiqueta-categoria">Para exterior</p>
+                        <p class="descripcion-tarjeta">Rosal compacto de floración continua, sol directo.</p>
+                        <p class="precio-tarjeta">S/. 55.90</p><button class="btn btn-outline-success w-100 mb-2 btn-detalle" type="button"><i class="bi bi-eye me-1"></i> Ver detalle</button><button
+                                class="btn btn-success w-100" data-agregar-carrito data-id="ext-8" data-nombre="Rosal Mini"
+                                data-precio="55.90" data-imagen="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTj47RuZlpKPyx001AlUzsfOVaE5XeaJki1bBl1VJeAQ4at73HfBJe-CT0&s=10"><i
+                                    class="bi bi-cart-plus me-1"></i> Comprar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer th:replace="~{fragments/footer :: footer}"></footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+    <script th:src="@{/js/cart.js}"></script>
+    <script th:src="@{/js/auth.js}"></script>
+    <script th:src="@{/js/detalle.js}"></script>
+</body>
+
+</html>

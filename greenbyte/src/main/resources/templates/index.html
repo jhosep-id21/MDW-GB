@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GreenByte</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="icon" th:href="@{/iconos/ico-greenbyte-sinfondo.png}" type="image/png">
+    <link rel="stylesheet" th:href="@{/styles.css}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+</head>
+
+<body>
+    <div class="position-relative vh-100 d-flex flex-column overflow-hidden">
+
+        <!-- 2. Imagen de fondo absoluta que cubre todo -->
+        <!-- Nota: La ruta correcta en Spring Boot no lleva /static/ -->
+        <img th:src="@{/fondo-index.png}" class="position-absolute w-100 h-100 object-fit-cover top-0 start-0 z-0"
+            alt="Fondo GreenByte">
+
+        <!-- 3. Capa oscura (Overlay) para que el texto blanco resalte -->
+        <div class="position-absolute w-100 h-100 top-0 start-0 bg-dark opacity-50 z-0"></div>
+
+        <!-- 4. Header flotante (por encima de la imagen) -->
+        <!-- z-3 asegura que esté por encima de la imagen y la capa oscura -->
+        <header class="position-relative z-3 w-100" th:replace="~{fragments/header :: navegador}"></header>
+
+        <!-- 5. Contenido central (Texto y botón) -->
+        <div
+            class="position-relative z-3 flex-grow-1 d-flex flex-column justify-content-center align-items-center text-center text-white px-4">
+            <h1 class="display-3 fw-bold mb-3" style="letter-spacing: 2px;">Bienvenido a GreenByte</h1>
+            <p class="lead fs-4 mb-5">Descubre la armonía natural para tu hogar.</p>
+            <a th:href="@{/productos}" class="btn btn-outline-light btn-lg px-5 py-3"
+                style="border-radius: 0; letter-spacing: 2px; text-transform: uppercase;">
+                Explorar Tienda
+            </a>
+        </div>
+
+    </div>
+
+    <!-- Sección de contenido normal (debajo de la portada) -->
+    <section class="container py-5">
+        <h2 class="text-center mb-4">Nuestros Productos</h2>
+        <!-- Aquí va tu grid de productos -->
+    </section>
+    <footer th:replace="~{fragments/footer :: footer}"></footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+    <script th:src="@{/js/cart.js}"></script>
+    <script th:src="@{/js/auth.js}"></script>
+    <script th:src="@{/js/detalle.js}"></script>
+</body>
+
+</html>
