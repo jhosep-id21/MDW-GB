@@ -2,6 +2,26 @@ body {
   background-color: #c2c6c4;
   font-family: 'Roboto', sans-serif;
 }
+.bg-verde-oscuro {
+  background-color: #2b4b3b !important;
+}
+.bg-terracota {
+  background-color: #8C5B46 !important;
+}
+.btn-terracota {
+  background-color: #ffffff;
+  color: #8C5B46;
+  border: 1px solid #ffffff;
+  font-weight: 600;
+}
+.btn-terracota:hover {
+  background-color: #f8f9fa;
+  color: #6b4332;
+}
+.btn-outline-light:hover {
+  background-color: #ffffff;
+  color: #8C5B46;
+}
 .barra-nav {
   background-color: #1b2d23;
   border-bottom: 1px solid #52705d;
@@ -95,6 +115,15 @@ body {
 .carousel-indicators .active {
   opacity: 1;
   background-color: #529f72;
+}
+.promo-carrusel {
+  background: #1a2e22;
+  color: #ffffff;
+}
+.promo-carrusel-alt {
+  background: #2d513b;
+  /* Un verde profundo */
+  color: #ffffff;
 }
 .card {
   border: 1px solid #529f72 !important;
@@ -439,6 +468,89 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+/* Transición base para todos los botones */
+.btn {
+  transition: all 0.3s ease-in-out;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+}
+/* --- BOTONES VERDES (Tema original/oscuro) --- */
+.btn-success {
+  background-color: #529f72;
+  border-color: #529f72;
+  color: #0a1a12;
+}
+.btn-success:hover,
+.btn-success:focus {
+  background-color: #2d513b;
+  border-color: #2d513b;
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(45, 81, 59, 0.3);
+  transform: translateY(-1px);
+}
+.btn-success:active {
+  transform: translateY(1px);
+  box-shadow: none;
+}
+.btn-outline-success {
+  color: #529f72;
+  border-color: #529f72;
+}
+.btn-outline-success:hover,
+.btn-outline-success:focus {
+  background-color: #529f72;
+  color: #0a1a12;
+  box-shadow: 0 4px 12px rgba(82, 159, 114, 0.2);
+  transform: translateY(-1px);
+}
+.btn-outline-success:active {
+  transform: translateY(1px);
+  box-shadow: none;
+}
+/* --- BOTONES TERRACOTA (Estilo Wix / Claro) --- */
+.btn-terracota {
+  background-color: #8C5B46;
+  border-color: #8C5B46;
+  color: #ffffff;
+}
+.btn-terracota:hover,
+.btn-terracota:focus {
+  background-color: #6b4332;
+  border-color: #6b4332;
+  color: #ffffff;
+  box-shadow: 0 4px 15px rgba(140, 91, 70, 0.35);
+  transform: translateY(-2px);
+}
+.btn-terracota:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+.btn-outline-terracota {
+  color: #8C5B46;
+  border-color: #8C5B46;
+  background-color: transparent;
+}
+.btn-outline-terracota:hover,
+.btn-outline-terracota:focus {
+  background-color: #8C5B46;
+  border-color: #8C5B46;
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(140, 91, 70, 0.2);
+  transform: translateY(-1px);
+}
+.btn-outline-terracota:active {
+  transform: translateY(1px);
+}
+.tarjeta-producto .btn-success,
+.tarjeta-tienda .btn-success {
+  box-shadow: none;
+}
+.tarjeta-producto .btn-success:hover,
+.tarjeta-tienda .btn-success:hover {
+  box-shadow: none;
+  transform: none;
+  opacity: 0.9;
 }
 /* Dropdowns */
 .dropdown-menu {

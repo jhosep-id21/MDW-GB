@@ -13,6 +13,8 @@
 </head>
 
 <body>
+    <div th:replace="~{fragments/login :: login}"></div>
+    <div th:replace="~{fragments/cart :: carrito}"></div>
     <div class="position-relative vh-100 d-flex flex-column overflow-hidden">
         <img th:src="@{/fondo-index.png}" class="position-absolute w-100 h-100 object-fit-cover top-0 start-0 z-0"
             alt="Fondo GreenByte">

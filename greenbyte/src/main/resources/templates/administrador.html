@@ -25,7 +25,7 @@
             <button class="btn btn-success mt-2" data-bs-toggle="modal" data-bs-target="#modal-acceso">Iniciar sesión como administrador</button>
             <a th:href="@{/}" class="btn btn-outline-light mt-2 ms-2">Volver al inicio</a>
         </div>
-        <!-- Panel ADMIN (visible solo si session.rol == ADMIN) -->
+
         <div th:if="${session.rol == 'ADMIN'}">
             <div class="d-flex justify-content-between align-items-center mb-4 text-white fw-bold">
                 <h2><i class="bi bi-speedometer2 me-2 text-white"></i> Panel Administrador</h2>
