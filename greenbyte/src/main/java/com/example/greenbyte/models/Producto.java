@@ -40,7 +40,7 @@ public class Producto {
     private BigDecimal precio;
 
     @ManyToOne
-    @JoinColumn(name = "idCategoria")
+    @JoinColumn(name = "idCategoria", nullable = false)
     @JsonIgnoreProperties("productos")
     private Categoria categoria;
 
