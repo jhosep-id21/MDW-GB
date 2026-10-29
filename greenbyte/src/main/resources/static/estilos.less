@@ -7,7 +7,8 @@
 //colores para fondos
 @fondo-oscuro: #1a2e22;
 @fondo-barra: #1b2d23;
-@fondo-cuerpo: #c2c6c4;
+@fondo-cuerpo: #ffffff;
+@fondo-claro: #F4F3F1;
 @fondo-carrito: #0f1e14;
 @color-marca: #8C5B46;    
 @color-sobre: #6b4332;    
@@ -18,6 +19,8 @@
 @texto-claro: #a16826;
 @texto-suave: #cbd8ce;
 @texto-apagado: #aebdb2;
+@texto-oscuro: #1c2b21;
+@texto-gris: #5a5a5a;
 
   
 
@@ -25,6 +28,7 @@
 body {
   background-color: @fondo-cuerpo;
   font-family: 'Roboto', sans-serif;
+  color: @texto-oscuro;
 }
 .bg-verde-oscuro {
   background-color: @verde-oscuro !important;
@@ -307,57 +311,67 @@ body {
 .tarjeta-tienda {
   position: relative;
   background: @blanco;
-  color: @section-ink;
+  color: @texto-oscuro;
   border-radius: 0.75rem;
   overflow: hidden;
   width: 100%;
   max-width: 18rem;
-  border: 1px solid rgba(46, 204, 113, 0.4);
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 
   &:hover {
     transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(46, 204, 113, 0.35);
+    box-shadow: 0 8px 24px rgba(140, 91, 70, 0.15);
   }
 
   img {
     width: 100%;
-    height: 180px;
+    height: 200px;
     object-fit: cover;
+    background-color: @fondo-claro;
   }
 }
 
 .cuerpo-tarjeta {
-  padding: 0.9rem;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
 
   h5 {
     font-size: 1rem;
     margin-bottom: 0.1rem;
-    color: @section-ink;
+    color: @texto-oscuro;
+    font-weight: 700;
   }
 }
 
 .etiqueta-categoria {
   font-size: 0.75rem;
-  color: #6b7d70;
+  color: @color-marca;
+  font-weight: 600;
   margin-bottom: 0.4rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .descripcion-tarjeta {
   font-size: 0.85rem;
-  color: #4c5f52;
+  color: @texto-gris;
+  line-height: 1.5;
   min-height: 3.6em;
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
+  flex-grow: 1;
 }
 
 .precio-tarjeta {
   font-size: 1.25rem;
   font-weight: 700;
-  color: #2d7a4b;
+  color: @color-marca;
   margin-bottom: 0.6rem;
 }
 

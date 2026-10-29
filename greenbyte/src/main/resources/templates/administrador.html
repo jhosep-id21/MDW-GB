@@ -1,21 +1,32 @@
 <!DOCTYPE html>
-<html lang="es-es">
+<html lang="es-es" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GreenByte - Administrador</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="icon" th:href="@{/iconos/ico-greenbyte-sinfondo.png}" type="image/png">
     <link rel="stylesheet" th:href="@{/styles.css}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 </head>
+
 <body class="d-flex flex-column min-vh-100">
     <header th:replace="~{fragments/header :: navegador}"></header>
     <div th:replace="~{fragments/login :: login}"></div>
     <div th:replace="~{fragments/cart :: carrito}"></div>
-    <main class="container py-4">
-        <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
-        <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+
+    <main class="container py-4 flex-grow-1">
+        <div th:if="${success}" class="alert alert-success alert-dismissible fade show" role="alert">
+            <i class="bi bi-check-circle-fill me-2"></i><span th:text="${success}"></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <div th:if="${error}" class="alert alert-danger alert-dismissible fade show" role="alert">
+            <i class="bi bi-exclamation-triangle-fill me-2"></i><span th:text="${error}"></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+
         <!-- No autorizado (controlado por backend: session.rol) -->
         <div th:if="${session.rol != 'ADMIN'}" class="text-center py-5">
             <i class="bi bi-shield-lock display-1 text-danger"></i>
@@ -31,33 +42,207 @@
                 <h2><i class="bi bi-speedometer2 me-2 text-white"></i> Panel Administrador</h2>
                 <span class="badge bg-danger fs-6">ADMIN</span>
             </div>
+
+
+            <!-- Resumen de Métricas -->
             <div class="row g-3 mb-4">
-                <div class="col-md-2 col-6"><div class="card text-center p-3"><div class="fs-4 fw-bold text-success">40</div><div class="small">Total</div></div></div>
-                <div class="col-md-2 col-6"><div class="card text-center p-3"><div class="fs-5 fw-bold">8</div><div class="small">Interior</div></div></div>
-                <div class="col-md-2 col-6"><div class="card text-center p-3"><div class="fs-5 fw-bold">8</div><div class="small">Exterior</div></div></div>
-                <div class="col-md-2 col-6"><div class="card text-center p-3"><div class="fs-5 fw-bold">8</div><div class="small">Macetas</div></div></div>
-                <div class="col-md-2 col-6"><div class="card text-center p-3"><div class="fs-5 fw-bold">8</div><div class="small">Accesorios</div></div></div>
-                <div class="col-md-2 col-6"><div class="card text-center p-3"><div class="fs-5 fw-bold">8</div><div class="small">Principiantes</div></div></div>
+                <div class="col-md-3 col-6">
+                    <div class="card text-center p-3 bg-dark text-white border-secondary">
+                        <div class="fs-4 fw-bold text-success" th:text="${productos != null ? #lists.size(productos) : 0}">0</div>
+                        <div class="small text-white-50">Total Productos en BD</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="card text-center p-3 bg-dark text-white border-secondary">
+                        <div class="fs-4 fw-bold text-info" th:text="${categorias != null ? #lists.size(categorias) : 0}">0</div>
+                        <div class="small text-white-50">Categorías</div>
+                    </div>
+                </div>
             </div>
-            <div class="card p-3 mb-4">
-                <h5 class="mb-1"><i class="bi bi-box-seam me-1"></i> Catálogo estático</h5>
+
+            <!-- Catálogo dinámico con CRUD conectado a MySQL -->
+            <div class="card bg-dark text-white border-secondary p-3 mb-4 shadow">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h5 class="mb-0"><i class="bi bi-box-seam me-2 text-success"></i> Catálogo de Productos</h5>
+                    <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#modal-crear-producto">
+                        <i class="bi bi-plus-circle me-1"></i> + Nuevo Producto
+                    </button>
+                </div>
+
                 <div class="table-responsive">
-                    <table class="table table-dark table-hover align-middle small">
-                        <thead><tr><th>Producto</th><th>Categoría</th><th>Precio</th></tr></thead>
+                    <table class="table table-dark table-hover align-middle small mb-0">
+                        <thead>
+                            <tr class="table-secondary text-dark">
+                                <th>ID</th>
+                                <th>Producto</th>
+                                <th>Categoría</th>
+                                <th>Precio</th>
+                                <th>Stock</th>
+                                <th class="text-center">Acciones</th>
+                            </tr>
+                        </thead>
                         <tbody>
-                            <tr><td>Violeta Africana</td><td><span class="badge bg-success">interior</span></td><td>S/. 39.90</td></tr>
-                            <tr><td>Maceta Cerámica Blanca Minimalista</td><td><span class="badge bg-success">macetas</span></td><td>S/. 45.90</td></tr>
-                            <tr><td>Tijera de Poda Ergonómica</td><td><span class="badge bg-success">accesorios</span></td><td>S/. 35.90</td></tr>
-                            <tr><td>Kit Iniciación Suculentas x3</td><td><span class="badge bg-success">principiantes</span></td><td>S/. 49.90</td></tr>
+                            <tr th:if="${productos == null or #lists.isEmpty(productos)}">
+                                <td colspan="6" class="text-center py-4 text-white-50">
+                                    No hay productos registrados en MySQL. Haz clic en <b>"+ Nuevo Producto"</b> o agrega mediante Thunder Client.
+                                </td>
+                            </tr>
+                            <tr th:each="p : ${productos}">
+                                <td th:text="${p.id}" class="fw-bold">1</td>
+                                <td>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <img th:src="${p.rutaImagen}" style="width: 42px; height: 42px; object-fit: cover; border-radius: 6px;" onerror="this.src='/img-carousel/imagen-plantas.jpg'">
+                                        <div>
+                                            <div class="fw-bold" th:text="${p.nombre}">Nombre</div>
+                                            <div class="text-white-50 small text-truncate" style="max-width: 280px;" th:text="${p.descripcion}">Descripción</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="badge bg-success" th:text="${p.nombreCategoria}">Categoría</span>
+                                </td>
+                                <td th:text="'S/. ' + ${#numbers.formatDecimal(p.precio, 1, 2)}">S/. 0.00</td>
+                                <td th:text="${p.stock}">0</td>
+                                <td class="text-center">
+                                    <a th:href="@{/administrador/productos/editar/{id}(id=${p.id})}" 
+                                       class="btn btn-warning btn-sm me-1" title="Editar producto">
+                                        <i class="bi bi-pencil"></i> Editar
+                                    </a>
+                                    <a th:href="@{/administrador/productos/eliminar/{id}(id=${p.id})}"
+                                       class="btn btn-danger btn-sm"
+                                       onclick="return confirm('¿Seguro que deseas eliminar este producto de la base de datos?');"
+                                       title="Eliminar producto">
+                                         <i class="bi bi-trash"></i> Eliminar
+                                    </a>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
+
+        <!-- ================= MODAL 1: REGISTRAR NUEVO PRODUCTO ================= -->
+        <div class="modal fade" id="modal-crear-producto" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content bg-dark text-white border-secondary">
+                    <form th:action="@{/administrador/productos/guardar}" method="post" th:object="${nuevoProducto}">
+                        <div class="modal-header border-secondary">
+                            <h5 class="modal-title"><i class="bi bi-plus-circle text-success me-2"></i>Registrar Nuevo Producto</h5>
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label class="form-label small fw-bold">Nombre del Producto</label>
+                                <input type="text" th:field="*{nombre}" class="form-control" placeholder="Ej: Ficus Lyrata" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label small fw-bold">Categoría</label>
+                                <select name="categoriaId" class="form-select" required>
+                                    <option value="" disabled selected>Selecciona una categoría</option>
+                                    <option th:each="cat : ${categorias}" 
+                                            th:value="${cat.id}" 
+                                            th:text="${cat.nombre}"></option>
+                                </select>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label small fw-bold">Precio (S/.)</label>
+                                    <input type="number" step="0.01" min="0.1" th:field="*{precio}" class="form-control" placeholder="45.00" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label small fw-bold">Stock</label>
+                                    <input type="number" min="0" th:field="*{stock}" class="form-control" placeholder="10" required>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label small fw-bold">Descripción</label>
+                                <textarea th:field="*{descripcion}" class="form-control" rows="2" placeholder="Descripción breve del producto..." required></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label small fw-bold">Ruta / Nombre de la imagen</label>
+                                <input type="text" th:field="*{imagen}" class="form-control" placeholder="plantas/interior/planta-int-1.webp">
+                                <div class="form-text text-white-50 small">Opcional. Si lo dejas vacío se usará una imagen predeterminada.</div>
+                            </div>
+                        </div>
+                        <div class="modal-footer border-secondary">
+                            <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-success btn-sm"><i class="bi bi-plus-lg me-1"></i> Agregar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= MODAL 2: EDITAR PRODUCTO EXISTENTE ================= -->
+        <div class="modal fade" id="modal-editar-producto" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content bg-dark text-white border-secondary">
+                    <form th:action="@{'/administrador/productos/editar/' + ${productoId != null ? productoId : 0}}" method="post" th:object="${productoAEditar}">
+                        <div class="modal-header border-secondary">
+                            <h5 class="modal-title"><i class="bi bi-pencil-square text-warning me-2"></i>Editar Producto</h5>
+                            <a th:href="@{/administrador}" class="btn-close btn-close-white" aria-label="Close"></a>
+                        </div>
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label class="form-label small fw-bold">Nombre del Producto</label>
+                                <input type="text" th:field="*{nombre}" class="form-control" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label small fw-bold">Categoría</label>
+                                <select name="categoriaId" class="form-select" required>
+                                    <option value="" disabled th:selected="${productoAEditar.categoria == null}">Selecciona una categoría</option>
+                                    <option th:each="cat : ${categorias}" 
+                                            th:value="${cat.id}" 
+                                            th:text="${cat.nombre}"
+                                            th:selected="${productoAEditar.categoria != null and productoAEditar.categoria.id == cat.id}"></option>
+                                </select>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label small fw-bold">Precio (S/.)</label>
+                                    <input type="number" step="0.01" min="0.1" th:field="*{precio}" class="form-control" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label small fw-bold">Stock</label>
+                                    <input type="number" min="0" th:field="*{stock}" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label small fw-bold">Descripción</label>
+                                <textarea th:field="*{descripcion}" class="form-control" rows="2" required></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label small fw-bold">Ruta / Nombre de la imagen</label>
+                                <input type="text" th:field="*{imagen}" class="form-control">
+                            </div>
+                        </div>
+                        <div class="modal-footer border-secondary">
+                            <a th:href="@{/administrador}" class="btn btn-secondary btn-sm">Cancelar</a>
+                            <button type="submit" class="btn btn-warning btn-sm"><i class="bi bi-check-lg me-1"></i> Actualizar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </main>
+
     <footer th:replace="~{fragments/footer :: footer}"></footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
     <script th:src="@{/js/cart.js}"></script>
     <script th:src="@{/js/auth.js}"></script>
+    <script th:if="${editando}">
+        document.addEventListener("DOMContentLoaded", function() {
+            var el = document.getElementById('modal-editar-producto');
+            if (el) {
+                var modal = new bootstrap.Modal(el);
+                modal.show();
+                el.addEventListener('hidden.bs.modal', function () {
+                    window.location.href = '/administrador';
+                });
+            }
+        });
+    </script>
 </body>
+
 </html>

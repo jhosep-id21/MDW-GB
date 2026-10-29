@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="es-es">
+<html lang="es-es" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GreenByte - Productos</title>
+    <title>GreenByte - Catálogo de Productos</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="icon" th:href="@{/iconos/ico-greenbyte-sinfondo.png}" type="image/png">
@@ -12,52 +12,58 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 </head>
 
-<body>
+<body class="d-flex flex-column min-vh-100">
     <header th:replace="~{fragments/header-productos :: header-productos}"></header>
+    <div th:replace="~{fragments/login :: login}"></div>
+    <div th:replace="~{fragments/cart :: carrito}"></div>
+    <div th:replace="~{fragments/detalle :: detalle}"></div>
 
-    <main class="container py-5">
-        <!-- Título de la sección -->
-        <div class="text-center mb-5">
-            <h2 class="fw-bold" style="color: var(--brand-color, #8C5B46);">Nuestros Productos</h2>
-            <p class="text-muted">Encuentra todo lo que necesitas para tus plantas</p>
+    <main class="container py-4 flex-grow-1">
+        <!-- Encabezado de la sección -->
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2 class="mb-0 text-white fw-bold"><i class="bi bi-shop me-2 text-white"></i> Catálogo General</h2>
+            <span class="badge bg-success" th:text="${productos != null ? #lists.size(productos) + ' productos' : '0 productos'}">0 productos</span>
         </div>
+        <p class="text-white-50">Explora todos nuestros productos disponibles en tienda con stock en tiempo real.</p>
 
-        <!-- Grid de productos (se rellena desde la base de datos mediante Thymeleaf) -->
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4"
+        <!-- Grid de productos dinámicos desde MySQL -->
+        <div class="row align-items-stretch justify-content-center g-3 mt-2"
              th:if="${productos != null and !#lists.isEmpty(productos)}">
 
-            <div class="col" th:each="producto : ${productos}">
-                <div class="card tarjeta-producto h-100 shadow-sm">
-                    <!-- Imagen del producto (ruta dinámica desde BD) -->
-                    <img th:src="@{/img/productos/{imagen}(imagen=${producto.imagen})}"
-                         th:alt="${producto.nombre}"
+            <div class="col-xl-3 col-lg-4 col-md-6 d-flex justify-content-center tarjeta-producto"
+                 th:each="p : ${productos}">
+                <div class="tarjeta-tienda">
+                    <!-- Imagen dinámica con fallback -->
+                    <img th:src="${p.rutaImagen}"
+                         th:alt="${p.nombre}"
                          class="card-img-top"
-                         loading="lazy"/>
+                         style="height: 220px; object-fit: cover;"
+                         onerror="this.src='/img-carousel/imagen-plantas.jpg'"
+                         loading="lazy" />
 
-                    <div class="card-body d-flex flex-column">
-                        <!-- Categoría -->
-                        <span class="etiqueta-categoria" th:text="${producto.categoria}">Categoría</span>
+                    <div class="cuerpo-tarjeta d-flex flex-column">
+                        <h5 th:text="${p.nombre}">Nombre del Producto</h5>
+                        <p class="etiqueta-categoria" th:text="${p.nombreCategoria}">Categoría</p>
+                        <p class="descripcion-tarjeta flex-grow-1" th:text="${p.descripcion}">Descripción corta...</p>
+                        
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="precio-tarjeta mb-0" th:text="'S/. ' + ${#numbers.formatDecimal(p.precio, 1, 2)}">S/. 0.00</span>
+                            <span class="badge bg-secondary" th:text="'Stock: ' + ${p.stock}">Stock: 0</span>
+                        </div>
 
-                        <!-- Nombre -->
-                        <h5 class="card-title" th:text="${producto.nombre}">Nombre del producto</h5>
+                        <!-- Botón Ver Detalle -->
+                        <button class="btn btn-outline-success w-100 mb-2 btn-detalle" type="button">
+                            <i class="bi bi-eye me-1"></i> Ver detalle
+                        </button>
 
-                        <!-- Descripción -->
-                        <p class="card-text descripcion-tarjeta" th:text="${producto.descripcion}">
-                            Descripción corta del producto...
-                        </p>
-                    </div>
-
-                    <!-- Pie de tarjeta con precio y botón -->
-                    <div class="pie-tarjeta mt-auto">
-                        <p class="precio-tarjeta mb-2"
-                           th:text="${#numbers.formatDecimal(producto.precio, 0, 'COMMA', 2, 'POINT')}">
-                            $0.00
-                        </p>
-                        <button type="button"
-                                class="btn btn-success w-100"
-                                th:onclick="'agregarAlCarrito(' + ${producto.id} + ')'"
-                                th:title="'Agregar ' + ${producto.nombre} + ' al carrito'">
-                            Agregar al carrito
+                        <!-- Botón Comprar conectado a cart.js -->
+                        <button class="btn btn-success w-100"
+                                data-agregar-carrito
+                                th:data-id="${p.id}"
+                                th:data-nombre="${p.nombre}"
+                                th:data-precio="${p.precio}"
+                                th:data-imagen="${p.rutaImagen}">
+                            <i class="bi bi-cart-plus me-1"></i> Comprar
                         </button>
                     </div>
                 </div>
@@ -66,12 +72,11 @@
         </div>
 
         <!-- Mensaje cuando no hay productos -->
-        <div th:if="${productos == null or #lists.isEmpty(productos)}"
-             class="text-center py-5">
-            <i class="bi bi-box-seam fs-1 text-muted mb-3"></i>
-            <p class="text-muted">No hay productos disponibles en este momento.</p>
+        <div th:if="${productos == null or #lists.isEmpty(productos)}" class="text-center py-5">
+            <i class="bi bi-box-seam fs-1 text-white-50 mb-3 d-block"></i>
+            <h4 class="text-white">No hay productos registrados en este momento</h4>
+            <p class="text-white-50">Ingresa al panel de administración para agregar productos a MySQL o usa Thunder Client.</p>
         </div>
-
     </main>
 
     <footer th:replace="~{fragments/footer :: footer}"></footer>

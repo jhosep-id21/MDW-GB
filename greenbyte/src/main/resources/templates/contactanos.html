@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="es-es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,47 +10,46 @@
     <link rel="stylesheet" th:href="@{/styles.css}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 </head>
-
-<body class="d-flex flex-column min-vh-100">
-    <header th:replace="~{fragments/header :: navegador}"></header>
+<body class="tema-claro d-flex flex-column min-vh-100">
+    <header th:replace="~{fragments/header-productos :: header-productos}"></header>
     <div th:replace="~{fragments/login :: login}"></div>
     <div th:replace="~{fragments/cart :: carrito}"></div>
 
-    <div class="container py-5" style="background-color: #F3F2F0;"> <!-- Fondo gris suave -->
+    <div class="container py-5">
         <div class="text-center mb-5">
-            <h2 class="fw-bold mb-2" style="color: #2b4b3b; font-family: 'Playfair Display', serif;">
-                <i class="bi bi-telephone-inbound me-2"></i>Contáctanos
+            <h2 class="tema-titulo mb-2">
+                <i class="bi bi-telephone-inbound me-2 text-warning"></i>Contáctanos
             </h2>
             <p class="text-muted">Te respondemos en menos de 24h laborables. Visítanos, llámanos o escríbenos.</p>
         </div>
 
-        <!-- Datos de contacto (Tarjetas Blancas) -->
+        <!-- Datos de contacto (Tarjetas claras) -->
         <div class="row g-4 mb-5">
             <div class="col-md-6 col-lg-3">
-                <div class="card h-100 border-0 shadow-sm text-center p-4" style="border-radius: 12px;">
-                    <i class="bi bi-geo-alt fs-2 mb-3" style="color: #A65D43;"></i>
-                    <h6 class="fw-bold" style="color: #2b4b3b;">Dirección</h6>
-                    <p class="small text-muted mb-0">Av. América Norte 1250, Of. 204<br>Trujillo - Perú</p>
+                <div class="card tarjeta-tema h-100 text-center p-4">
+                    <i class="bi bi-geo-alt fs-2 mb-3" style="color: #8C5B46;"></i>
+                    <h6 class="fw-bold">Dirección</h6>
+                    <p class="small mb-0">Av. América Norte 1250, Of. 204<br>Trujillo - Perú</p>
                 </div>
             </div>
             <div class="col-md-6 col-lg-3">
-                <div class="card h-100 border-0 shadow-sm text-center p-4" style="border-radius: 12px;">
-                    <i class="bi bi-telephone fs-2 mb-3" style="color: #A65D43;"></i>
-                    <h6 class="fw-bold" style="color: #2b4b3b;">Teléfonos</h6>
-                    <p class="small text-muted mb-0">+51 987 654 321 (WhatsApp)<br>(01) 456-7890 · Lun-Sáb 9am-7pm</p>
+                <div class="card tarjeta-tema h-100 text-center p-4">
+                    <i class="bi bi-telephone fs-2 mb-3" style="color: #8C5B46;"></i>
+                    <h6 class="fw-bold">Teléfonos</h6>
+                    <p class="small mb-0">+51 987 654 321 (WhatsApp)<br>(01) 456-7890 · Lun-Sáb 9am-7pm</p>
                 </div>
             </div>
             <div class="col-md-6 col-lg-3">
-                <div class="card h-100 border-0 shadow-sm text-center p-4" style="border-radius: 12px;">
-                    <i class="bi bi-envelope fs-2 mb-3" style="color: #A65D43;"></i>
-                    <h6 class="fw-bold" style="color: #2b4b3b;">Correos</h6>
-                    <p class="small text-muted mb-0">pepe@greenbyte.pe<br>ventas@greenbyte.pe</p>
+                <div class="card tarjeta-tema h-100 text-center p-4">
+                    <i class="bi bi-envelope fs-2 mb-3" style="color: #8C5B46;"></i>
+                    <h6 class="fw-bold">Correos</h6>
+                    <p class="small mb-0">pepe@greenbyte.pe<br>ventas@greenbyte.pe</p>
                 </div>
             </div>
             <div class="col-md-6 col-lg-3">
-                <div class="card h-100 border-0 shadow-sm text-center p-4" style="border-radius: 12px;">
-                    <i class="bi bi-share fs-2 mb-3" style="color: #A65D43;"></i>
-                    <h6 class="fw-bold" style="color: #2b4b3b;">Redes sociales</h6>
+                <div class="card tarjeta-tema h-100 text-center p-4">
+                    <i class="bi bi-share fs-2 mb-3" style="color: #8C5B46;"></i>
+                    <h6 class="fw-bold">Redes sociales</h6>
                     <div class="d-flex justify-content-center gap-3 mt-2">
                         <a href="#" class="text-muted" title="Facebook"><i class="bi bi-facebook fs-5"></i></a>
                         <a href="#" class="text-muted" title="Instagram"><i class="bi bi-instagram fs-5"></i></a>
@@ -65,44 +63,34 @@
         <div class="row g-4">
             <!-- Formulario -->
             <div class="col-lg-7">
-                <div class="card border-0 shadow-sm p-4 p-md-5" style="border-radius: 12px;">
-                    <h4 class="mb-4 fw-bold" style="color: #2b4b3b; font-family: 'Playfair Display', serif;">
-                        <i class="bi bi-send me-2"></i>Escríbenos un mensaje
+                <div class="card border-0 shadow-sm p-4 p-md-5" style="border-radius: 12px; background: #ffffff;">
+                    <h4 class="mb-4 fw-bold tema-titulo">
+                        <i class="bi bi-send me-2" style="color: #8C5B46;"></i>Escríbenos un mensaje
                     </h4>
                     <form id="form-contacto" onsubmit="return enviarContacto(event)">
                         <div class="row">
                             <div class="mb-3 col-md-6">
-                                <label for="cNombres"
-                                    class="form-label text-muted small fw-bold text-uppercase">Nombres</label>
-                                <input type="text" class="form-control form-control-lg bg-light border-0" id="cNombres"
-                                    required>
+                                <label for="cNombres" class="form-label fw-bold">Nombres</label>
+                                <input type="text" class="form-control form-control-lg" id="cNombres" required>
                             </div>
                             <div class="mb-3 col-md-6">
-                                <label for="cApellidos"
-                                    class="form-label text-muted small fw-bold text-uppercase">Apellidos</label>
-                                <input type="text" class="form-control form-control-lg bg-light border-0"
-                                    id="cApellidos" required>
+                                <label for="cApellidos" class="form-label fw-bold">Apellidos</label>
+                                <input type="text" class="form-control form-control-lg" id="cApellidos" required>
                             </div>
                         </div>
                         <div class="row">
                             <div class="mb-3 col-md-6">
-                                <label for="cEmail" class="form-label text-muted small fw-bold text-uppercase">Correo
-                                    Electrónico</label>
-                                <input type="email" class="form-control form-control-lg bg-light border-0" id="cEmail"
-                                    required>
+                                <label for="cEmail" class="form-label fw-bold">Correo Electrónico</label>
+                                <input type="email" class="form-control form-control-lg" id="cEmail" required>
                             </div>
                             <div class="mb-3 col-md-6">
-                                <label for="cTelefono"
-                                    class="form-label text-muted small fw-bold text-uppercase">Teléfono /
-                                    WhatsApp</label>
-                                <input type="tel" class="form-control form-control-lg bg-light border-0" id="cTelefono"
-                                    placeholder="+51 ...">
+                                <label for="cTelefono" class="form-label fw-bold">Teléfono / WhatsApp</label>
+                                <input type="tel" class="form-control form-control-lg" id="cTelefono" placeholder="+51 ...">
                             </div>
                         </div>
                         <div class="mb-3">
-                            <label for="cAsunto"
-                                class="form-label text-muted small fw-bold text-uppercase">Asunto</label>
-                            <select class="form-select form-select-lg bg-light border-0" id="cAsunto">
+                            <label for="cAsunto" class="form-label fw-bold">Asunto</label>
+                            <select class="form-select form-select-lg" id="cAsunto">
                                 <option>Consulta de producto</option>
                                 <option>Seguimiento de pedido</option>
                                 <option>Asesoría de riego / cuidado</option>
@@ -110,25 +98,19 @@
                             </select>
                         </div>
                         <div class="mb-4">
-                            <label for="cMensaje"
-                                class="form-label text-muted small fw-bold text-uppercase">Mensaje</label>
-                            <textarea class="form-control form-control-lg bg-light border-0" id="cMensaje" rows="4"
-                                required></textarea>
+                            <label for="cMensaje" class="form-label fw-bold">Mensaje</label>
+                            <textarea class="form-control form-control-lg" id="cMensaje" rows="4" required></textarea>
                         </div>
                         <div class="mb-4 form-check">
                             <input type="checkbox" class="form-check-input" id="cAcepto" checked>
-                            <label class="form-check-label text-muted small" for="cAcepto">Acepto ser contactado por
-                                email</label>
+                            <label class="form-check-label" for="cAcepto">Acepto ser contactado por email</label>
                         </div>
 
-                        <!-- Botón Terracota -->
-                        <button type="submit" class="btn w-100 py-3 text-white fw-bold"
-                            style="background-color: #A65D43; border-radius: 6px; letter-spacing: 1px;">
+                        <button type="submit" class="btn btn-terracota w-100 py-3">
                             ENVIAR MENSAJE
                         </button>
 
-                        <div id="aviso-enviado" class="alert alert-success mt-4 d-none mb-0 border-0"
-                            style="background-color: #d1e7dd; color: #0f5132;">
+                        <div id="aviso-enviado" class="alert alert-success mt-4 d-none mb-0 border-0">
                             <i class="bi bi-check-circle me-2"></i>¡Mensaje enviado! Te contactaremos pronto.
                         </div>
                     </form>
@@ -137,23 +119,20 @@
 
             <!-- Mapa + horario -->
             <div class="col-lg-5">
-                <div class="card border-0 shadow-sm p-4 h-100" style="border-radius: 12px;">
-                    <h4 class="mb-4 fw-bold" style="color: #2b4b3b; font-family: 'Playfair Display', serif;">
-                        <i class="bi bi-pin-map me-2"></i>Encuéntranos
+                <div class="card tarjeta-tema shadow-sm p-4 h-100">
+                    <h4 class="mb-4 fw-bold tema-titulo">
+                        <i class="bi bi-pin-map me-2" style="color: #8C5B46;"></i>Encuéntranos
                     </h4>
-                    <div class="ratio ratio-4x3 rounded-3 overflow-hidden mb-4" style="border: 1px solid #eaeaea;">
+                    <div class="ratio ratio-4x3 rounded-3 overflow-hidden mb-4" style="border: 1px solid #e0e0e0;">
                         <iframe
                             src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d3903.758837135006!2d-79.05380237717493!3d-8.086953335277784!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1ses!2spe!4v1792822205345!5m2!1ses!2spe"
                             width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
                             referrerpolicy="strict-origin-when-cross-origin"></iframe>
                     </div>
                     <ul class="small text-muted mb-0 list-unstyled">
-                        <li class="mb-2"><i class="bi bi-clock me-2" style="color: #A65D43;"></i><b
-                                style="color: #2b4b3b;">Horario:</b> Lun-Sáb 9:00am - 7:00pm · Dom 10:00am - 2:00pm</li>
-                        <li class="mb-2"><i class="bi bi-truck me-2" style="color: #A65D43;"></i><b
-                                style="color: #2b4b3b;">Delivery:</b> Trujillo 24-48h · Resto del país 2-4 días</li>
-                        <li><i class="bi bi-whatsapp me-2" style="color: #A65D43;"></i><b
-                                style="color: #2b4b3b;">Soporte:</b> WhatsApp +51 987 654 321</li>
+                        <li class="mb-2"><i class="bi bi-clock me-2" style="color: #8C5B46;"></i><b class="fw-bold">Horario:</b> Lun-Sáb 9:00am - 7:00pm · Dom 10:00am - 2:00pm</li>
+                        <li class="mb-2"><i class="bi bi-truck me-2" style="color: #8C5B46;"></i><b class="fw-bold">Delivery:</b> Trujillo 24-48h · Resto del país 2-4 días</li>
+                        <li><i class="bi bi-whatsapp me-2" style="color: #8C5B46;"></i><b class="fw-bold">Soporte:</b> WhatsApp +51 987 654 321</li>
                     </ul>
                 </div>
             </div>
@@ -162,8 +141,7 @@
 
     <footer th:replace="~{fragments/footer :: footer}"></footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-        crossorigin="anonymous"></script>
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous"></script>
     <script th:src="@{/js/cart.js}"></script>
     <script th:src="@{/js/auth.js}"></script>
     <script>

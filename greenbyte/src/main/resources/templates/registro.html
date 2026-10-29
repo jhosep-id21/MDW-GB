@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GreenByte - Registro</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="icon" th:href="@{/iconos/ico-greenbyte-sinfondo.png}" type="image/png">
+    <link rel="stylesheet" th:href="@{/styles.css}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+</head>
+<body>
+
+<header th:replace="~{fragments/header :: navegador}"></header>
+
+<main class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-4">
+            <div class="card shadow-sm border-0">
+                <div class="card-body p-4">
+                    <h2 class="card-title text-center mb-4"
+                        style="color: #8C5B46; font-weight: 700;">Crear cuenta</h2>
+
+                    <!-- Mensaje de éxito global -->
+                    <div th:if="${success}" class="alert alert-success alert-dismissible fade show">
+                        <span th:text="${success}"></span>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+
+                    <form th:action="@{/registro}" method="post" th:object="${usuario}"
+                          novalidate>
+
+                        <!-- Nombre -->
+                        <div class="mb-3">
+                            <label class="form-label fw-bold small text-uppercase">Nombre completo</label>
+                            <input type="text" th:field="*{nombre}" class="form-control"
+                                   placeholder="Ej: Ana Torres">
+                            <div th:if="${#fields.hasErrors('nombre')}" class="invalid-feedback d-block">
+                                <span th:errors="*{nombre}"></span>
+                            </div>
+                        </div>
+
+                        <!-- Teléfono -->
+                        <div class="mb-3">
+                            <label class="form-label fw-bold small text-uppercase">Teléfono</label>
+                            <input type="tel" th:field="*{telefono}" class="form-control"
+                                   placeholder="+34 600 000 000">
+                            <div th:if="${#fields.hasErrors('telefono')}" class="invalid-feedback d-block">
+                                <span th:errors="*{telefono}"></span>
+                            </div>
+                        </div>
+
+                        <!-- Correo -->
+                        <div class="mb-3">
+                            <label class="form-label fw-bold small text-uppercase">Correo electrónico</label>
+                            <input type="email" th:field="*{correo}" class="form-control"
+                                   placeholder="tu@correo.com">
+                            <div th:if="${#fields.hasErrors('correo')}" class="invalid-feedback d-block">
+                                <span th:errors="*{correo}"></span>
+                            </div>
+                        </div>
+
+                        <!-- Nivel de acceso (oculto: por defecto USER) -->
+                        <input type="hidden" th:field="*{acceso}" value="U"/>
+
+                        <!-- Clave -->
+                        <div class="mb-4">
+                            <label class="form-label fw-bold small text-uppercase">Contraseña</label>
+                            <input type="password" th:field="*{clave}" class="form-control"
+                                   placeholder="••••••••">
+                            <div th:if="${#fields.hasErrors('clave')}" class="invalid-feedback d-block">
+                                <span th:errors="*{clave}"></span>
+                            </div>
+                        </div>
+
+                        <!-- Errores globales de negocio (correo duplicado) -->
+                        <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger mb-3">
+                            <span th:each="err : ${#fields.errors('*')}" th:text="${err}"></span>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100 py-2"
+                                style="background-color: #A65D43; border-color: #A65D43;">
+                            Registrarse
+                        </button>
+
+                        <div class="text-center mt-3">
+                            <p class="small mb-0">¿Ya tienes cuenta? <a href="#" class="fw-bold text-decoration-none"
+                                style="color: #A65D43;">Inicia sesión</a></p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer th:replace="~{fragments/footer :: footer}"></footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

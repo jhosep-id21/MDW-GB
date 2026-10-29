@@ -1,16 +1,3 @@
-const CLAVE_USUARIOS = 'gb_users';
-
-function leerUsuarios() {
-    try {
-        return JSON.parse(localStorage.getItem(CLAVE_USUARIOS)) || {};
-    } catch {
-        return {};
-    }
-}
-function guardarUsuarios(datos) { 
-    localStorage.setItem(CLAVE_USUARIOS, JSON.stringify(datos)); 
-}
-
 function irARegistro(e) {
     if (e) e.preventDefault();
     document.getElementById('pestana-registro')?.click();
@@ -29,37 +16,52 @@ function mostrarMensaje(id, texto, exito) {
     elemento.classList.add(exito ? 'alert-success' : 'alert-danger');
 }
 
-function crearCuenta(e) {
+async function crearCuenta(e) {
     e.preventDefault();
-    mostrarMensaje('registro-error', ''); mostrarMensaje('registro-aviso', '');
+    mostrarMensaje('registro-error', '');
+    mostrarMensaje('registro-aviso', '');
+
     const nombre = document.getElementById('registro-nombre')?.value?.trim();
     const correo = document.getElementById('registro-correo')?.value?.trim().toLowerCase();
+    const telefono = document.getElementById('registro-telefono')?.value?.trim() || '999999999';
     const clave1 = document.getElementById('registro-clave')?.value;
     const clave2 = document.getElementById('registro-clave-repetida')?.value;
+
     if (!nombre || !correo || !clave1) { 
-        mostrarMensaje('registro-error', 'Completa todos los campos.'); 
+        mostrarMensaje('registro-error', 'Completa todos los campos obligatorios.'); 
         return false; 
     }
     if (clave1 !== clave2) { 
         mostrarMensaje('registro-error', 'Las contraseñas no coinciden.'); 
         return false; 
     }
-    if (correo === 'admin@greenbyte.com') { 
-        mostrarMensaje('registro-error', 'Ese correo está reservado para elemento administrador.'); 
-        return false; 
+
+    try {
+        const respuesta = await fetch('/crear', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                nombre: nombre,
+                telefono: telefono,
+                acceso: 'U',
+                correo: correo,
+                clave: clave1
+            })
+        });
+
+        if (respuesta.ok) {
+            mostrarMensaje('registro-aviso', '¡Cuenta creada con éxito! Iniciando sesión...', true);
+            setTimeout(() => {
+                window.location.href = '/iniciar-sesion?correo=' + encodeURIComponent(correo) + '&clave=' + encodeURIComponent(clave1);
+            }, 600);
+        } else {
+            mostrarMensaje('registro-error', 'No se pudo crear la cuenta. Verifica que el correo no esté ya registrado.');
+        }
+    } catch (err) {
+        mostrarMensaje('registro-error', 'Error al conectar con el servidor.');
     }
-    const usuarios = leerUsuarios();
-    if (usuarios[correo]) { 
-        mostrarMensaje('registro-error', 'Ese correo ya está registrado. Inicia sesión.'); 
-        return false; 
-    }
-    usuarios[correo] = { 
-        nombre, clave: clave1 
-    };
-    guardarUsuarios(usuarios);
-    mostrarMensaje('registro-aviso', '¡Cuenta creada! Redirigiendo para iniciar sesión...', true);
-    setTimeout(() => {
-        window.location.href = '/iniciar-sesion?correo=' + encodeURIComponent(correo) + '&clave=' + encodeURIComponent(clave1);
-    }, 800);
+
     return false;
 }

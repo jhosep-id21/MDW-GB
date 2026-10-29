@@ -1,6 +1,7 @@
 body {
-  background-color: #c2c6c4;
+  background-color: #ffffff;
   font-family: 'Roboto', sans-serif;
+  color: #1c2b21;
 }
 .bg-verde-oscuro {
   background-color: #2b4b3b !important;
@@ -231,45 +232,55 @@ body {
   overflow: hidden;
   width: 100%;
   max-width: 18rem;
-  border: 1px solid rgba(46, 204, 113, 0.4);
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 .tarjeta-tienda:hover {
   transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(46, 204, 113, 0.35);
+  box-shadow: 0 8px 24px rgba(140, 91, 70, 0.15);
 }
 .tarjeta-tienda img {
   width: 100%;
-  height: 180px;
+  height: 200px;
   object-fit: cover;
+  background-color: #F4F3F1;
 }
 .cuerpo-tarjeta {
-  padding: 0.9rem;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
 }
 .cuerpo-tarjeta h5 {
   font-size: 1rem;
   margin-bottom: 0.1rem;
   color: #1c2b21;
+  font-weight: 700;
 }
 .etiqueta-categoria {
   font-size: 0.75rem;
-  color: #6b7d70;
+  color: #8C5B46;
+  font-weight: 600;
   margin-bottom: 0.4rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 .descripcion-tarjeta {
   font-size: 0.85rem;
-  color: #4c5f52;
+  color: #5a5a5a;
+  line-height: 1.5;
   min-height: 3.6em;
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
+  flex-grow: 1;
 }
 .precio-tarjeta {
   font-size: 1.25rem;
   font-weight: 700;
-  color: #2d7a4b;
+  color: #8C5B46;
   margin-bottom: 0.6rem;
 }
 .insignia-destacada {
@@ -585,4 +596,112 @@ body {
 }
 .menu-categorias .overflow-x-auto::-webkit-scrollbar {
   display: none;
+}
+
+/* --- TEMA MANUAL BYTE / TIPS DE LUZ (fondo blanco, tarjetas claras) --- */
+body.tema-claro {
+  background-color: #ffffff;
+  color: #1c2b21;
+}
+.tema-titulo {
+  color: #1c2b21;
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+}
+.pill-filtro {
+  background-color: #F4F3F1;
+  border: 1px solid #e0e0e0;
+  color: #8C5B46;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border-radius: 999px;
+  padding: 0.5rem 1.25rem;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+.pill-filtro.active,
+.pill-filtro:hover {
+  background-color: #8C5B46;
+  color: #ffffff;
+  border-color: #8C5B46;
+}
+.tarjeta-tema {
+  background-color: #F7F3EE;
+  border: 1px solid #E8E2DA;
+  border-radius: 12px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  height: 100%;
+}
+.tarjeta-tema:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(140, 91, 70, 0.12);
+}
+.tarjeta-tema h5 {
+  color: #1c2b21;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+.tarjeta-tema .subtitulo {
+  color: #6b4332;
+  font-size: 0.875rem;
+  margin-bottom: 1rem;
+}
+.tarjeta-tema ul {
+  color: #3a3a3a;
+  font-size: 0.9rem;
+  padding-left: 1.25rem;
+  margin-bottom: 0;
+}
+.tarjeta-tema ul li {
+  margin-bottom: 0.5rem;
+}
+.tarjeta-tema ul li b {
+  color: #8C5B46;
+}
+.btn-ver-tema {
+  width: 100%;
+  border-radius: 8px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  border: none;
+}
+.btn-ver-interior {
+  background-color: #529f72;
+  color: #ffffff;
+}
+.btn-ver-interior:hover {
+  background-color: #2d513b;
+  color: #ffffff;
+}
+.btn-ver-tropicales {
+  background-color: #529f72;
+  color: #ffffff;
+}
+.btn-ver-tropicales:hover {
+  background-color: #2d513b;
+  color: #ffffff;
+}
+.btn-ver-exterior {
+  background-color: #E8B44C;
+  color: #1c2b21;
+}
+.btn-ver-exterior:hover {
+  background-color: #d4a03a;
+  color: #1c2b21;
+}
+.medir-box {
+  background-color: #E8E8E8;
+  border: 1px solid #d4d4d4;
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  margin-top: 2rem;
+}
+.medir-box strong {
+  color: #1c2b21;
+}
+.medir-box p {
+  color: #4a4a4a;
+  font-size: 0.95rem;
+  margin-bottom: 0;
 }
