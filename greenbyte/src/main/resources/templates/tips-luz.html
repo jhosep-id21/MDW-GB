@@ -103,15 +103,7 @@
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous"></script>
     <script th:src="@{/js/cart.js}"></script>
     <script th:src="@{/js/auth.js}"></script>
-    <script>
-        function filtrarLuz(tipo, boton) {
-            document.querySelectorAll('#lista-luces .tarjeta-tema').forEach(c =>
-                c.style.display = (tipo === 'todos' || c.dataset.luz === tipo) ? '' : 'none'
-            );
-            document.querySelectorAll('.pill-filtro').forEach(b => b.classList.remove('active'));
-            if (boton) boton.classList.add('active');
-        }
-    </script>
+    <script th:src="@{/js/tips-luz.js}"></script>
 </body>
 
 </html>

@@ -29,7 +29,7 @@
             <!-- 8 fichas estáticas -->
             <div class="col-md-6 col-lg-4 tarjeta-tema">
                 <div class="p-3 h-100 d-flex flex-column">
-                    <h5 class="mb-1">Monstera Deliciosa <span class="badge bg-success ms-1">Interior</span></h5>
+                    <h5 class="mb-1">Monstera Deliciosa <span class="badge badge-interior ms-1">Interior</span></h5>
                     <p class="small text-muted mb-2">Fenestrada, tropical. Muy popular.</p>
                     <ul class="small mb-0 flex-grow-1">
                         <li><i class="bi bi-sun me-1 text-warning"></i><b>Luz:</b> Brillante indirecta</li>
@@ -41,7 +41,7 @@
             </div>
             <div class="col-md-6 col-lg-4 tarjeta-tema">
                 <div class="p-3 h-100 d-flex flex-column">
-                    <h5 class="mb-1">Sansevieria <span class="badge bg-success">Interior</span></h5>
+                    <h5 class="mb-1">Sansevieria <span class="badge badge-interior">Interior</span></h5>
                     <p class="small text-muted mb-2">Lengua de suegra, indestructible.</p>
                     <ul class="small mb-0 flex-grow-1">
                         <li><i class="bi bi-sun me-1"></i><b>Luz:</b> Baja a brillante</li>
@@ -53,7 +53,7 @@
             </div>
             <div class="col-md-6 col-lg-4 tarjeta-tema">
                 <div class="p-3 h-100 d-flex flex-column">
-                    <h5 class="mb-1">Aloe Vera <span class="badge bg-success">Suculenta</span></h5>
+                    <h5 class="mb-1">Aloe Vera <span class="badge badge-principiantes">Suculenta</span></h5>
                     <p class="small text-muted mb-2">Medicinal y resistente.</p>
                     <ul class="small mb-0 flex-grow-1">
                         <li><i class="bi bi-sun me-1"></i><b>Luz:</b> Sol directo / brillante</li>
@@ -65,7 +65,7 @@
             </div>
             <div class="col-md-6 col-lg-4 tarjeta-tema">
                 <div class="p-3 h-100 d-flex flex-column">
-                    <h5 class="mb-1">Geranio <span class="badge bg-warning text-dark">Exterior</span></h5>
+                    <h5 class="mb-1">Geranio <span class="badge badge-exterior">Exterior</span></h5>
                     <p class="small text-muted mb-2">Balcones a pleno sol.</p>
                     <ul class="small mb-0 flex-grow-1">
                         <li><i class="bi bi-sun me-1"></i><b>Luz:</b> Sol directo 6h+</li>
@@ -77,7 +77,7 @@
             </div>
             <div class="col-md-6 col-lg-4 tarjeta-tema">
                 <div class="p-3 h-100 d-flex flex-column">
-                    <h5 class="mb-1">Hortensia <span class="badge bg-warning text-dark">Exterior</span></h5>
+                    <h5 class="mb-1">Hortensia <span class="badge badge-exterior">Exterior</span></h5>
                     <p class="small text-muted mb-2">Flores grandes, suelo ácido.</p>
                     <ul class="small mb-0 flex-grow-1">
                         <li><i class="bi bi-sun me-1"></i><b>Luz:</b> Semisombra</li>
@@ -89,7 +89,7 @@
             </div>
             <div class="col-md-6 col-lg-4 tarjeta-tema">
                 <div class="p-3 h-100 d-flex flex-column">
-                    <h5 class="mb-1">Menta <span class="badge bg-info text-dark">Aromática</span></h5>
+                    <h5 class="mb-1">Menta <span class="badge badge-accesorios">Aromática</span></h5>
                     <p class="small text-muted mb-2">Culinaria, invasiva.</p>
                     <ul class="small mb-0 flex-grow-1">
                         <li><i class="bi bi-sun me-1"></i><b>Luz:</b> Brillante / sol suave</li>
@@ -101,7 +101,7 @@
             </div>
             <div class="col-md-6 col-lg-4 tarjeta-tema">
                 <div class="p-3 h-100 d-flex flex-column">
-                    <h5 class="mb-1">Pothos Dorado <span class="badge bg-success">Colgante</span></h5>
+                    <h5 class="mb-1">Pothos Dorado <span class="badge badge-principiantes">Colgante</span></h5>
                     <p class="small text-muted mb-2">Ideal para principiantes, purifica.</p>
                     <ul class="small mb-0 flex-grow-1">
                         <li><i class="bi bi-sun me-1"></i><b>Luz:</b> Baja a media</li>
@@ -113,7 +113,7 @@
             </div>
             <div class="col-md-6 col-lg-4 tarjeta-tema">
                 <div class="p-3 h-100 d-flex flex-column">
-                    <h5 class="mb-1">Lavanda <span class="badge bg-warning text-dark">Exterior</span></h5>
+                    <h5 class="mb-1">Lavanda <span class="badge badge-exterior">Exterior</span></h5>
                     <p class="small text-muted mb-2">Aromática, atrae polinizadores.</p>
                     <ul class="small mb-0 flex-grow-1">
                         <li><i class="bi bi-sun me-1"></i><b>Luz:</b> Sol pleno 8h</li>
@@ -130,7 +130,7 @@
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous"></script>
     <script th:src="@{/js/cart.js}"></script>
     <script th:src="@{/js/auth.js}"></script>
-    <script>document.getElementById('filtro-fichas')?.addEventListener('input', e => { const textoBuscado = e.target.value.toLowerCase(); document.querySelectorAll('.tarjeta-tema').forEach(c => c.style.display = c.innerText.toLowerCase().includes(textoBuscado) ? '' : 'none'); });</script>
+    <script th:src="@{/js/fichas.js}"></script>
 </body>
 
 </html>

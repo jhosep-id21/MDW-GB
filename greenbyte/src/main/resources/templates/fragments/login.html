@@ -6,7 +6,7 @@
             <!-- Header con fondo blanco y texto verde oscuro -->
             <div class="modal-header border-bottom-0 pt-4 px-4 pb-0">
                 <h5 class="modal-title fw-bold"
-                    style="color: #2b4b3b; font-family: 'Playfair Display', serif; font-size: 1.4rem;">
+                    style="color: #1b4332; font-family: 'Playfair Display', serif; font-size: 1.4rem;">
                     Mi cuenta - GreenByte
                 </h5>
                 <!-- Botón de cerrar estándar de Bootstrap (oscuro) -->
@@ -20,7 +20,7 @@
                         <!-- Usamos nav-underline de Bootstrap 5.3+ y estilos para el color activo -->
                         <button class="nav-link active fw-bold" id="pestana-acceso" data-bs-toggle="tab"
                             data-bs-target="#panel-acceso" type="button" role="tab"
-                            style="color: #2b4b3b; border-bottom-color: #2b4b3b;">Iniciar Sesión</button>
+                            style="color: #1b4332; border-bottom-color: #1b4332;">Iniciar Sesión</button>
                     </li>
                     <li class="nav-item" role="presentation">
                         <button class="nav-link fw-bold text-muted" id="pestana-registro" data-bs-toggle="tab"
@@ -30,9 +30,10 @@
                 </ul>
 
                 <div class="tab-content">
-                    <!-- ACCESO (validado en backend: GET /iniciar-sesion + HttpSession) -->
+                    <!-- ACCESO: credenciales enviadas mediante POST y sesión de servidor. -->
                     <div class="tab-pane fade show active" id="panel-acceso" role="tabpanel">
-                        <form th:action="@{/iniciar-sesion}" method="get" id="formulario-acceso">
+                        <div id="acceso-aviso" class="alert alert-success py-2 small d-none" role="status"></div>
+                        <form th:action="@{/iniciar-sesion}" method="post" id="formulario-acceso">
                             <div class="mb-3">
                                 <label class="form-label text-muted small fw-bold text-uppercase"
                                     style="letter-spacing: 0.5px;">Correo electrónico</label>
@@ -50,13 +51,13 @@
 
                             <!-- Botón principal Terracota -->
                             <button type="submit" class="btn w-100 py-3 mb-3 text-white fw-bold"
-                                style="background-color: #A65D43; border-radius: 6px; letter-spacing: 1px;">
+                                style="background-color: #2D6A4F; border-radius: 6px; letter-spacing: 1px;">
                                 INGRESAR
                             </button>
 
                             <div class="text-center small text-muted">
                                 ¿Nuevo aquí? <a href="#" onclick="irARegistro(event)"
-                                    class="fw-bold text-decoration-none" style="color: #A65D43;">Crea tu cuenta
+                                    class="fw-bold text-decoration-none" style="color: #2D6A4F;">Crea tu cuenta
                                     gratis</a>
                             </div>
                         </form>
@@ -69,14 +70,14 @@
                             <div class="mb-3">
                                 <label class="form-label text-muted small fw-bold text-uppercase">Nombre
                                     completo</label>
-                                <input type="text" id="registro-nombre"
+                                <input type="text" id="registro-nombre" required
                                     class="form-control form-control-lg bg-light border-0" placeholder="Ej: Ana Torres"
                                 >
                             </div>
                             <div class="mb-3">
                                 <label class="form-label text-muted small fw-bold text-uppercase">Correo
                                     electrónico</label>
-                                <input type="email" id="registro-correo"
+                                <input type="email" id="registro-correo" required
                                     class="form-control form-control-lg bg-light border-0" placeholder="tu@correo.com"
                                 >
                             </div>
@@ -85,8 +86,8 @@
                             <div class="mb-3">
                                 <label class="form-label text-muted small fw-bold text-uppercase">Teléfono (para
                                     envíos)</label>
-                                <input type="tel" id="registro-telefono"
-                                    class="form-control form-control-lg bg-light border-0" placeholder="+34 600 000 000"
+                                <input type="tel" id="registro-telefono" required
+                                    class="form-control form-control-lg bg-light border-0" placeholder="999 999 999"
                                 >
                             </div>
 
@@ -94,13 +95,13 @@
                             <div class="row mb-3">
                                 <div class="col-6">
                                     <label class="form-label text-muted small fw-bold text-uppercase">Contraseña</label>
-                                    <input type="password" id="registro-clave"
+                                    <input type="password" id="registro-clave" minlength="8" required
                                         class="form-control form-control-lg bg-light border-0">
                                 </div>
                                 <div class="col-6">
                                     <label class="form-label text-muted small fw-bold text-uppercase">Repetir
                                         contraseña</label>
-                                    <input type="password" id="registro-clave-repetida"
+                                    <input type="password" id="registro-clave-repetida" minlength="8" required
                                         class="form-control form-control-lg bg-light border-0">
                                 </div>
                             </div>
@@ -108,10 +109,10 @@
                             <!-- NUEVO: Checkboxes de Términos y Newsletter -->
                             <div class="mb-4">
                                 <div class="form-check mb-2">
-                                    <input class="form-check-input" type="checkbox" id="registro-terminos">
+                                    <input class="form-check-input" type="checkbox" id="registro-terminos" required>
                                     <label class="form-check-label small text-muted" for="registro-terminos">
                                         Acepto los <a href="#" class="text-decoration-none"
-                                            style="color: #A65D43;">Términos y Condiciones</a> y la Política de
+                                            style="color: #2D6A4F;">Términos y Condiciones</a> y la Política de
                                         Privacidad.
                                     </label>
                                 </div>
@@ -129,7 +130,7 @@
 
                             <!-- Botón -->
                             <button type="submit" class="btn w-100 py-3 mb-3 text-white fw-bold"
-                                style="background-color: #A65D43; border-radius: 6px; letter-spacing: 1px;">
+                                style="background-color: #2D6A4F; border-radius: 6px; letter-spacing: 1px;">
                                 CREAR CUENTA
                             </button>
 

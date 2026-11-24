@@ -7,6 +7,10 @@ import com.example.greenbyte.repositorio.CategoriaRepository;
 import com.example.greenbyte.repositorio.ProductoRepository;
 import com.example.greenbyte.repositorio.UserRepository;
 import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.server.ResponseStatusException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -26,16 +30,28 @@ public class Controlador {
     private final UserRepository userRepository;
     private final ProductoRepository productoRepository;
     private final CategoriaRepository categoriaRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
     public Controlador(JdbcTemplate jdbcTemplate,
             UserRepository userRepository,
             ProductoRepository productoRepository,
-            CategoriaRepository categoriaRepository) {
+            CategoriaRepository categoriaRepository,
+            PasswordEncoder passwordEncoder) {
         this.jdbcTemplate = jdbcTemplate;
         this.userRepository = userRepository;
         this.productoRepository = productoRepository;
         this.categoriaRepository = categoriaRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
+
+    @ModelAttribute
+    public void protegerRutasAdministrativas(HttpServletRequest request, HttpSession session) {
+        String ruta = request.getRequestURI();
+        boolean rutaRestringida = ruta.startsWith("/administrador") || ruta.equals("/usuario") || ruta.startsWith("/test/");
+        if (rutaRestringida && !"ADMIN".equals(session.getAttribute("rol"))) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Acceso restringido al administrador");
+        }
     }
 
     // ================= Vistas Principales =================
@@ -156,16 +172,17 @@ public class Controlador {
             return "registro";
         }
 
-        // 2. Validación de negocio: correo único
+        // 2. Normalizamos el correo antes de comprobar su unicidad.
+        usuario.setCorreo(usuario.getCorreo().trim().toLowerCase());
         if (userRepository.findByCorreo(usuario.getCorreo()).isPresent()) {
             result.rejectValue("correo", "usuario.duplicado", "El correo ya está registrado");
             return "registro";
         }
 
         // 3. Guardar en base de datos
-        if (usuario.getAcceso() == null) {
-            usuario.setAcceso('U');
-        }
+        // El rol nunca debe venir del formulario público.
+        usuario.setAcceso('U');
+        usuario.setClave(passwordEncoder.encode(usuario.getClave()));
         userRepository.save(usuario);
         redireccion.addFlashAttribute("success", "¡Cuenta creada correctamente! Ya puedes iniciar sesión.");
         return "redirect:/";
@@ -173,8 +190,9 @@ public class Controlador {
 
     // ================= Login (sesión) =================
 
-    @RequestMapping(value = "/iniciar-sesion", method = { RequestMethod.GET, RequestMethod.POST })
-    public String iniciarSesion(@RequestParam(required = false) String correo,
+    @PostMapping("/iniciar-sesion")
+    public String iniciarSesion(HttpServletRequest request,
+            @RequestParam(required = false) String correo,
             @RequestParam(required = false) String clave,
             HttpSession session,
             RedirectAttributes redireccion) {
@@ -188,7 +206,18 @@ public class Controlador {
 
         if (usuarioOpt.isPresent()) {
             User u = usuarioOpt.get();
-            if (u.getClave().equals(clave)) {
+            boolean claveValida = u.getClave() != null
+                    && (u.getClave().startsWith("$2a$")
+                        ? passwordEncoder.matches(clave, u.getClave())
+                        : u.getClave().equals(clave));
+
+            if (claveValida) {
+                request.changeSessionId();
+                // Migra contraseñas antiguas en texto plano al primer inicio de sesión.
+                if (!u.getClave().startsWith("$2a$")) {
+                    u.setClave(passwordEncoder.encode(clave));
+                    userRepository.save(u);
+                }
                 session.setAttribute("usuario", u.getCorreo());
                 session.setAttribute("nombre", u.getNombre());
                 session.setAttribute("rol", u.getAcceso() != null && u.getAcceso() == 'A' ? "ADMIN" : "USER");
@@ -266,7 +295,7 @@ public class Controlador {
         }
     }
 
-    @GetMapping("/administrador/productos/eliminar/{id}")
+    @PostMapping("/administrador/productos/eliminar/{id}")
     public String eliminarProductoAdmin(@PathVariable Long id, RedirectAttributes redireccion) {
         if (productoRepository.existsById(id)) {
             productoRepository.deleteById(id);
@@ -373,17 +402,20 @@ public class Controlador {
 
     @PostMapping("/crear")
     @ResponseBody
-    public String saveUser(@RequestBody User user) {
-        if (user.getAcceso() == null) {
-            user.setAcceso('U');
-        }
+    public String saveUser(@Valid @RequestBody User user) {
+        // Este endpoint es de registro público: nunca permite crear administradores.
+        user.setAcceso('U');
         if (user.getCorreo() != null
                 && userRepository.findByCorreo(user.getCorreo().trim().toLowerCase()).isPresent()) {
-            return "El correo ya está registrado";
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "El correo ya está registrado");
         }
         if (user.getCorreo() != null) {
             user.setCorreo(user.getCorreo().trim().toLowerCase());
         }
+        if (user.getClave() == null || user.getClave().isBlank()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "La contraseña es obligatoria");
+        }
+        user.setClave(passwordEncoder.encode(user.getClave()));
         userRepository.save(user);
         return "Guardado correctamente";
     }
@@ -466,7 +498,7 @@ public class Controlador {
         return "Error: Producto no encontrado con ID " + id;
     }
 
-    @GetMapping("/test/productos/eliminar/{id}")
+    @DeleteMapping("/test/productos/eliminar/{id}")
     @ResponseBody
     public String eliminarProductoGetTest(@PathVariable Long id) {
         if (productoRepository.existsById(id)) {

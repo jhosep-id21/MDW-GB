@@ -594,6 +594,41 @@ body {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+/* --- ESTILOS PANEL ADMINISTRADOR --- */
+.admin-bg {
+  background-color: #f4f7f6;
+}
+.text-verde-oscuro {
+  color: #2b4b3b !important;
+}
+.card {
+  border-radius: 12px;
+}
+
+/* Sub-barra de Categorías */
+/* --- BADGES DE CATEGORÍA (Colores de marca) --- */
+.badge-interior {
+  background-color: #8C5B46;
+  color: #ffffff;
+}
+.badge-exterior {
+  background-color: #6b4332;
+  color: #ffffff;
+}
+.badge-macetas {
+  background-color: #2d513b;
+  color: #ffffff;
+}
+.badge-accesorios {
+  background-color: #6b4332;
+  color: #ffffff;
+}
+.badge-principiantes {
+  background-color: #8C5B46;
+  color: #ffffff;
+}
+
+/* Sub-barra de Categorías */
 .menu-categorias .overflow-x-auto::-webkit-scrollbar {
   display: none;
 }
@@ -705,3 +740,228 @@ body.tema-claro {
   font-size: 0.95rem;
   margin-bottom: 0;
 }
+
+
+/* =========================================================
+   GREENBYTE UI — sistema visual unificado
+   Paleta: verde bosque, verde hoja y crema natural.
+   ========================================================= */
+:root {
+  --gb-forest: #1b4332;
+  --gb-forest-deep: #163528;
+  --gb-green: #2d6a4f;
+  --gb-leaf: #74a987;
+  --gb-mint: #dceee2;
+  --gb-cream: #f7f8f4;
+  --gb-surface: #ffffff;
+  --gb-ink: #24352b;
+  --gb-muted: #65746a;
+  --gb-border: #dce5dc;
+  --gb-accent: #c58b52;
+  --gb-shadow: 0 8px 24px rgba(27, 67, 50, .08);
+}
+
+html { scroll-behavior: smooth; }
+body {
+  background: var(--gb-cream);
+  color: var(--gb-ink);
+  font-family: "Roboto", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+a { color: var(--gb-green); }
+a:hover { color: var(--gb-forest); }
+
+/* Navegación principal: contraste consistente en todas las vistas. */
+.barra-nav.espinitas-style,
+.barra-nav {
+  background: var(--gb-forest) !important;
+  border-bottom: 1px solid rgba(255,255,255,.12);
+}
+.barra-nav .navbar-brand,
+.barra-nav .titulo-marca {
+  color: #fff !important;
+}
+.barra-nav .titulo-marca span { color: #a8d5b5; }
+.barra-nav .nav-link,
+.barra-nav .navbar-nav .nav-link {
+  color: #edf5ef !important;
+}
+.barra-nav .nav-link:hover,
+.barra-nav .nav-link:focus,
+.barra-nav .nav-link.active {
+  color: #a8d5b5 !important;
+  opacity: 1;
+}
+.barra-nav .navbar-toggler-icon {
+  filter: invert(1);
+}
+.barra-nav .buscador-minimalista .form-control {
+  background: rgba(255,255,255,.1);
+  border-color: rgba(255,255,255,.3);
+  color: #fff;
+}
+.barra-nav .buscador-minimalista .form-control::placeholder { color: #d4e2d8; }
+.barra-nav .btn-buscar,
+.barra-nav .btn-carrito-minimalista { color: #fff; }
+.barra-nav .btn-carrito-minimalista .contador-numero {
+  background: #a8d5b5;
+  color: var(--gb-forest);
+}
+.menu-categorias {
+  background: #fff;
+  border-bottom: 1px solid var(--gb-border);
+}
+.menu-categorias .nav-link {
+  color: var(--gb-forest) !important;
+  font-weight: 600;
+}
+.menu-categorias .nav-link:hover {
+  color: var(--gb-green) !important;
+  background: var(--gb-mint);
+  border-radius: 999px;
+}
+.dropdown-menu {
+  border: 1px solid var(--gb-border);
+  box-shadow: var(--gb-shadow);
+}
+.dropdown-menu .dropdown-item { color: var(--gb-ink); }
+.dropdown-menu .dropdown-item:hover { background: var(--gb-mint); color: var(--gb-forest); }
+.promo-text { color: #d8eadc; }
+
+/* Tarjetas: no forzar el mismo fondo a componentes claros y oscuros. */
+.card {
+  background: var(--gb-surface) !important;
+  color: var(--gb-ink);
+  border: 1px solid var(--gb-border) !important;
+  border-radius: 1rem;
+  box-shadow: 0 3px 14px rgba(27,67,50,.05);
+}
+.card:hover { box-shadow: var(--gb-shadow); }
+.card.bg-dark,
+.admin-bg .card.bg-dark {
+  background: var(--gb-forest) !important;
+  color: #fff !important;
+  border-color: #426b55 !important;
+}
+.tarjeta-tema,
+.card.tarjeta-tema,
+.tarjeta-consejo {
+  background: #fff !important;
+  color: var(--gb-ink) !important;
+  border-color: var(--gb-border) !important;
+}
+.tarjeta-tienda {
+  background: #fff;
+  border-color: var(--gb-border);
+  box-shadow: 0 4px 16px rgba(27,67,50,.06);
+}
+.tarjeta-tienda:hover { box-shadow: var(--gb-shadow); }
+.tarjeta-tienda .cuerpo-tarjeta h5 { color: var(--gb-forest); }
+.tarjeta-tienda .etiqueta-categoria { color: var(--gb-green); }
+.tarjeta-tienda .precio-tarjeta { color: var(--gb-forest); }
+.tarjeta-cuidado {
+  background: var(--gb-forest);
+  border-color: #426b55;
+}
+.seccion-clara,
+.heroe-portada,
+.mosaico-categoria {
+  background: #fff;
+  border-color: var(--gb-border);
+}
+
+/* Botones y estados. */
+.btn-success,
+.btn-ver-interior,
+.btn-ver-tropicales {
+  background: var(--gb-green);
+  border-color: var(--gb-green);
+  color: #fff;
+}
+.btn-success:hover,
+.btn-ver-interior:hover,
+.btn-ver-tropicales:hover {
+  background: var(--gb-forest);
+  border-color: var(--gb-forest);
+  color: #fff;
+}
+.btn-outline-success {
+  color: var(--gb-green);
+  border-color: var(--gb-green);
+}
+.btn-outline-success:hover {
+  background: var(--gb-green);
+  border-color: var(--gb-green);
+  color: #fff;
+}
+.btn-terracota,
+.btn-outline-terracota,
+.pill-filtro.active,
+.pill-filtro:hover {
+  background: var(--gb-green);
+  border-color: var(--gb-green);
+  color: #fff;
+}
+.btn-terracota:hover,
+.btn-outline-terracota:hover { background: var(--gb-forest); border-color: var(--gb-forest); }
+.btn-ver-exterior { background: #e7bd79; color: #26372c; }
+.btn-ver-exterior:hover { background: #d9a85b; color: #26372c; }
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--gb-leaf);
+  box-shadow: 0 0 0 .2rem rgba(116,169,135,.2);
+}
+
+/* Páginas de catálogo tenían títulos blancos sobre fondo claro. */
+.catalogo-page { background: var(--gb-cream); }
+.catalogo-page .container > .d-flex h2,
+.catalogo-page .container > main .d-flex h2 {
+  color: var(--gb-forest) !important;
+}
+.catalogo-page .container > p { color: var(--gb-muted) !important; }
+.catalogo-page .container > .d-flex h2 .bi { color: var(--gb-green) !important; }
+.admin-bg { background: #f2f6f2; }
+body.tema-claro { background: var(--gb-cream); color: var(--gb-ink); }
+.tema-titulo { color: var(--gb-forest); }
+.tarjeta-tema .subtitulo,
+.tarjeta-tema ul li b { color: var(--gb-green); }
+.medir-box { background: #edf3ed; border-color: var(--gb-border); }
+
+/* Modal de acceso y panel lateral. */
+#modal-acceso .modal-content { background: #fff; color: var(--gb-ink); }
+#modal-acceso .nav-link { color: var(--gb-muted) !important; }
+#modal-acceso .nav-link.active { color: var(--gb-forest) !important; }
+.offcanvas { background: #fff; color: var(--gb-ink); }
+.articulo-carrito { border-color: var(--gb-border) !important; }
+.articulo-carrito .btn-outline-secondary { color: var(--gb-forest); border-color: var(--gb-border); }
+
+/* Pie de página */
+.pie-pagina {
+  background: var(--gb-forest);
+  color: #e7f0e9;
+}
+.pie-pagina h4,
+.pie-pagina h5 { color: #fff; }
+.pie-pagina h5 { color: #b8dfc3; }
+.pie-pagina p { color: #d1e0d5; }
+.pie-pagina a { color: #e7f0e9; }
+.pie-pagina a:hover { color: #b8dfc3; }
+.pie-pagina hr { border-color: rgba(255,255,255,.2); }
+
+/* Accesibilidad y adaptación móvil. */
+:focus-visible { outline: 3px solid rgba(116,169,135,.65); outline-offset: 2px; }
+@media (max-width: 991.98px) {
+  .barra-nav .navbar-collapse { padding-top: .75rem; }
+  .barra-nav .buscador-minimalista { width: 100%; }
+  .barra-nav .navbar-nav { align-items: flex-start !important; }
+  .menu-categorias .container-fluid { justify-content: flex-start !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }
+}
+
+/* Badges de categorías: variaciones de la paleta verde. */
+.badge-interior { background: #2d6a4f; color: #fff; }
+.badge-exterior { background: #477f5e; color: #fff; }
+.badge-macetas { background: #1b4332; color: #fff; }
+.badge-accesorios { background: #638e70; color: #fff; }
+.badge-principiantes { background: #8bb99a; color: #163528; }

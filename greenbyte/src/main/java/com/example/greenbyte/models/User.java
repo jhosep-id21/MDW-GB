@@ -9,12 +9,16 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Getter
+
+@Getter 
 @Setter
+
 @Table(name = "`user`")
 public class User {
 
@@ -22,11 +26,11 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotEmpty(message = "El nombre no puede estar vacío")
+    @NotBlank(message = "El nombre no puede estar vacío")
     @Column(nullable = false)
     private String nombre;
 
-    @NotEmpty(message = "El teléfono no puede estar vacío")
+    @NotBlank(message = "El teléfono no puede estar vacío")
     @Column(nullable = false)
     private String telefono;
 
@@ -35,11 +39,12 @@ public class User {
     private Character acceso = 'U';
 
     @Email(message = "El correo debe ser válido")
-    @NotEmpty(message = "El correo no puede estar vacío")
+    @NotBlank(message = "El correo no puede estar vacío")
     @Column(unique = true, nullable = false)
     private String correo;
 
     @NotEmpty(message = "La clave no puede estar vacía")
+    @Size(min = 8, message = "La contraseña debe tener al menos 8 caracteres")
     @Column(nullable = false)
     private String clave;
 
