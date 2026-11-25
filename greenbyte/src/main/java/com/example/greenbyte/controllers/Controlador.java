@@ -3,6 +3,7 @@ package com.example.greenbyte.controllers;
 import com.example.greenbyte.models.Categoria;
 import com.example.greenbyte.models.Producto;
 import com.example.greenbyte.models.User;
+import com.example.greenbyte.repositorio.CampaniaRepository;
 import com.example.greenbyte.repositorio.CategoriaRepository;
 import com.example.greenbyte.repositorio.ProductoRepository;
 import com.example.greenbyte.repositorio.UserRepository;
@@ -12,45 +13,57 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.server.ResponseStatusException;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.HandlerMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Controller
 public class Controlador {
 
-    private final JdbcTemplate jdbcTemplate;
     private final UserRepository userRepository;
     private final ProductoRepository productoRepository;
     private final CategoriaRepository categoriaRepository;
     private final PasswordEncoder passwordEncoder;
+    private final CampaniaRepository campaniaRepository;
 
-    @Autowired
-    public Controlador(JdbcTemplate jdbcTemplate,
-            UserRepository userRepository,
+    public Controlador(UserRepository userRepository,
             ProductoRepository productoRepository,
             CategoriaRepository categoriaRepository,
-            PasswordEncoder passwordEncoder) {
-        this.jdbcTemplate = jdbcTemplate;
+            PasswordEncoder passwordEncoder,
+            CampaniaRepository campaniaRepository) {
         this.userRepository = userRepository;
         this.productoRepository = productoRepository;
         this.categoriaRepository = categoriaRepository;
         this.passwordEncoder = passwordEncoder;
+        this.campaniaRepository = campaniaRepository;
     }
 
     @ModelAttribute
-    public void protegerRutasAdministrativas(HttpServletRequest request, HttpSession session) {
-        String ruta = request.getRequestURI();
-        boolean rutaRestringida = ruta.startsWith("/administrador") || ruta.equals("/usuario") || ruta.startsWith("/test/");
-        if (rutaRestringida && !"ADMIN".equals(session.getAttribute("rol"))) {
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Acceso restringido al administrador");
+    public void protegerRutasPorRol(HttpServletRequest request, HttpSession session) {
+        String ruta = String.valueOf(request.getAttribute(HandlerMapping.BEST_MATCHING_PATTERN_ATTRIBUTE));
+        Object rol = session.getAttribute("rol");
+
+        if (ruta.equals("/administrador") && !"ADMIN".equals(rol)) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Se requiere el rol de administrador");
+        }
+        if ((ruta.equals("/gestor") || ruta.startsWith("/gestor/"))
+                && !"GESTOR".equals(rol)) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Se requiere el rol de gestor");
         }
     }
 
@@ -81,35 +94,49 @@ public class Controlador {
     }
 
     @GetMapping("/")
-    public String index() {
+    public String inicio(Model model) {
+        model.addAttribute("destacados", productoRepository.findFirst4ByStockGreaterThanOrderByIdAsc(0));
+        LocalDate hoy = LocalDate.now(ZoneId.of("America/Lima"));
+        campaniaRepository.findFirstByActivaTrueAndInicioLessThanEqualAndFinGreaterThanEqualOrderByInicioDescIdDesc(hoy, hoy)
+                .ifPresent(campania -> model.addAttribute("campaniaVigente", campania));
         return "index";
     }
 
-    @GetMapping("/inicio")
-    public String inicio() {
-        return "inicio";
+    @GetMapping({"/inicio", "/explorar"})
+    public String redirigirAInicio() {
+        return "redirect:/";
+    }
+
+    @GetMapping("/sobre-nosotros")
+    public String sobreNosotros() {
+        return "sobre-nosotros";
     }
 
     @GetMapping("/productos")
     public String productos(Model model) {
-        List<Producto> lista = productoRepository.findAll();
-        model.addAttribute("productos", lista);
+        model.addAttribute("productos", productoRepository.findAll());
+        model.addAttribute("categorias", categoriaRepository.findAll());
         return "productos";
     }
 
-    @GetMapping("/accesorios")
-    public String mostrarAccesorios() {
-        return "accesorios";
+    @GetMapping("/{categoria:interior|exterior|macetas|accesorios|principiantes}")
+    public String redirigirCategoria(@PathVariable String categoria) {
+        return "redirect:/productos?categoria=" + categoria;
     }
 
     @GetMapping("/administrador")
     public String mostrarAdministrador(Model model) {
-        model.addAttribute("productos", productoRepository.findAll());
-        model.addAttribute("categorias", obtenerOCrearCategorias());
+        model.addAttribute("usuarios", userRepository.findAll());
+        return "administrador";
+    }
+
+    @GetMapping("/gestor")
+    public String mostrarGestor(Model model) {
+        cargarCatalogoGestor(model);
         model.addAttribute("nuevoProducto", new Producto());
         model.addAttribute("productoAEditar", new Producto());
         model.addAttribute("editando", false);
-        return "administrador";
+        return "gestor";
     }
 
     @GetMapping("/contactanos")
@@ -117,39 +144,17 @@ public class Controlador {
         return "contactanos";
     }
 
-    @GetMapping("/exterior")
-    public String mostrarExterior() {
-        return "exterior";
-    }
-
-    @GetMapping("/interior")
-    public String mostrarInterior() {
-        return "interior";
-    }
-
-    @GetMapping("/macetas")
-    public String mostrarMacetas() {
-        return "macetas";
-    }
-
-    @GetMapping("/principiantes")
-    public String mostrarPrincipiantes() {
-        return "principiantes";
-    }
-
-    @GetMapping("/fichas")
-    public String fichas() {
-        return "fichas";
-    }
-
-    @GetMapping("/calculadora-riego")
-    public String calculadoraRiego() {
-        return "calculadora-riego";
-    }
-
-    @GetMapping("/tips-luz")
-    public String tipsLuz() {
-        return "tips-luz";
+    @GetMapping("/{herramienta:fichas|calculadora-riego|tips-luz}")
+    public String manualByte(@PathVariable String herramienta, HttpSession session,
+                             RedirectAttributes redireccion) {
+        if (!Boolean.TRUE.equals(session.getAttribute("logueado"))) {
+            redireccion.addFlashAttribute("error", "Inicia sesión para acceder a Manual Byte.");
+            return "redirect:/";
+        }
+        if (!"CLIENTE".equals(session.getAttribute("rol"))) {
+            return "redirect:/elegir-rol";
+        }
+        return herramienta;
     }
 
     // ================= Registro con Spring Validator =================
@@ -181,11 +186,33 @@ public class Controlador {
 
         // 3. Guardar en base de datos
         // El rol nunca debe venir del formulario público.
+        usuario.setId(null);
         usuario.setAcceso('U');
         usuario.setClave(passwordEncoder.encode(usuario.getClave()));
         userRepository.save(usuario);
         redireccion.addFlashAttribute("success", "¡Cuenta creada correctamente! Ya puedes iniciar sesión.");
         return "redirect:/";
+    }
+
+    @PostMapping("/crear")
+    @ResponseBody
+    public String registrarUsuarioDesdeModal(@Valid @RequestBody User user) {
+        // Este endpoint es de registro público: nunca permite crear administradores.
+        user.setId(null);
+        user.setAcceso('U');
+        if (user.getCorreo() != null
+                && userRepository.findByCorreo(user.getCorreo().trim().toLowerCase()).isPresent()) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "El correo ya está registrado");
+        }
+        if (user.getCorreo() != null) {
+            user.setCorreo(user.getCorreo().trim().toLowerCase());
+        }
+        if (user.getClave() == null || user.getClave().isBlank()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "La contraseña es obligatoria");
+        }
+        user.setClave(passwordEncoder.encode(user.getClave()));
+        userRepository.save(user);
+        return "Guardado correctamente";
     }
 
     // ================= Login (sesión) =================
@@ -220,12 +247,20 @@ public class Controlador {
                 }
                 session.setAttribute("usuario", u.getCorreo());
                 session.setAttribute("nombre", u.getNombre());
-                session.setAttribute("rol", u.getAcceso() != null && u.getAcceso() == 'A' ? "ADMIN" : "USER");
+                List<String> roles = switch (u.getAcceso() == null ? 'U' : u.getAcceso()) {
+                    case 'A' -> List.of("ADMIN", "GESTOR", "CLIENTE");
+                    case 'G' -> List.of("GESTOR", "CLIENTE");
+                    default -> List.of("CLIENTE");
+                };
+                session.setAttribute("rolesPermitidos", roles);
+                session.setAttribute("tokenCambioRol", UUID.randomUUID().toString());
                 session.setAttribute("logueado", true);
                 redireccion.addFlashAttribute("success", "¡Bienvenido " + u.getNombre() + "!");
-                if (u.getAcceso() != null && u.getAcceso() == 'A') {
-                    return "redirect:/administrador";
+                if (roles.size() > 1) {
+                    session.removeAttribute("rol");
+                    return "redirect:/elegir-rol";
                 }
+                session.setAttribute("rol", "CLIENTE");
                 return "redirect:/";
             } else {
                 redireccion.addFlashAttribute("error", "Contraseña incorrecta");
@@ -237,92 +272,123 @@ public class Controlador {
         }
     }
 
+    @GetMapping("/elegir-rol")
+    public String elegirRol(HttpSession session) {
+        if (!(session.getAttribute("rolesPermitidos") instanceof List<?> roles) || roles.size() < 2) {
+            return "redirect:/";
+        }
+        return "elegir-rol";
+    }
+
+    @PostMapping("/elegir-rol")
+    public String cambiarRol(@RequestParam String rol, @RequestParam String token, HttpSession session) {
+        if (!token.equals(session.getAttribute("tokenCambioRol"))
+                || !(session.getAttribute("rolesPermitidos") instanceof List<?> roles)
+                || roles.size() < 2 || !roles.contains(rol)) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "El rol solicitado no está disponible");
+        }
+        session.setAttribute("rol", rol);
+        return switch (rol) {
+            case "ADMIN" -> "redirect:/administrador";
+            case "GESTOR" -> "redirect:/gestor";
+            default -> "redirect:/";
+        };
+    }
+
     @GetMapping("/cerrar-sesion")
     public String cerrarSesion(HttpSession session) {
         session.invalidate();
         return "redirect:/";
     }
 
-    // ================= Gestión Web Admin =================
+    // ================= Gestión de catálogo =================
 
-    @PostMapping("/administrador/productos/guardar")
-    public String guardarProductoAdmin(@Valid @ModelAttribute("nuevoProducto") Producto producto,
+    private void cargarCatalogoGestor(Model model) {
+        model.addAttribute("productos", productoRepository.findAll());
+        model.addAttribute("categorias", obtenerOCrearCategorias());
+    }
+
+    @PostMapping("/gestor/categorias")
+    public String crearCategoria(@RequestParam String nombre, @RequestParam String token,
+            HttpSession session, RedirectAttributes redireccion) {
+        if (!token.equals(session.getAttribute("tokenCambioRol"))) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Formulario inválido");
+        }
+
+        String nombreLimpio = nombre.strip();
+        if (nombreLimpio.isEmpty() || nombreLimpio.length() > 50) {
+            redireccion.addFlashAttribute("error", "El nombre debe tener entre 1 y 50 caracteres.");
+        } else if (categoriaRepository.existsByNombreIgnoreCase(nombreLimpio)) {
+            redireccion.addFlashAttribute("error", "Ya existe una categoría con ese nombre.");
+        } else {
+            Categoria categoria = new Categoria();
+            categoria.setNombre(nombreLimpio);
+            categoriaRepository.save(categoria);
+            redireccion.addFlashAttribute("success", "Categoría creada correctamente.");
+        }
+        return "redirect:/gestor";
+    }
+
+    @PostMapping("/gestor/productos/guardar")
+    public String guardarProducto(@Valid @ModelAttribute("nuevoProducto") Producto producto,
             BindingResult result,
             @RequestParam(value = "categoriaId", required = false) Long categoriaId,
             RedirectAttributes redireccion,
             Model model) {
-        if (categoriaId == null) {
-            result.rejectValue("categoria", "error.categoria", "Debe seleccionar una categoría");
-        } else {
-            Optional<Categoria> catOpt = categoriaRepository.findById(categoriaId);
-            if (catOpt.isPresent()) {
-                producto.setCategoria(catOpt.get());
-            } else {
-                result.rejectValue("categoria", "error.categoria", "La categoría seleccionada no es válida");
-            }
-        }
-
-        if (producto.getImagen() != null && producto.getImagen().isBlank()) {
-            producto.setImagen(null);
-        }
+        validarFormularioProducto(producto, categoriaId, result);
 
         if (result.hasErrors()) {
-            System.out.println("Errores al guardar producto: " + result.getAllErrors());
-
             model.addAttribute("error", "No se pudo agregar el producto. Revisa los campos señalados.");
-            model.addAttribute("productos", productoRepository.findAll());
-            model.addAttribute("categorias", obtenerOCrearCategorias());
+            cargarCatalogoGestor(model);
             model.addAttribute("productoAEditar", new Producto());
             model.addAttribute("editando", false);
             model.addAttribute("abrirModalCrear", true);
 
-            return "administrador";
+            return "gestor";
         }
 
         try {
             productoRepository.save(producto);
             redireccion.addFlashAttribute("success", "Producto agregado correctamente");
-            return "redirect:/administrador";
+            return "redirect:/gestor";
         } catch (Exception e) {
             e.printStackTrace();
             model.addAttribute("error", "Error al guardar en la base de datos: " + e.getMessage());
-            model.addAttribute("productos", productoRepository.findAll());
-            model.addAttribute("categorias", obtenerOCrearCategorias());
+            cargarCatalogoGestor(model);
             model.addAttribute("productoAEditar", new Producto());
             model.addAttribute("editando", false);
             model.addAttribute("abrirModalCrear", true);
-            return "administrador";
+            return "gestor";
         }
     }
 
-    @PostMapping("/administrador/productos/eliminar/{id}")
-    public String eliminarProductoAdmin(@PathVariable Long id, RedirectAttributes redireccion) {
+    @PostMapping("/gestor/productos/eliminar/{id}")
+    public String eliminarProducto(@PathVariable Long id, RedirectAttributes redireccion) {
         if (productoRepository.existsById(id)) {
             productoRepository.deleteById(id);
             redireccion.addFlashAttribute("success", "Producto eliminado correctamente");
         } else {
             redireccion.addFlashAttribute("error", "El producto no existe");
         }
-        return "redirect:/administrador";
+        return "redirect:/gestor";
     }
 
-    @GetMapping("/administrador/productos/editar/{id}")
+    @GetMapping("/gestor/productos/editar/{id}")
     public String editarProducto(@PathVariable Long id, Model model, RedirectAttributes redireccion) {
         Optional<Producto> opt = productoRepository.findById(id);
         if (opt.isEmpty()) {
             redireccion.addFlashAttribute("error", "Producto no encontrado");
-            return "redirect:/administrador";
+            return "redirect:/gestor";
         }
-        model.addAttribute("productos", productoRepository.findAll());
-        model.addAttribute("categorias", obtenerOCrearCategorias());
+        cargarCatalogoGestor(model);
         model.addAttribute("nuevoProducto", new Producto());
         model.addAttribute("productoAEditar", opt.get());
         model.addAttribute("editando", true);
         model.addAttribute("productoId", id);
-        return "administrador";
+        return "gestor";
     }
 
-    @PostMapping("/administrador/productos/editar/{id}")
+    @PostMapping("/gestor/productos/editar/{id}")
     public String actualizarProducto(@PathVariable Long id,
             @Valid @ModelAttribute("productoAEditar") Producto producto,
             BindingResult result,
@@ -330,35 +396,21 @@ public class Controlador {
             RedirectAttributes redireccion,
             Model model) {
 
-        if (categoriaId == null) {
-            result.rejectValue("categoria", "error.categoria", "Debe seleccionar una categoría");
-        } else {
-            Optional<Categoria> catOpt = categoriaRepository.findById(categoriaId);
-            if (catOpt.isPresent()) {
-                producto.setCategoria(catOpt.get());
-            } else {
-                result.rejectValue("categoria", "error.categoria", "Categoría no válida");
-            }
-        }
-
-        if (producto.getImagen() != null && producto.getImagen().isBlank()) {
-            producto.setImagen(null);
-        }
+        validarFormularioProducto(producto, categoriaId, result);
 
         if (result.hasErrors()) {
             model.addAttribute("error", "No se pudo actualizar el producto. Revisa los campos señalados.");
-            model.addAttribute("productos", productoRepository.findAll());
-            model.addAttribute("categorias", obtenerOCrearCategorias());
+            cargarCatalogoGestor(model);
             model.addAttribute("nuevoProducto", new Producto());
             model.addAttribute("editando", true);
             model.addAttribute("productoId", id);
-            return "administrador";
+            return "gestor";
         }
 
         Optional<Producto> opt = productoRepository.findById(id);
         if (opt.isEmpty()) {
             redireccion.addFlashAttribute("error", "Producto no encontrado");
-            return "redirect:/administrador";
+            return "redirect:/gestor";
         }
 
         Producto existente = opt.get();
@@ -372,139 +424,29 @@ public class Controlador {
         try {
             productoRepository.save(existente);
             redireccion.addFlashAttribute("success", "Producto actualizado correctamente");
-            return "redirect:/administrador";
+            return "redirect:/gestor";
         } catch (Exception e) {
             e.printStackTrace();
             model.addAttribute("error", "Error al actualizar en la base de datos: " + e.getMessage());
-            model.addAttribute("productos", productoRepository.findAll());
-            model.addAttribute("categorias", obtenerOCrearCategorias());
+            cargarCatalogoGestor(model);
             model.addAttribute("nuevoProducto", new Producto());
             model.addAttribute("editando", true);
             model.addAttribute("productoId", id);
-            return "administrador";
+            return "gestor";
+        }
+    }
+    private void validarFormularioProducto(Producto producto, Long categoriaId, BindingResult result) {
+        if (categoriaId == null) {
+            result.rejectValue("categoria", "error.categoria", "Debe seleccionar una categoría");
+        } else {
+            categoriaRepository.findById(categoriaId).ifPresentOrElse(
+                    producto::setCategoria,
+                    () -> result.rejectValue("categoria", "error.categoria", "La categoría seleccionada no es válida"));
+        }
+
+        if (producto.getImagen() != null && producto.getImagen().isBlank()) {
+            producto.setImagen(null);
         }
     }
 
-    // ================= Endpoints de Prueba (Estilo Semana 11) =================
-
-    @GetMapping("/db-test")
-    @ResponseBody
-    public String test() {
-        jdbcTemplate.queryForObject("SELECT 1", Integer.class);
-        return "Conexión a la base de datos exitosa";
-    }
-
-    @GetMapping("/usuario")
-    @ResponseBody
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
-    }
-
-    @PostMapping("/crear")
-    @ResponseBody
-    public String saveUser(@Valid @RequestBody User user) {
-        // Este endpoint es de registro público: nunca permite crear administradores.
-        user.setAcceso('U');
-        if (user.getCorreo() != null
-                && userRepository.findByCorreo(user.getCorreo().trim().toLowerCase()).isPresent()) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "El correo ya está registrado");
-        }
-        if (user.getCorreo() != null) {
-            user.setCorreo(user.getCorreo().trim().toLowerCase());
-        }
-        if (user.getClave() == null || user.getClave().isBlank()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "La contraseña es obligatoria");
-        }
-        user.setClave(passwordEncoder.encode(user.getClave()));
-        userRepository.save(user);
-        return "Guardado correctamente";
-    }
-
-    // --- Endpoints Categorías ---
-
-    @GetMapping("/test/categorias")
-    @ResponseBody
-    public List<Categoria> listarCategoriasTest() {
-        return categoriaRepository.findAll();
-    }
-
-    @PostMapping("/test/categorias")
-    @ResponseBody
-    public String guardarCategoriaTest(@RequestBody Categoria c) {
-        categoriaRepository.save(c);
-        return "Categoría guardada correctamente con ID: " + c.getId();
-    }
-
-    // --- Endpoints CRUD Productos ---
-
-    @GetMapping("/test/productos")
-    @ResponseBody
-    public List<Producto> listarProductosTest() {
-        return productoRepository.findAll();
-    }
-
-    @GetMapping("/test/productos/{id}")
-    @ResponseBody
-    public Optional<Producto> obtenerProductoTest(@PathVariable Long id) {
-        return productoRepository.findById(id);
-    }
-
-    @PostMapping("/test/productos")
-    @ResponseBody
-    public String guardarProductoTest(@RequestBody Producto p) {
-        if (p.getCategoria() == null || p.getCategoria().getId() == null) {
-            return "Error: Debes enviar un JSON con el ID de la categoría (ej. {\"categoria\": {\"id\": 1}})";
-        }
-
-        Optional<Categoria> catOpt = categoriaRepository.findById(p.getCategoria().getId());
-        if (catOpt.isEmpty()) {
-            return "Error: La categoría con ID " + p.getCategoria().getId() + " no existe en la BD";
-        }
-
-        p.setCategoria(catOpt.get());
-        productoRepository.save(p);
-        return "Producto guardado correctamente con ID: " + p.getId();
-    }
-
-    @PutMapping("/test/productos/{id}")
-    @ResponseBody
-    public String actualizarProductoTest(@PathVariable Long id, @RequestBody Producto nuevoP) {
-        Optional<Producto> opt = productoRepository.findById(id);
-        if (opt.isPresent()) {
-            Producto actual = opt.get();
-            actual.setNombre(nuevoP.getNombre());
-            actual.setDescripcion(nuevoP.getDescripcion());
-            actual.setPrecio(nuevoP.getPrecio());
-            actual.setStock(nuevoP.getStock());
-            if (nuevoP.getCategoria() != null && nuevoP.getCategoria().getId() != null) {
-                categoriaRepository.findById(nuevoP.getCategoria().getId()).ifPresent(actual::setCategoria);
-            }
-            if (nuevoP.getImagen() != null) {
-                actual.setImagen(nuevoP.getImagen());
-            }
-            productoRepository.save(actual);
-            return "Producto actualizado correctamente";
-        }
-        return "Error: Producto no encontrado con ID " + id;
-    }
-
-    @DeleteMapping("/test/productos/{id}")
-    @ResponseBody
-    public String eliminarProductoTest(@PathVariable Long id) {
-        if (productoRepository.existsById(id)) {
-            productoRepository.deleteById(id);
-            return "Producto eliminado correctamente";
-        }
-        return "Error: Producto no encontrado con ID " + id;
-    }
-
-    @DeleteMapping("/test/productos/eliminar/{id}")
-    @ResponseBody
-    public String eliminarProductoGetTest(@PathVariable Long id) {
-        if (productoRepository.existsById(id)) {
-            productoRepository.deleteById(id);
-            return "Producto eliminado correctamente mediante GET";
-        }
-        return "Error: Producto no encontrado con ID " + id;
-    }
 }

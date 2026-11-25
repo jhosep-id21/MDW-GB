@@ -12,8 +12,8 @@
                     <p id="descripcion-detalle" class="text-muted small mb-2">Descripción</p>
                     <p class="fs-4 fw-bold text-success mb-3" id="precio-detalle">S/. 0.00</p>
                     <ul class="small text-muted mb-3 ps-3">
-                        <li>Revisa su ficha en <a th:href="@{/fichas}">Fichas técnicas</a></li>
-                        <li>Calcula su riego en <a th:href="@{/calculadora-riego}">Calculadora de riego</a></li>
+                        <li th:if="${session.rol == 'CLIENTE'}">Revisa su ficha en <a th:href="@{/fichas}">Fichas técnicas</a></li>
+                        <li th:if="${session.rol == 'CLIENTE'}">Calcula su riego en <a th:href="@{/calculadora-riego}">Calculadora de riego</a></li>
                         <li>Garantía de 30 días</li>
                     </ul>
                     <div class="d-flex align-items-center gap-2 mb-3">

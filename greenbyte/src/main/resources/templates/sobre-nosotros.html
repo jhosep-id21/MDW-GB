@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sobre nosotros | GreenByte</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="icon" th:href="@{/iconos/ico-greenbyte-sinfondo.png}" type="image/png">
+    <link rel="stylesheet" th:href="@{/styles.css}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+    <header th:replace="~{fragments/header :: navegador}"></header>
+    <div th:replace="~{fragments/login :: login}"></div>
+    <div th:replace="~{fragments/cart :: carrito}"></div>
+
+    <main class="container py-4 py-lg-5 flex-grow-1">
+        <section class="row g-0 rounded-4 overflow-hidden border bg-white align-items-stretch">
+            <div class="col-lg-6 p-4 p-md-5">
+                <h1 class="display-5 titulo-editorial mb-3">Sobre nosotros</h1>
+                <p class="lead">GreenByte es una tienda de plantas en Trujillo. Reunimos plantas de interior y exterior, macetas y accesorios para ayudarte a crear un espacio verde en casa.</p>
+
+                <h2 class="h4 titulo-editorial mt-4">Por qué lo hacemos</h2>
+                <p class="text-body-secondary mb-4">Queremos que cuidar una planta sea más fácil desde el primer día. Por eso, además del catálogo, creamos Manual Byte con fichas técnicas, una calculadora de riego y una guía para elegir plantas según la luz de tu hogar.</p>
+
+                <a class="btn btn-success" th:href="@{/productos}">Ver productos</a>
+            </div>
+            <div class="col-lg-6 d-flex">
+                <div class="ratio ratio-4x3">
+                    <img th:src="@{/fondo-index.png}" class="object-fit-cover" alt="">
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer th:replace="~{fragments/footer :: footer}"></footer>
+    <th:block th:replace="~{fragments/scripts :: scripts}"></th:block>
+</body>
+
+</html>

@@ -1,5 +1,5 @@
 <div th:fragment="carrito">
-    <div class="offcanvas offcanvas-end bg-light text-dark" tabindex="-1" id="panel-carrito">
+    <div class="offcanvas offcanvas-end bg-light text-dark" tabindex="-1" id="panel-carrito" th:attr="data-sesion=${session.logueado == true},data-cliente=${session.rol == 'CLIENTE'},data-selector=@{/elegir-rol}">
         <div class="offcanvas-header border-bottom">
             <h5 class="offcanvas-title" id="titulo-panel-carrito">
                 <i class="bi bi-cart3 me-2"></i>Tu Carrito
@@ -21,7 +21,8 @@
                     <span class="fw-bold fs-4 text-success" id="total-carrito">S/. 0.00</span>
                 </div>
                 <div class="d-grid gap-2">
-                    <button class="btn btn-success btn-lg" onclick="finalizarCompra()">
+                    <button type="button" class="btn btn-success btn-lg" onclick="finalizarCompra(this)"
+                            data-acceso-mensaje="Inicia sesión o crea una cuenta para finalizar tu compra.">
                         <i class="bi bi-bag-check me-2"></i>Finalizar compra
                     </button>
                     <button class="btn btn-outline-secondary btn-sm" onclick="vaciarCarrito()">
@@ -29,7 +30,7 @@
                     </button>
                 </div>
                 <p class="small text-muted mt-3 text-center mb-0">
-                    Los pedidos se confirman por WhatsApp
+                    Compra de demostración.
                 </p>
             </div>
 

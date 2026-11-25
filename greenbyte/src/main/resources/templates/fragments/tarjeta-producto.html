@@ -1,0 +1,26 @@
+<article th:fragment="tarjeta(p)" class="tarjeta-tienda h-100 d-flex flex-column">
+    <img th:src="${p.rutaImagen}" th:alt="${p.nombre}" class="card-img-top"
+         th:attr="data-imagen-respaldo=@{/img-carousel/imagen-plantas.jpg}"
+         onerror="this.onerror=null; this.src=this.dataset.imagenRespaldo" loading="lazy">
+
+    <div class="cuerpo-tarjeta flex-grow-1">
+        <p class="etiqueta-categoria" th:text="${p.nombreCategoria}">Categoría</p>
+        <h3 class="nombre-producto" th:text="${p.nombre}">Nombre del producto</h3>
+        <p class="descripcion-tarjeta flex-grow-1" th:text="${p.descripcion}">Descripción corta</p>
+
+        <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-3">
+            <span class="precio-tarjeta mb-0"
+                  th:text="|S/ ${#numbers.formatDecimal(p.precio, 1, 2)}|">S/ 0.00</span>
+            <span class="small text-body-secondary" th:text="|Stock: ${p.stock}|">Stock: 0</span>
+        </div>
+
+        <div class="d-grid gap-2">
+            <button class="btn btn-success" type="button" data-agregar-carrito
+                    th:data-id="${p.id}" th:data-nombre="${p.nombre}"
+                    th:data-precio="${p.precio}" th:data-imagen="${p.rutaImagen}">
+                Agregar al carrito
+            </button>
+            <button class="btn btn-outline-success btn-detalle" type="button">Ver detalle</button>
+        </div>
+    </div>
+</article>

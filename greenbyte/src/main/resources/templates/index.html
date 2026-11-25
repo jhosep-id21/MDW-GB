@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es-es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GreenByte</title>
+    <title>GreenByte - Tienda de plantas en Trujillo</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="icon" th:href="@{/iconos/ico-greenbyte-sinfondo.png}" type="image/png">
@@ -12,48 +12,136 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 </head>
 
-<body>
+<body class="d-flex flex-column min-vh-100">
+
+    <header th:replace="~{fragments/header :: navegador}"></header>
     <div th:replace="~{fragments/login :: login}"></div>
     <div th:replace="~{fragments/cart :: carrito}"></div>
-    <div class="position-relative vh-100 d-flex flex-column">
-        <img th:src="@{/fondo-index.png}" class="position-absolute w-100 h-100 object-fit-cover top-0 start-0 z-0"
-            alt="Fondo GreenByte">
+    <div th:replace="~{fragments/detalle :: detalle}"></div>
 
-        <div class="position-absolute w-100 h-100 top-0 start-0 bg-dark opacity-50 z-0"></div>
-
-        <header class="position-relative z-3 w-100" th:replace="~{fragments/header :: navegador}"></header>
-
-        <div class="container position-relative z-3 pt-3">
-            <div th:if="${success}" class="alert alert-success alert-dismissible fade show" role="alert">
-                <span th:text="${success}"></span>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
-            </div>
-            <div th:if="${error}" class="alert alert-danger alert-dismissible fade show" role="alert">
-                <span th:text="${error}"></span>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
-            </div>
-        </div>
-
-        <div
-            class="position-relative z-3 flex-grow-1 d-flex flex-column justify-content-center align-items-center text-center text-white px-4">
-            <h1 class="display-3 fw-bold mb-3" style="letter-spacing: 2px;">Bienvenido a GreenByte</h1>
-            <p class="lead fs-4 mb-5">Descubre la armonía natural para tu hogar.</p>
-            <a th:href="@{/inicio}" class="btn btn-outline-light btn-lg px-5 py-3"
-                style="border-radius: 0; letter-spacing: 2px; text-transform: uppercase;">
-                Explorar Tienda
-            </a>
-        </div>
-
+    <div th:if="${success != null or error != null}" class="container mt-3">
+        <div th:if="${success}" class="alert alert-success mb-0" th:text="${success}"></div>
+        <div th:if="${error}" class="alert alert-danger mb-0" th:text="${error}"></div>
     </div>
-    <section class="container py-5">
-        <h2 class="text-center mb-4">Nuestros Productos</h2>
-    </section>
+
+    <main class="flex-grow-1">
+        <section class="container pt-3 pt-lg-4 pb-5">
+            <div class="portada-inicio row g-0 align-items-stretch rounded-4 overflow-hidden">
+                <div class="col-lg-5 d-flex flex-column justify-content-center align-items-start p-4 p-md-5">
+                    <h1 class="titulo-editorial display-4 mb-3">Plantas para tu espacio</h1>
+                    <p class="lead mb-4">Encuentra plantas de interior y exterior, macetas y accesorios con entrega en Trujillo.</p>
+                    <a th:href="@{/productos}" class="btn btn-light btn-lg px-4">
+                        Ver productos <i class="bi bi-arrow-right ms-2" aria-hidden="true"></i>
+                    </a>
+                </div>
+                <div class="col-lg-7">
+                    <img th:src="@{/img-carousel/image-mas-plantas.jpg}" class="w-100 d-block object-fit-cover"
+                         alt="Colección de plantas en macetas" fetchpriority="high">
+                </div>
+            </div>
+        </section>
+
+        <section th:if="${campaniaVigente != null}" class="container pb-4" aria-labelledby="titulo-campania">
+            <div class="bg-terracota text-white rounded-4 p-4 d-flex flex-wrap align-items-center justify-content-between gap-3">
+                <div>
+                    <h2 id="titulo-campania" class="h3 mb-2" th:text="${campaniaVigente.titulo}"></h2>
+                    <p class="mb-0" th:text="${campaniaVigente.mensaje}"></p>
+                </div>
+                <a class="btn btn-light"
+                   th:href="${campaniaVigente.categoria == null} ? @{/productos} : @{/productos(categoria=${campaniaVigente.categoria.nombre})}"
+                   th:text="${campaniaVigente.categoria == null ? 'Ver productos' : 'Ver ' + campaniaVigente.categoria.nombre}">Ver productos</a>
+            </div>
+        </section>
+
+        <section class="container pb-5" aria-labelledby="titulo-categorias">
+            <h2 id="titulo-categorias" class="titulo-editorial h1 mb-3">Explora por categoría</h2>
+            <div class="row row-cols-2 row-cols-sm-3 row-cols-lg-5 g-3">
+                <div class="col">
+                    <a class="categoria-inicio d-block h-100 rounded-3 overflow-hidden text-decoration-none"
+                       th:href="@{/productos(categoria='interior')}">
+                        <img class="w-100 d-block object-fit-cover" th:src="@{/plantas/interior/planta-int-4.webp}" alt="" loading="lazy">
+                        <span class="d-flex align-items-center justify-content-between gap-2 p-3 fw-semibold">
+                            Interior <i class="bi bi-arrow-up-right" aria-hidden="true"></i>
+                        </span>
+                    </a>
+                </div>
+                <div class="col">
+                    <a class="categoria-inicio d-block h-100 rounded-3 overflow-hidden text-decoration-none"
+                       th:href="@{/productos(categoria='exterior')}">
+                        <img class="w-100 d-block object-fit-cover" th:src="@{/plantas/exterior/planta-ext-4.webp}" alt="" loading="lazy">
+                        <span class="d-flex align-items-center justify-content-between gap-2 p-3 fw-semibold">
+                            Exterior <i class="bi bi-arrow-up-right" aria-hidden="true"></i>
+                        </span>
+                    </a>
+                </div>
+                <div class="col">
+                    <a class="categoria-inicio d-block h-100 rounded-3 overflow-hidden text-decoration-none"
+                       th:href="@{/productos(categoria='macetas')}">
+                        <img class="w-100 d-block object-fit-cover" th:src="@{/img-carousel/maceta-2.jpg}" alt="" loading="lazy">
+                        <span class="d-flex align-items-center justify-content-between gap-2 p-3 fw-semibold">
+                            Macetas <i class="bi bi-arrow-up-right" aria-hidden="true"></i>
+                        </span>
+                    </a>
+                </div>
+                <div class="col">
+                    <a class="categoria-inicio d-block h-100 rounded-3 overflow-hidden text-decoration-none"
+                       th:href="@{/productos(categoria='accesorios')}">
+                        <img class="w-100 d-block object-fit-cover" th:src="@{/img-carousel/accesorios-2.png}" alt="" loading="lazy">
+                        <span class="d-flex align-items-center justify-content-between gap-2 p-3 fw-semibold">
+                            Accesorios <i class="bi bi-arrow-up-right" aria-hidden="true"></i>
+                        </span>
+                    </a>
+                </div>
+                <div class="col">
+                    <a class="categoria-inicio d-block h-100 rounded-3 overflow-hidden text-decoration-none"
+                       th:href="@{/productos(categoria='principiantes')}">
+                        <img class="w-100 d-block object-fit-cover" th:src="@{/plantas/interior/planta-int-3.webp}" alt="" loading="lazy">
+                        <span class="d-flex align-items-center justify-content-between gap-2 p-3 fw-semibold">
+                            Principiantes <i class="bi bi-arrow-up-right" aria-hidden="true"></i>
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section th:if="${!#lists.isEmpty(destacados)}" class="container pb-4" aria-labelledby="titulo-destacados">
+            <h2 id="titulo-destacados" class="titulo-editorial h1 mb-3">Productos destacados</h2>
+            <div class="row g-3 g-lg-4">
+                <div class="col-12 col-sm-6 col-lg-3 tarjeta-producto" th:each="p : ${destacados}">
+                    <article th:replace="~{fragments/tarjeta-producto :: tarjeta(${p})}"></article>
+                </div>
+            </div>
+        </section>
+
+        <section id="manual-byte" class="container pb-4" aria-labelledby="titulo-manual-byte">
+            <div class="p-4 rounded-3 border bg-white">
+                <h2 id="titulo-manual-byte" class="titulo-editorial h2 mb-3">Manual Byte</h2>
+                <p class="text-body-secondary">Herramientas gratuitas para cuidar tus plantas. <span th:if="${session.logueado != true}">Inicia sesión para usarlas.</span>
+                    <span th:if="${session.logueado == true and session.rol != 'CLIENTE'}">Elige el rol Cliente para usarlas.</span></p>
+                <div class="d-flex flex-wrap gap-2"
+                     th:with="visitante=${session.logueado != true}">
+                    <a th:href="@{/fichas}" class="btn btn-outline-success"
+                       th:attr="data-bs-toggle=${visitante ? 'modal' : null},data-bs-target=${visitante ? '#modal-acceso' : null}"
+                       data-acceso-mensaje="Crea una cuenta gratis o inicia sesión para usar Manual Byte.">
+                        <i class="bi bi-journal-text me-2" aria-hidden="true"></i>Fichas técnicas
+                    </a>
+                    <a th:href="@{/calculadora-riego}" class="btn btn-outline-success"
+                       th:attr="data-bs-toggle=${visitante ? 'modal' : null},data-bs-target=${visitante ? '#modal-acceso' : null}"
+                       data-acceso-mensaje="Crea una cuenta gratis o inicia sesión para usar Manual Byte.">
+                        <i class="bi bi-droplet me-2" aria-hidden="true"></i>Calculadora de riego
+                    </a>
+                    <a th:href="@{/tips-luz}" class="btn btn-outline-success"
+                       th:attr="data-bs-toggle=${visitante ? 'modal' : null},data-bs-target=${visitante ? '#modal-acceso' : null}"
+                       data-acceso-mensaje="Crea una cuenta gratis o inicia sesión para usar Manual Byte.">
+                        <i class="bi bi-sun me-2" aria-hidden="true"></i>Guía de iluminación
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
     <footer th:replace="~{fragments/footer :: footer}"></footer>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-        crossorigin="anonymous"></script>
-    <script th:src="@{/js/cart.js}"></script>
-    <script th:src="@{/js/auth.js}"></script>
+    <th:block th:replace="~{fragments/scripts :: scripts}"></th:block>
     <script th:src="@{/js/detalle.js}"></script>
 </body>
 

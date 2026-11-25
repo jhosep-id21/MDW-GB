@@ -14,19 +14,19 @@
                 <h5>Explorar</h5>
 
                 <ul class="list-unstyled">
-                    <li><a th:href="@{/interior}">Interior</a></li>
-                    <li><a th:href="@{/exterior}">Exterior</a></li>
-                    <li><a th:href="@{/macetas}">Macetas</a></li>
-                    <li><a th:href="@{/accesorios}">Accesorios</a></li>
+                    <li><a th:href="@{/productos(categoria='interior')}">Interior</a></li>
+                    <li><a th:href="@{/productos(categoria='exterior')}">Exterior</a></li>
+                    <li><a th:href="@{/productos(categoria='macetas')}">Macetas</a></li>
+                    <li><a th:href="@{/productos(categoria='accesorios')}">Accesorios</a></li>
                 </ul>
             </div>
             <div class="col-md-3 mb-4">
                 <h5>Ayuda</h5>
 
                 <ul class="list-unstyled">
-                    <li><a th:href="@{/fichas}">Manual Byte</a></li>
+
                     <li><a th:href="@{/contactanos}">Contacto</a></li>
-                    <li><a th:href="@{/contactanos}">Nosotros</a></li>
+                    <li><a th:href="@{/sobre-nosotros}">Sobre nosotros</a></li>
                 </ul>
             </div>
 

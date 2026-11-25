@@ -1,12 +1,12 @@
 <div th:fragment="login" class="modal fade" id="modal-acceso" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <!-- Se eliminó bg-dark y border-success. Se añadió shadow-lg y bordes redondeados suaves -->
-        <div class="modal-content border-0 shadow-lg" style="border-radius: 12px; overflow: hidden;">
+        <div class="modal-content border-0 shadow-lg rounded-3 overflow-hidden bg-white">
 
             <!-- Header con fondo blanco y texto verde oscuro -->
             <div class="modal-header border-bottom-0 pt-4 px-4 pb-0">
-                <h5 class="modal-title fw-bold"
-                    style="color: #1b4332; font-family: 'Playfair Display', serif; font-size: 1.4rem;">
+                <h5 class="modal-title text-verde-oscuro fw-bold"
+                    style="font-family: 'Playfair Display', serif; font-size: 1.4rem;">
                     Mi cuenta - GreenByte
                 </h5>
                 <!-- Botón de cerrar estándar de Bootstrap (oscuro) -->
@@ -14,18 +14,17 @@
             </div>
 
             <div class="modal-body px-4 pb-4">
+                <p id="motivo-acceso" class="alert alert-info small d-none" role="status"></p>
                 <!-- Pestañas (Tabs) personalizadas -->
-                <ul class="nav nav-underline mb-4" role="tablist" style="--bs-nav-underline-gap: 2rem;">
+                <ul class="nav nav-underline mb-4" role="tablist">
                     <li class="nav-item" role="presentation">
                         <!-- Usamos nav-underline de Bootstrap 5.3+ y estilos para el color activo -->
                         <button class="nav-link active fw-bold" id="pestana-acceso" data-bs-toggle="tab"
-                            data-bs-target="#panel-acceso" type="button" role="tab"
-                            style="color: #1b4332; border-bottom-color: #1b4332;">Iniciar Sesión</button>
+                            data-bs-target="#panel-acceso" type="button" role="tab">Iniciar Sesión</button>
                     </li>
                     <li class="nav-item" role="presentation">
                         <button class="nav-link fw-bold text-muted" id="pestana-registro" data-bs-toggle="tab"
-                            data-bs-target="#panel-registro" type="button" role="tab"
-                            style="border-bottom-color: transparent;">Registrarse</button>
+                            data-bs-target="#panel-registro" type="button" role="tab">Registrarse</button>
                     </li>
                 </ul>
 
@@ -50,14 +49,13 @@
                             </div>
 
                             <!-- Botón principal Terracota -->
-                            <button type="submit" class="btn w-100 py-3 mb-3 text-white fw-bold"
-                                style="background-color: #2D6A4F; border-radius: 6px; letter-spacing: 1px;">
+                            <button type="submit" class="btn btn-success w-100 py-3 mb-3 fw-bold">
                                 INGRESAR
                             </button>
 
                             <div class="text-center small text-muted">
                                 ¿Nuevo aquí? <a href="#" onclick="irARegistro(event)"
-                                    class="fw-bold text-decoration-none" style="color: #2D6A4F;">Crea tu cuenta
+                                    class="fw-bold text-decoration-none text-verde">Crea tu cuenta
                                     gratis</a>
                             </div>
                         </form>
@@ -65,7 +63,7 @@
 
                     <!-- REGISTRO -->
                     <div class="tab-pane fade" id="panel-registro" role="tabpanel">
-                        <form id="formulario-registro" onsubmit="return crearCuenta(event)">
+                        <form id="formulario-registro" th:attr="data-url=@{/crear}" onsubmit="return crearCuenta(event)">
                             <!-- Nombre y Correo (Ya los tenías) -->
                             <div class="mb-3">
                                 <label class="form-label text-muted small fw-bold text-uppercase">Nombre
@@ -106,31 +104,12 @@
                                 </div>
                             </div>
 
-                            <!-- NUEVO: Checkboxes de Términos y Newsletter -->
-                            <div class="mb-4">
-                                <div class="form-check mb-2">
-                                    <input class="form-check-input" type="checkbox" id="registro-terminos" required>
-                                    <label class="form-check-label small text-muted" for="registro-terminos">
-                                        Acepto los <a href="#" class="text-decoration-none"
-                                            style="color: #2D6A4F;">Términos y Condiciones</a> y la Política de
-                                        Privacidad.
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="registro-newsletter" checked>
-                                    <label class="form-check-label small text-muted" for="registro-newsletter">
-                                        Quiero recibir consejos de cuidado y ofertas exclusivas por email.
-                                    </label>
-                                </div>
-                            </div>
-
                             <!-- Alertas (Ya las tenías) -->
                             <div id="registro-error" class="alert alert-danger py-2 small d-none border-0"></div>
                             <div id="registro-aviso" class="alert alert-success py-2 small d-none border-0"></div>
 
                             <!-- Botón -->
-                            <button type="submit" class="btn w-100 py-3 mb-3 text-white fw-bold"
-                                style="background-color: #2D6A4F; border-radius: 6px; letter-spacing: 1px;">
+                            <button type="submit" class="btn btn-success w-100 py-3 mb-3 fw-bold">
                                 CREAR CUENTA
                             </button>
 

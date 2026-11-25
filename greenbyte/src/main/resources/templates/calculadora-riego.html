@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 </head>
 <body class="tema-claro d-flex flex-column min-vh-100">
-    <header th:replace="~{fragments/header-productos :: header-productos}"></header>
+    <header th:replace="~{fragments/header :: navegador}"></header>
     <div th:replace="~{fragments/login :: login}"></div>
     <div th:replace="~{fragments/cart :: carrito}"></div>
     <div class="container py-4 col-12 col-lg-8 mx-auto">
@@ -53,7 +53,7 @@
                         <option value="interior">Interior</option>
                         <option value="exterior" selected>Exterior / Balcón</option>
                     </select></div>
-                <div class="col-md-4 d-flex align-items-end"><button class="btn btn-terracota w-100"
+                <div class="col-md-4 d-flex align-items-end"><button class="btn btn-success w-100"
                         onclick="calcularRiego()"><i class="bi bi-droplet me-1"></i> Calcular</button></div>
             </div>
             <div id="resultado-riego" class="alert alert-success border-success mt-4 d-none"></div>
@@ -62,10 +62,7 @@
         </div>
     </div>
     <footer th:replace="~{fragments/footer :: footer}"></footer>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous"></script>
-    <script th:src="@{/js/cart.js}"></script>
-    <script th:src="@{/js/auth.js}"></script>
+    <th:block th:replace="~{fragments/scripts :: scripts}"></th:block>
     <script th:src="@{/js/riego.js}"></script>
 </body>
 

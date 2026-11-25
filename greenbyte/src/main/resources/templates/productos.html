@@ -12,80 +12,68 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 </head>
 
-<body class="catalogo-page d-flex flex-column min-vh-100">
-    <header th:replace="~{fragments/header-productos :: header-productos}"></header>
+<body class="d-flex flex-column min-vh-100">
+    <header th:replace="~{fragments/header :: navegador}"></header>
     <div th:replace="~{fragments/login :: login}"></div>
     <div th:replace="~{fragments/cart :: carrito}"></div>
     <div th:replace="~{fragments/detalle :: detalle}"></div>
 
-    <main class="container py-4 flex-grow-1">
-        <!-- Encabezado de la sección -->
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <h2 class="mb-0 text-white fw-bold"><i class="bi bi-shop me-2 text-white"></i> Catálogo General</h2>
-            <span class="badge bg-success" th:text="${productos != null ? #lists.size(productos) + ' productos' : '0 productos'}">0 productos</span>
+    <main class="container py-4 py-lg-5 flex-grow-1">
+        <h1 class="display-6 titulo-editorial mb-4">Productos</h1>
+
+        <div class="d-flex flex-wrap align-items-end justify-content-between gap-3 border-bottom pb-3 mb-4">
+            <div id="filtro-catalogo" hidden>
+                <label for="filtro-categoria" class="form-label fw-semibold">Categoría</label>
+                <select id="filtro-categoria" class="form-select">
+                    <option value="">Todas las categorías</option>
+                    <option value="interior">Plantas de interior</option>
+                    <option value="exterior">Plantas de exterior</option>
+                    <option value="macetas">Macetas</option>
+                    <option value="accesorios">Accesorios</option>
+                    <option value="principiantes">Principiantes</option>
+                    <option th:each="categoria : ${categorias}" th:value="${categoria.nombre}"
+                            th:text="${categoria.nombre}"></option>
+                </select>
+            </div>
+            <div id="orden-catalogo" hidden>
+                <label for="orden-productos" class="form-label fw-semibold">Ordenar por</label>
+                <select id="orden-productos" class="form-select">
+                    <option value="">Orden del catálogo</option>
+                    <option value="precio-asc">Precio: menor a mayor</option>
+                    <option value="precio-desc">Precio: mayor a menor</option>
+                    <option value="stock-desc">Mayor stock</option>
+                </select>
+            </div>
+            <span id="cantidad-productos" class="text-body-secondary small" role="status"
+                  th:text="${#lists.size(productos) == 1 ? '1 producto' : #lists.size(productos) + ' productos'}">0 productos</span>
         </div>
-        <p class="text-white-50">Explora todos nuestros productos disponibles en tienda con stock en tiempo real.</p>
 
         <!-- Grid de productos dinámicos desde MySQL -->
-        <div class="row align-items-stretch justify-content-center g-3 mt-2"
+        <div id="rejilla-productos" class="row g-3 g-lg-4"
              th:if="${productos != null and !#lists.isEmpty(productos)}">
 
-            <div class="col-xl-3 col-lg-4 col-md-6 d-flex justify-content-center tarjeta-producto"
-                 th:each="p : ${productos}">
-                <div class="tarjeta-tienda">
-                    <!-- Imagen dinámica con fallback -->
-                    <img th:src="${p.rutaImagen}"
-                         th:alt="${p.nombre}"
-                         class="card-img-top"
-                         style="height: 220px; object-fit: cover;"
-                         onerror="this.src='/img-carousel/imagen-plantas.jpg'"
-                         loading="lazy" />
-
-                    <div class="cuerpo-tarjeta d-flex flex-column">
-                        <h5 th:text="${p.nombre}">Nombre del Producto</h5>
-                        <p class="etiqueta-categoria" th:text="${p.nombreCategoria}">Categoría</p>
-                        <p class="descripcion-tarjeta flex-grow-1" th:text="${p.descripcion}">Descripción corta...</p>
-                        
-                        <div class="d-flex justify-content-between align-items-center mb-2">
-                            <span class="precio-tarjeta mb-0" th:text="'S/. ' + ${#numbers.formatDecimal(p.precio, 1, 2)}">S/. 0.00</span>
-                            <span class="badge bg-secondary" th:text="'Stock: ' + ${p.stock}">Stock: 0</span>
-                        </div>
-
-                        <!-- Botón Ver Detalle -->
-                        <button class="btn btn-outline-success w-100 mb-2 btn-detalle" type="button">
-                            <i class="bi bi-eye me-1"></i> Ver detalle
-                        </button>
-
-                        <!-- Botón Comprar conectado a cart.js -->
-                        <button class="btn btn-success w-100"
-                                data-agregar-carrito
-                                th:data-id="${p.id}"
-                                th:data-nombre="${p.nombre}"
-                                th:data-precio="${p.precio}"
-                                th:data-imagen="${p.rutaImagen}">
-                            <i class="bi bi-cart-plus me-1"></i> Comprar
-                        </button>
-                    </div>
-                </div>
+            <div class="col-12 col-sm-6 col-lg-4 col-xl-3 tarjeta-producto"
+                 th:each="p : ${productos}" th:attr="data-categoria=${p.nombreCategoria},data-precio=${p.precio},data-stock=${p.stock}">
+                <article th:replace="~{fragments/tarjeta-producto :: tarjeta(${p})}"></article>
             </div>
 
         </div>
 
+        <p id="sin-coincidencias" class="text-center text-body-secondary py-5" hidden>
+            No hay productos que coincidan con el filtro.
+        </p>
+
         <!-- Mensaje cuando no hay productos -->
         <div th:if="${productos == null or #lists.isEmpty(productos)}" class="text-center py-5">
-            <i class="bi bi-box-seam fs-1 text-white-50 mb-3 d-block"></i>
-            <h4 class="text-white">No hay productos registrados en este momento</h4>
-            <p class="text-white-50">Ingresa al panel de administración para agregar productos a MySQL o usa Thunder Client.</p>
+            <i class="bi bi-box-seam fs-1 text-body-secondary mb-3 d-block"></i>
+            <h4 class="text-verde-oscuro">No hay productos registrados en este momento</h4>
         </div>
     </main>
 
     <footer th:replace="~{fragments/footer :: footer}"></footer>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-        crossorigin="anonymous"></script>
-    <script th:src="@{/js/cart.js}"></script>
-    <script th:src="@{/js/auth.js}"></script>
+    <th:block th:replace="~{fragments/scripts :: scripts}"></th:block>
     <script th:src="@{/js/detalle.js}"></script>
+    <script th:src="@{/js/catalogo.js}"></script>
 </body>
 
 </html>

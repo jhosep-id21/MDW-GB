@@ -46,11 +46,17 @@ Desarrollada con Java, Spring Boot, Spring MVC, Thymeleaf, Bootstrap y MySQL.
    ```
 
 4. Abre `http://localhost:8080`.
+5. Si quieres cargar los 40 productos de muestra de las antiguas páginas de categorías, ejecuta `greenbyte/src/main/resources/catalogo-demo.sql` en MySQL después del primer arranque. El script agrega los productos que aún no existen por nombre y conserva los datos del catálogo existente.
 
-## Configuración del administrador
+## Cuentas y roles
 
-El panel `/administrador` está restringido a sesiones con rol `ADMIN`.
-Para asignar ese rol a una cuenta de prueba, actualiza el campo `acceso` a `A` en la tabla `user` desde MySQL. No existe un registro público de administradores.
+El registro público crea cuentas de cliente (`U`). Para preparar cuentas de prueba desde MySQL, asigna `G` para gestor o `A` para administrador en el campo `acceso` de la tabla `user`. Inicia sesión de nuevo después del cambio.
+
+- Administrador puede elegir Administrador, Gestor o Cliente.
+- Gestor puede elegir Gestor o Cliente.
+- Cliente entra directamente a la tienda.
+
+El rol activo controla el acceso durante la sesión. Administración consulta usuarios en `/administrador`, Gestor mantiene el catálogo en `/gestor` y Cliente usa Manual Byte y la compra de demostración.
 
 ## Notas
 

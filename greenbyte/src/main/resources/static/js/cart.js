@@ -1,4 +1,5 @@
 const CLAVE_CARRITO = 'greenbyte_cart';
+const COMPRA_PENDIENTE = 'greenbyte_compra_pendiente';
 
 function leerCarrito() {
     try {
@@ -89,9 +90,25 @@ function vaciarCarrito() {
     dibujarCarrito();
 }
 
-function finalizarCompra() {
+function finalizarCompra(boton) {
     const cesta = leerCarrito();
     if (!cesta.length) return;
+
+    const panel = document.getElementById('panel-carrito');
+    if (panel.dataset.cliente !== 'true') {
+        sessionStorage.setItem(COMPRA_PENDIENTE, 'true');
+        if (panel.dataset.sesion === 'true') {
+            window.location.assign(panel.dataset.selector);
+            return;
+        }
+
+        const acceso = document.getElementById('modal-acceso');
+        panel.addEventListener('hidden.bs.offcanvas', () => {
+            bootstrap.Modal.getOrCreateInstance(acceso).show(boton);
+        }, { once: true });
+        bootstrap.Offcanvas.getOrCreateInstance(panel).hide();
+        return;
+    }
 
     const total = cesta.reduce((suma, item) => suma + Number(item.precio) * item.cantidad, 0);
     const resumen = cesta
@@ -103,7 +120,6 @@ function finalizarCompra() {
     actualizarContador();
     dibujarCarrito();
 
-    const panel = document.getElementById('panel-carrito');
     if (panel && typeof bootstrap !== 'undefined') {
         bootstrap.Offcanvas.getInstance(panel)?.hide();
     }
@@ -195,14 +211,6 @@ function dibujarCarrito() {
     if (elementoTotal) elementoTotal.textContent = `S/ ${total.toFixed(2)}`;
 }
 
-function filtrarProductos() {
-    const texto = (document.getElementById('buscador-productos')?.value || '').toLocaleLowerCase('es').trim();
-
-    document.querySelectorAll('.tarjeta-producto').forEach(tarjeta => {
-        tarjeta.style.display = tarjeta.innerText.toLocaleLowerCase('es').includes(texto) ? '' : 'none';
-    });
-}
-
 document.addEventListener('click', evento => {
     const botonCarrito = evento.target.closest('[data-agregar-carrito]');
     if (botonCarrito) {
@@ -229,6 +237,9 @@ document.addEventListener('DOMContentLoaded', () => {
     actualizarContador();
     dibujarCarrito();
 
-    const buscador = document.getElementById('buscador-productos');
-    buscador?.addEventListener('input', filtrarProductos);
+    const panel = document.getElementById('panel-carrito');
+    if (panel?.dataset.cliente === 'true' && sessionStorage.getItem(COMPRA_PENDIENTE)) {
+        sessionStorage.removeItem(COMPRA_PENDIENTE);
+        if (leerCarrito().length) bootstrap.Offcanvas.getOrCreateInstance(panel).show();
+    }
 });

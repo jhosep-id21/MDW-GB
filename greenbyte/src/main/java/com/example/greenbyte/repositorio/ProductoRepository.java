@@ -8,5 +8,7 @@ import com.example.greenbyte.models.Producto;
 
 public interface ProductoRepository extends JpaRepository<Producto, Long> {
 
+    List<Producto> findFirst4ByStockGreaterThanOrderByIdAsc(int stock);
+
     List<Producto> findByCategoriaNombre(String nombre);
 }

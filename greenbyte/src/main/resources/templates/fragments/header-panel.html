@@ -1,0 +1,23 @@
+<header th:fragment="panel(titulo)" class="navbar barra-nav py-3">
+    <div class="container gap-3">
+        <span class="navbar-brand d-flex align-items-center gap-2 me-0 mb-0">
+            <img th:src="@{/iconos/ico-greenbyte-sinfondo.png}" alt="GreenByte" width="36" height="36">
+            <span th:text="${titulo}">Panel GreenByte</span>
+        </span>
+        <div class="d-flex align-items-center flex-wrap gap-2">
+            <span th:if="${session.rol != null}" class="badge text-bg-light"
+                  th:text="|Rol activo: ${session.rol == 'ADMIN' ? 'Administrador' : (session.rol == 'GESTOR' ? 'Gestor' : 'Cliente')}|">
+            </span>
+            <div class="dropdown">
+                <button class="btn btn-outline-light btn-sm dropdown-toggle" type="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">Perfil</button>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li><span class="dropdown-item-text" th:text="${session.nombre}"></span></li>
+                    <li><a class="dropdown-item" th:href="@{/elegir-rol}">Cambiar rol</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" th:href="@{/cerrar-sesion}">Cerrar sesión</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</header>

@@ -1,3 +1,12 @@
+const modalAcceso = document.getElementById('modal-acceso');
+
+modalAcceso?.addEventListener('show.bs.modal', evento => {
+    const aviso = document.getElementById('motivo-acceso');
+    const mensaje = evento.relatedTarget?.dataset.accesoMensaje || '';
+    aviso.textContent = mensaje;
+    aviso.classList.toggle('d-none', !mensaje);
+});
+
 function irARegistro(evento) {
     evento?.preventDefault();
     document.getElementById('pestana-registro')?.click();
@@ -26,7 +35,6 @@ async function crearCuenta(evento) {
     const telefono = document.getElementById('registro-telefono')?.value.trim();
     const clave = document.getElementById('registro-clave')?.value;
     const repetirClave = document.getElementById('registro-clave-repetida')?.value;
-    const aceptaTerminos = document.getElementById('registro-terminos')?.checked;
 
     if (!nombre || !correo || !telefono || !clave || !repetirClave) {
         mostrarMensaje('registro-error', 'Completa todos los campos obligatorios.');
@@ -40,13 +48,9 @@ async function crearCuenta(evento) {
         mostrarMensaje('registro-error', 'Las contraseñas no coinciden.');
         return false;
     }
-    if (!aceptaTerminos) {
-        mostrarMensaje('registro-error', 'Debes aceptar los términos y condiciones.');
-        return false;
-    }
 
     try {
-        const respuesta = await fetch('/crear', {
+        const respuesta = await fetch(evento.currentTarget.dataset.url, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ nombre, correo, telefono, acceso: 'U', clave })

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campañas | GreenByte</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="icon" th:href="@{/iconos/ico-greenbyte-sinfondo.png}" type="image/png">
+    <link rel="stylesheet" th:href="@{/styles.css}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+    <header th:replace="~{fragments/header-panel :: panel('Gestión de catálogo')}"></header>
+
+    <main class="container py-4 flex-grow-1">
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+            <h1 class="titulo-editorial mb-0">Campañas</h1>
+            <a class="btn btn-outline-success" th:href="@{/gestor}">Volver al catálogo</a>
+        </div>
+        <p th:if="${success}" class="alert alert-success" role="status" th:text="${success}"></p>
+
+        <div class="row g-4">
+            <div class="col-lg-5">
+                <section class="bg-white border rounded-3 p-4" aria-labelledby="titulo-formulario">
+                    <h2 id="titulo-formulario" class="h4 titulo-editorial mb-3"
+                        th:text="${campaniaId == null ? 'Nueva campaña' : 'Editar campaña'}"></h2>
+                    <form method="post" th:object="${campania}"
+                          th:action="${campaniaId == null} ? @{/gestor/campanias} : @{/gestor/campanias/{id}(id=${campaniaId})}">
+                        <input type="hidden" name="token" th:value="${session.tokenCambioRol}">
+
+                        <div th:if="${#fields.hasGlobalErrors()}" class="alert alert-danger" role="alert">
+                            <div th:each="mensaje : ${#fields.globalErrors()}" th:text="${mensaje}"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="titulo" class="form-label">Título</label>
+                            <input class="form-control" type="text" th:field="*{titulo}" required maxlength="80">
+                            <div class="invalid-feedback d-block" th:errors="*{titulo}"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="mensaje" class="form-label">Mensaje</label>
+                            <textarea class="form-control" th:field="*{mensaje}" rows="3" required maxlength="240"></textarea>
+                            <div class="invalid-feedback d-block" th:errors="*{mensaje}"></div>
+                        </div>
+                        <div class="row g-3 mb-3">
+                            <div class="col-sm-6">
+                                <label for="inicio" class="form-label">Inicio</label>
+                                <input class="form-control" type="date" th:field="*{inicio}" required>
+                                <div class="invalid-feedback d-block" th:errors="*{inicio}"></div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label for="fin" class="form-label">Fin</label>
+                                <input class="form-control" type="date" th:field="*{fin}" required>
+                                <div class="invalid-feedback d-block" th:errors="*{fin}"></div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="categoriaId" class="form-label">Destino del botón</label>
+                            <select class="form-select" name="categoriaId" id="categoriaId">
+                                <option value="">Todo el catálogo</option>
+                                <option th:each="categoria : ${categorias}" th:value="${categoria.id}"
+                                        th:text="${categoria.nombre}" th:selected="${categoria.id == categoriaId}"></option>
+                            </select>
+                        </div>
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" th:field="*{activa}">
+                            <label class="form-check-label" for="activa1">Campaña habilitada</label>
+                        </div>
+                        <div class="d-flex flex-wrap gap-2">
+                            <button class="btn btn-success" type="submit">Guardar campaña</button>
+                            <a th:if="${campaniaId != null}" th:href="@{/gestor/campanias}" class="btn btn-outline-secondary">Cancelar</a>
+                        </div>
+                    </form>
+                </section>
+            </div>
+
+            <div class="col-lg-7">
+                <section aria-labelledby="titulo-campanias">
+                    <h2 id="titulo-campanias" class="h4 titulo-editorial mb-3">Campañas guardadas</h2>
+                    <p th:if="${#lists.isEmpty(campanias)}" class="text-body-secondary">Todavía no hay campañas.</p>
+                    <div th:unless="${#lists.isEmpty(campanias)}" class="table-responsive border rounded-3 bg-white">
+                        <table class="table align-middle mb-0">
+                            <thead>
+                                <tr><th scope="col">Título</th><th scope="col">Fechas</th><th scope="col">Estado</th><th scope="col">Acción</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="item : ${campanias}">
+                                    <td th:text="${item.titulo}"></td>
+                                    <td th:text="|${#temporals.format(item.inicio, 'dd/MM/yyyy')} al ${#temporals.format(item.fin, 'dd/MM/yyyy')}|"></td>
+                                    <td th:text="${item.activa ? 'Habilitada' : 'Desactivada'}"></td>
+                                    <td><a th:href="@{/gestor/campanias/{id}(id=${item.id})}" class="btn btn-sm btn-outline-success">Editar</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+    <script th:replace="~{fragments/scripts :: bootstrapJs}"></script>
+</body>
+
+</html>

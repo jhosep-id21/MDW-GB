@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="es-es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de catálogo | GreenByte</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="icon" th:href="@{/iconos/ico-greenbyte-sinfondo.png}" type="image/png">
+    <link rel="stylesheet" th:href="@{/styles.css}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+    <header th:replace="~{fragments/header-panel :: panel('Gestión de catálogo')}"></header>
+
+    <main class="container py-4 flex-grow-1">
+        <div th:if="${success}" class="alert alert-success alert-dismissible fade show" role="alert">
+            <i class="bi bi-check-circle-fill me-2"></i><span th:text="${success}"></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <div th:if="${error}" class="alert alert-danger alert-dismissible fade show" role="alert">
+            <i class="bi bi-exclamation-triangle-fill me-2"></i><span th:text="${error}"></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+            <h1 class="titulo-editorial mb-0">Catálogo de productos</h1>
+            <a class="btn btn-outline-success" th:href="@{/gestor/campanias}">Campañas</a>
+        </div>
+        <form method="post" th:action="@{/gestor/categorias}" class="bg-white border rounded-3 p-3 mb-4">
+            <input type="hidden" name="token" th:value="${session.tokenCambioRol}">
+            <label for="nombre-categoria" class="form-label fw-semibold">Nueva categoría</label>
+            <div class="d-flex flex-wrap gap-2 align-items-center">
+                <input class="form-control w-auto flex-grow-1" id="nombre-categoria" name="nombre"
+                       required maxlength="50" placeholder="Ej. Planta navideña">
+                <button class="btn btn-success" type="submit">Agregar categoría</button>
+            </div>
+        </form>
+        <div>
+            <!-- Resumen de Métricas -->
+            <div class="row g-3 mb-4">
+                <div class="col-md-3 col-6">
+                    <div class="card text-center p-3 bg-verde-oscuro text-white border-secondary">
+                        <div class="fs-4 fw-bold text-success"
+                            th:text="${productos != null ? #lists.size(productos) : 0}">0</div>
+                        <div class="small text-white-50">Total Productos</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="card text-center p-3 bg-verde-oscuro text-white border-secondary">
+                        <div class="fs-4 fw-bold text-info"
+                            th:text="${categorias != null ? #lists.size(categorias) : 0}">0</div>
+                        <div class="small text-white-50">Categorías</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Catálogo dinámico con CRUD conectado a MySQL -->
+            <div class="card bg-verde-oscuro text-white border-secondary p-3 mb-4 shadow">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h5 class="mb-0"><i class="bi bi-box-seam me-2 text-success"></i> Catálogo de Productos</h5>
+                    <button class="btn btn-success btn-sm" data-bs-toggle="modal"
+                        data-bs-target="#modal-crear-producto">
+                        <i class="bi bi-plus-circle me-1"></i> + Nuevo Producto
+                    </button>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table table-dark table-hover align-middle small mb-0">
+                        <thead>
+                            <tr class="table-secondary text-dark">
+                                <th>ID</th>
+                                <th>Producto</th>
+                                <th>Categoría</th>
+                                <th>Precio</th>
+                                <th>Stock</th>
+                                <th class="text-center">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:if="${productos == null or #lists.isEmpty(productos)}">
+                                <td colspan="6" class="text-center py-4 text-white-50">
+                                    No hay productos registrados en MySQL. Haz clic en <b>"+ Nuevo Producto"</b>
+                                </td>
+                            </tr>
+                            <tr th:each="p : ${productos}">
+                                <td th:text="${p.id}" class="fw-bold">1</td>
+                                <td>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <img th:src="${p.rutaImagen}"
+                                            style="width: 42px; height: 42px; object-fit: cover; border-radius: 6px;"
+                                            onerror="this.src='/img-carousel/imagen-plantas.jpg'">
+                                        <div>
+                                            <div class="fw-bold" th:text="${p.nombre}">Nombre</div>
+                                            <div class="text-white-50 small text-truncate" style="max-width: 280px;"
+                                                th:text="${p.descripcion}">Descripción</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="badge bg-success" th:text="${p.nombreCategoria}">Categoría</span>
+                                </td>
+                                <td th:text="'S/. ' + ${#numbers.formatDecimal(p.precio, 1, 2)}">S/. 0.00</td>
+                                <td th:text="${p.stock}">0</td>
+                                <td class="text-center">
+                                    <a th:href="@{/gestor/productos/editar/{id}(id=${p.id})}"
+                                        class="btn btn-warning btn-sm me-1" title="Editar producto">
+                                        <i class="bi bi-pencil"></i> Editar
+                                    </a>
+                                    <form th:action="@{/gestor/productos/eliminar/{id}(id=${p.id})}"
+                                        method="post" class="d-inline"
+                                        onsubmit="return confirm('¿Seguro que deseas eliminar este producto de la base de datos?');">
+                                        <button type="submit" class="btn btn-danger btn-sm" title="Eliminar producto">
+                                            <i class="bi bi-trash"></i> Eliminar
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= MODAL 1: REGISTRAR NUEVO PRODUCTO ================= -->
+        <div class="modal fade" id="modal-crear-producto" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content bg-verde-oscuro text-white border-secondary">
+                    <form th:action="@{/gestor/productos/guardar}" method="post" th:object="${nuevoProducto}">
+                        <div class="modal-header border-secondary">
+                            <h5 class="modal-title"><i class="bi bi-plus-circle text-success me-2"></i>Registrar Nuevo
+                                Producto</h5>
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label class="form-label small fw-bold">Nombre del Producto <span
+                                        class="text-danger">*</span></label>
+                                <input type="text" th:field="*{nombre}" class="form-control"
+                                    th:classappend="${#fields.hasErrors('nombre')} ? 'is-invalid' : ''"
+                                    placeholder="Ej: Ficus Lyrata">
+                                <div th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"
+                                    class="invalid-feedback"></div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label small fw-bold">Categoría <span
+                                        class="text-danger">*</span></label>
+                                <select name="categoriaId" class="form-select"
+                                    th:classappend="${#fields.hasErrors('categoria')} ? 'is-invalid' : ''">
+                                    <option value="" disabled th:selected="${nuevoProducto.categoria == null}">
+                                        Selecciona una categoría</option>
+                                    <option th:each="cat : ${categorias}" th:value="${cat.id}" th:text="${cat.nombre}"
+                                        th:selected="${nuevoProducto.categoria != null and nuevoProducto.categoria.id == cat.id}">
+                                    </option>
+                                </select>
+                                <div th:if="${#fields.hasErrors('categoria')}" th:errors="*{categoria}"
+                                    class="invalid-feedback d-block"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label small fw-bold">Precio (S/.) <span
+                                            class="text-danger">*</span></label>
+                                    <input type="number" step="0.01" th:field="*{precio}" class="form-control"
+                                        th:classappend="${#fields.hasErrors('precio')} ? 'is-invalid' : ''"
+                                        placeholder="45.00">
+                                    <div th:if="${#fields.hasErrors('precio')}" th:errors="*{precio}"
+                                        class="invalid-feedback"></div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label small fw-bold">Stock <span
+                                            class="text-danger">*</span></label>
+                                    <input type="number" th:field="*{stock}" class="form-control"
+                                        th:classappend="${#fields.hasErrors('stock')} ? 'is-invalid' : ''"
+                                        placeholder="10">
+                                    <div th:if="${#fields.hasErrors('stock')}" th:errors="*{stock}"
+                                        class="invalid-feedback"></div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label small fw-bold">Descripción <span
+                                        class="text-danger">*</span></label>
+                                <textarea th:field="*{descripcion}" class="form-control"
+                                    th:classappend="${#fields.hasErrors('descripcion')} ? 'is-invalid' : ''" rows="2"
+                                    placeholder="Descripción breve del producto..."></textarea>
+                                <div th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}"
+                                    class="invalid-feedback"></div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label small fw-bold">Enlace o Ruta de la Imagen</label>
+                                <input type="text" th:field="*{imagen}" class="form-control"
+                                    placeholder="https://ejemplo.com/foto.jpg o plantas/interior/planta.webp">
+                                <div class="form-text text-white-50 small">Opcional. Si se deja vacío se usará una
+                                    imagen predeterminada.</div>
+                            </div>
+                        </div>
+                        <div class="modal-footer border-secondary">
+                            <button type="button" class="btn btn-secondary btn-sm"
+                                data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-success btn-sm"><i class="bi bi-plus-lg me-1"></i>
+                                Agregar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= MODAL 2: EDITAR PRODUCTO EXISTENTE ================= -->
+        <div class="modal fade" id="modal-editar-producto" th:attr="data-panel-url=@{/gestor}" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content bg-verde-oscuro text-white border-secondary">
+                    <form th:action="@{'/gestor/productos/editar/' + ${productoId != null ? productoId : 0}}"
+                        method="post" th:object="${productoAEditar}">
+                        <div class="modal-header border-secondary">
+                            <h5 class="modal-title"><i class="bi bi-pencil-square text-warning me-2"></i>Editar Producto
+                            </h5>
+                            <a th:href="@{/gestor}" class="btn-close btn-close-white" aria-label="Close"></a>
+                        </div>
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label class="form-label small fw-bold">Nombre del Producto <span
+                                        class="text-danger">*</span></label>
+                                <input type="text" th:field="*{nombre}" class="form-control"
+                                    th:classappend="${#fields.hasErrors('nombre')} ? 'is-invalid' : ''">
+                                <div th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"
+                                    class="invalid-feedback"></div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label small fw-bold">Categoría <span
+                                        class="text-danger">*</span></label>
+                                <select name="categoriaId" class="form-select"
+                                    th:classappend="${#fields.hasErrors('categoria')} ? 'is-invalid' : ''">
+                                    <option value="" disabled th:selected="${productoAEditar.categoria == null}">
+                                        Selecciona una categoría</option>
+                                    <option th:each="cat : ${categorias}" th:value="${cat.id}" th:text="${cat.nombre}"
+                                        th:selected="${productoAEditar.categoria != null and productoAEditar.categoria.id == cat.id}">
+                                    </option>
+                                </select>
+                                <div th:if="${#fields.hasErrors('categoria')}" th:errors="*{categoria}"
+                                    class="invalid-feedback d-block"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label small fw-bold">Precio (S/.) <span
+                                            class="text-danger">*</span></label>
+                                    <input type="number" step="0.01" th:field="*{precio}" class="form-control"
+                                        th:classappend="${#fields.hasErrors('precio')} ? 'is-invalid' : ''">
+                                    <div th:if="${#fields.hasErrors('precio')}" th:errors="*{precio}"
+                                        class="invalid-feedback"></div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label small fw-bold">Stock <span
+                                            class="text-danger">*</span></label>
+                                    <input type="number" th:field="*{stock}" class="form-control"
+                                        th:classappend="${#fields.hasErrors('stock')} ? 'is-invalid' : ''">
+                                    <div th:if="${#fields.hasErrors('stock')}" th:errors="*{stock}"
+                                        class="invalid-feedback"></div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label small fw-bold">Descripción <span
+                                        class="text-danger">*</span></label>
+                                <textarea th:field="*{descripcion}" class="form-control"
+                                    th:classappend="${#fields.hasErrors('descripcion')} ? 'is-invalid' : ''"
+                                    rows="2"></textarea>
+                                <div th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}"
+                                    class="invalid-feedback"></div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label small fw-bold">Enlace o Ruta de la Imagen</label>
+                                <input type="text" th:field="*{imagen}" class="form-control">
+                                <div class="form-text text-white-50 small">Opcional. Puedes usar un enlace web
+                                    (http/https) o una ruta local.</div>
+                            </div>
+                        </div>
+                        <div class="modal-footer border-secondary">
+                            <a th:href="@{/gestor}" class="btn btn-secondary btn-sm">Cancelar</a>
+                            <button type="submit" class="btn btn-warning btn-sm"><i class="bi bi-check-lg me-1"></i>
+                                Actualizar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script th:replace="~{fragments/scripts :: bootstrapJs}"></script>
+    <script th:if="${abrirModalCrear}">
+        document.addEventListener("DOMContentLoaded", function () {
+            var el = document.getElementById('modal-crear-producto');
+            if (el) {
+                var modal = new bootstrap.Modal(el);
+                modal.show();
+            }
+        });
+    </script>
+    <script th:if="${editando}">
+        document.addEventListener("DOMContentLoaded", function () {
+            var el = document.getElementById('modal-editar-producto');
+            if (el) {
+                var modal = new bootstrap.Modal(el);
+                modal.show();
+                el.addEventListener('hidden.bs.modal', function () {
+                    window.location.href = el.dataset.panelUrl;
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>
