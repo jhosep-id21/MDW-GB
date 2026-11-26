@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ventas | GreenByte</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="icon" th:href="@{/iconos/icono-greenbyte.png}" type="image/png">
+    <link rel="stylesheet" th:href="@{/styles.css}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+    <header th:replace="~{fragments/header-panel :: panel('Administración', 'ventas') }"></header>
+
+    <main class="container py-5 flex-grow-1">
+        <h1 class="titulo-editorial mb-4">Ventas</h1>
+        <section th:if="${ventaSeleccionada != null}" class="bg-white border rounded-3 p-4 mb-4">
+            <h2 class="h4 titulo-editorial" th:text="|Venta #${ventaSeleccionada.id}|"></h2>
+            <p th:text="${ventaSeleccionada.cliente.nombre}"></p>
+            <div class="table-responsive">
+                <table class="table mb-0">
+                    <thead><tr><th scope="col">Producto</th><th scope="col">Cantidad</th>
+                        <th scope="col">Precio unitario</th><th scope="col">Subtotal</th></tr></thead>
+                    <tbody>
+                        <tr th:each="detalle : ${ventaSeleccionada.detalles}">
+                            <td th:text="${detalle.nombreProducto}"></td>
+                            <td th:text="${detalle.cantidad}"></td>
+                            <td th:text="|S/ ${#numbers.formatDecimal(detalle.precioUnitario, 1, 2)}|"></td>
+                            <td th:text="|S/ ${#numbers.formatDecimal(detalle.precioUnitario * detalle.cantidad, 1, 2)}|"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <p th:if="${#lists.isEmpty(ventas)}" class="text-body-secondary">Todavía no hay ventas registradas.</p>
+        <div th:unless="${#lists.isEmpty(ventas)}" class="table-responsive bg-white border rounded-3">
+            <table class="table align-middle mb-0">
+                <thead><tr><th scope="col">Venta</th><th scope="col">Fecha</th><th scope="col">Cliente</th>
+                    <th scope="col">Total</th><th scope="col">Detalle</th></tr></thead>
+                <tbody>
+                    <tr th:each="venta : ${ventas}">
+                        <td th:text="|#${venta.id}|"></td>
+                        <td th:text="${#temporals.format(venta.fecha, 'dd/MM/yyyy HH:mm')}"></td>
+                        <td th:text="${venta.cliente.nombre}"></td>
+                        <td th:text="|S/ ${#numbers.formatDecimal(venta.total, 1, 2)}|"></td>
+                        <td><a class="btn btn-sm btn-outline-success"
+                               th:href="@{/administrador/ventas(id=${venta.id})}">Ver detalle</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+    <script th:replace="~{fragments/scripts :: bootstrapJs}"></script>
+</body>
+
+</html>

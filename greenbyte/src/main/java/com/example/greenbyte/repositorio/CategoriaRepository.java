@@ -6,4 +6,6 @@ import com.example.greenbyte.models.Categoria;
 public interface CategoriaRepository extends JpaRepository<Categoria, Long> {
 
     boolean existsByNombreIgnoreCase(String nombre);
+
+    boolean existsByNombreIgnoreCaseAndIdNot(String nombre, Long id);
 }

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual Byte | GreenByte</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="icon" th:href="@{/iconos/icono-greenbyte.png}" type="image/png">
+    <link rel="stylesheet" th:href="@{/styles.css}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+    <header th:replace="~{fragments/header :: navegador}"></header>
+    <div th:replace="~{fragments/login :: login}"></div>
+    <div th:replace="~{fragments/cart :: carrito}"></div>
+
+    <main class="manual-byte flex-grow-1">
+        <div class="container pt-4">
+            <h1 class="titulo-editorial">Manual Byte</h1>
+            <nav class="nav nav-pills manual-tabs gap-2 mt-3" role="tablist" aria-label="Herramientas de Manual Byte">
+                <button id="tab-fichas" class="nav-link active" type="button" role="tab"
+                        data-bs-toggle="pill" data-bs-target="#fichas" aria-controls="fichas"
+                        aria-selected="true">Fichas técnicas</button>
+                <button id="tab-calculadora-riego" class="nav-link" type="button" role="tab"
+                        data-bs-toggle="pill" data-bs-target="#calculadora-riego" aria-controls="calculadora-riego"
+                        aria-selected="false">Calculadora de riego</button>
+                <button id="tab-tips-luz" class="nav-link" type="button" role="tab"
+                        data-bs-toggle="pill" data-bs-target="#tips-luz" aria-controls="tips-luz"
+                        aria-selected="false">Guía de iluminación</button>
+            </nav>
+        </div>
+        <div class="tab-content">
+            <section th:replace="~{fichas :: herramienta}"></section>
+            <section th:replace="~{calculadora-riego :: herramienta}"></section>
+            <section th:replace="~{tips-luz :: herramienta}"></section>
+        </div>
+    </main>
+    <footer th:replace="~{fragments/footer :: footer}"></footer>
+    <th:block th:replace="~{fragments/scripts :: scripts}"></th:block>
+    <script th:src="@{/js/manual-byte.js}"></script>
+    <script th:src="@{/js/fichas.js}"></script>
+    <script th:src="@{/js/riego.js}"></script>
+    <script th:src="@{/js/tips-luz.js}"></script>
+</body>
+
+</html>

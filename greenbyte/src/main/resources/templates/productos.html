@@ -4,10 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GreenByte - Catálogo de Productos</title>
+    <title>Productos | GreenByte</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <link rel="icon" th:href="@{/iconos/ico-greenbyte-sinfondo.png}" type="image/png">
+    <link rel="icon" th:href="@{/iconos/icono-greenbyte.png}" type="image/png">
     <link rel="stylesheet" th:href="@{/styles.css}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 </head>
@@ -26,11 +26,6 @@
                 <label for="filtro-categoria" class="form-label fw-semibold">Categoría</label>
                 <select id="filtro-categoria" class="form-select">
                     <option value="">Todas las categorías</option>
-                    <option value="interior">Plantas de interior</option>
-                    <option value="exterior">Plantas de exterior</option>
-                    <option value="macetas">Macetas</option>
-                    <option value="accesorios">Accesorios</option>
-                    <option value="principiantes">Principiantes</option>
                     <option th:each="categoria : ${categorias}" th:value="${categoria.nombre}"
                             th:text="${categoria.nombre}"></option>
                 </select>

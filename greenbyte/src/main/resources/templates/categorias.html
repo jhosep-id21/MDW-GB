@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categorías | GreenByte</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="icon" th:href="@{/iconos/icono-greenbyte.png}" type="image/png">
+    <link rel="stylesheet" th:href="@{/styles.css}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+    <header th:replace="~{fragments/header-panel :: panel('Gestión de catálogo', 'categorias')}"></header>
+
+    <main class="container py-4 flex-grow-1">
+        <h1 class="titulo-editorial mb-4">Categorías</h1>
+        <p th:if="${success}" class="alert alert-success" role="status" th:text="${success}"></p>
+        <p th:if="${error}" class="alert alert-danger" role="alert" th:text="${error}"></p>
+
+        <form method="post" th:action="@{/gestor/categorias}" class="bg-white border rounded-3 p-3 mb-4">
+            <input type="hidden" name="token" th:value="${session.tokenCambioRol}">
+            <input th:if="${categoriaEditada != null}" type="hidden" name="id" th:value="${categoriaEditada.id}">
+            <label for="nombre-categoria" class="form-label fw-semibold"
+                   th:text="${categoriaEditada == null ? 'Nueva categoría' : 'Editar categoría'}">Nueva categoría</label>
+            <div class="d-flex flex-wrap gap-2 align-items-center">
+                <input class="form-control w-auto flex-grow-1" id="nombre-categoria" name="nombre"
+                       required maxlength="50" placeholder="Ej. Planta navideña"
+                       th:value="${categoriaEditada?.nombre}">
+                <button class="btn btn-success" type="submit"
+                        th:text="${categoriaEditada == null ? 'Agregar categoría' : 'Guardar cambios'}">Agregar categoría</button>
+                <a th:if="${categoriaEditada != null}" class="btn btn-outline-secondary"
+                   th:href="@{/gestor/categorias}">Cancelar</a>
+            </div>
+        </form>
+
+        <section class="col-lg-7" aria-labelledby="categorias-guardadas">
+            <h2 id="categorias-guardadas" class="h4 titulo-editorial mb-3">Categorías guardadas</h2>
+            <p th:if="${#lists.isEmpty(categorias)}" class="text-body-secondary">Todavía no hay categorías.</p>
+            <ul th:unless="${#lists.isEmpty(categorias)}" class="list-group">
+                <li th:each="categoria : ${categorias}"
+                    class="list-group-item bg-white d-flex flex-wrap justify-content-between align-items-center gap-2">
+                    <span th:text="${categoria.nombre}"></span>
+                    <div class="d-flex gap-2">
+                        <a class="btn btn-sm btn-outline-success" th:href="@{/gestor/categorias(editar=${categoria.id})}">Editar</a>
+                        <form method="post" th:action="@{/gestor/categorias/{id}/eliminar(id=${categoria.id})}"
+                              onsubmit="return confirm('¿Eliminar esta categoría?')">
+                            <input type="hidden" name="token" th:value="${session.tokenCambioRol}">
+                            <button type="submit" class="btn btn-sm btn-outline-danger">Eliminar</button>
+                        </form>
+                    </div>
+                </li>
+            </ul>
+        </section>
+    </main>
+    <script th:replace="~{fragments/scripts :: bootstrapJs}"></script>
+</body>
+
+</html>

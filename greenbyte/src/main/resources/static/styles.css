@@ -461,3 +461,80 @@
 .pie-pagina h5 { color: var(--gb-mint); }
 .pie-pagina a { color: var(--gb-mint); }
 .pie-pagina a:hover { color: #fff; }
+
+/* Manual Byte */
+.manual-byte {
+  --manual-bosque: #16422b;
+  --manual-salvia: #e8f2ec;
+  --manual-ambar: #fdf6ec;
+  --manual-borde: #e2e6e0;
+  --manual-texto: #1a241e;
+  --manual-secundario: #5a665e;
+  color: var(--manual-texto);
+}
+
+.manual-byte .titulo-editorial { color: var(--manual-bosque); }
+
+.manual-tabs {
+  --bs-nav-pills-link-active-bg: var(--manual-bosque);
+  --bs-nav-pills-link-active-color: #fff;
+  --bs-nav-link-color: var(--manual-bosque);
+}
+
+.manual-tabs .nav-link {
+  border: 1px solid var(--manual-borde);
+  border-radius: 999px;
+  background-color: #fff;
+}
+
+.manual-tabs .nav-link:hover:not(.active) {
+  background-color: var(--manual-salvia);
+}
+
+.manual-busqueda { max-width: 30rem; }
+.manual-busqueda .input-group-text {
+  background: var(--manual-salvia);
+  color: var(--manual-bosque);
+}
+
+.manual-busqueda .form-control:focus {
+  border-color: var(--manual-bosque);
+  box-shadow: 0 0 0 .2rem rgba(22, 66, 43, .16);
+}
+
+.manual-ficha {
+  background: #fff;
+  border: 1px solid var(--manual-borde);
+  box-shadow: 0 4px 14px rgba(15, 23, 42, .05);
+}
+
+.manual-ficha-encabezado { border-bottom: 1px solid #eef1ec; }
+
+.manual-ficha-tipo {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 999px;
+  background: var(--manual-salvia);
+  color: #1e5631;
+  font-size: .8rem;
+  font-weight: 600;
+}
+
+.manual-ficha-descripcion,
+.manual-ficha-notas p { color: var(--manual-secundario); }
+
+.manual-ficha-cuidados { background: var(--manual-ambar); }
+
+.manual-ficha-cuidados dt {
+  color: var(--manual-secundario);
+  font-size: .85rem;
+  margin-bottom: .125rem;
+}
+
+.manual-ficha-cuidados i { color: #92551b; }
+.manual-ficha-notas { font-size: .9rem; }
+.manual-ficha-notas summary {
+  color: var(--manual-bosque);
+  cursor: pointer;
+  font-weight: 600;
+}

@@ -1,9 +1,10 @@
 <nav th:fragment="navegador" class="navbar navbar-expand-lg barra-nav py-3 position-relative z-3">
+    <script th:if="${session.logueado == true}" th:src="@{/js/historial-sesion.js}" defer></script>
         <div class="container-fluid px-4 px-lg-5">
 
             <!-- BLOQUE IZQUIERDO: Logo y Marca -->
             <a class="navbar-brand d-flex align-items-center" th:href="@{/}">
-                <img th:src="@{/iconos/ico-greenbyte-sinfondo.png}" alt="GreenByte" width="40" height="40" class="me-2">
+                <img th:src="@{/iconos/icono-greenbyte.png}" alt="GreenByte" width="40" height="40" class="me-2">
                 <span class="titulo-marca">Green<span>Byte</span></span>
             </a>
 
@@ -19,7 +20,10 @@
                 <ul class="navbar-nav mx-auto mb-2 mb-lg-0 align-items-lg-center gap-3">
                     <li class="nav-item"><a class="nav-link" th:href="@{/}">Inicio</a></li>
                     <li class="nav-item"><a class="nav-link" th:href="@{/productos}">Productos</a></li>
-                    <li class="nav-item"><a class="nav-link" th:href="@{/#manual-byte}">Manual Byte</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/manual-byte}"
+                        th:attr="data-bs-toggle=${session.logueado != true} ? 'modal' : null,
+                                 data-bs-target=${session.logueado != true} ? '#modal-acceso' : null"
+                        data-acceso-mensaje="Crea una cuenta gratis o inicia sesión para usar Manual Byte.">Manual Byte</a></li>
                     <li class="nav-item"><a class="nav-link" th:href="@{/sobre-nosotros}">Sobre nosotros</a></li>
                     <li class="nav-item"><a class="nav-link" th:href="@{/contactanos}">Contáctanos</a></li>
                 </ul>

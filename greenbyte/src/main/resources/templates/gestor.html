@@ -7,13 +7,13 @@
     <title>Panel de catálogo | GreenByte</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <link rel="icon" th:href="@{/iconos/ico-greenbyte-sinfondo.png}" type="image/png">
+    <link rel="icon" th:href="@{/iconos/icono-greenbyte.png}" type="image/png">
     <link rel="stylesheet" th:href="@{/styles.css}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 </head>
 
 <body class="d-flex flex-column min-vh-100">
-    <header th:replace="~{fragments/header-panel :: panel('Gestión de catálogo')}"></header>
+    <header th:replace="~{fragments/header-panel :: panel('Gestión de catálogo', 'productos')}"></header>
 
     <main class="container py-4 flex-grow-1">
         <div th:if="${success}" class="alert alert-success alert-dismissible fade show" role="alert">
@@ -25,32 +25,20 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
 
-        <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
-            <h1 class="titulo-editorial mb-0">Catálogo de productos</h1>
-            <a class="btn btn-outline-success" th:href="@{/gestor/campanias}">Campañas</a>
-        </div>
-        <form method="post" th:action="@{/gestor/categorias}" class="bg-white border rounded-3 p-3 mb-4">
-            <input type="hidden" name="token" th:value="${session.tokenCambioRol}">
-            <label for="nombre-categoria" class="form-label fw-semibold">Nueva categoría</label>
-            <div class="d-flex flex-wrap gap-2 align-items-center">
-                <input class="form-control w-auto flex-grow-1" id="nombre-categoria" name="nombre"
-                       required maxlength="50" placeholder="Ej. Planta navideña">
-                <button class="btn btn-success" type="submit">Agregar categoría</button>
-            </div>
-        </form>
+        <h1 class="titulo-editorial mb-4">Catálogo de productos</h1>
         <div>
             <!-- Resumen de Métricas -->
             <div class="row g-3 mb-4">
                 <div class="col-md-3 col-6">
                     <div class="card text-center p-3 bg-verde-oscuro text-white border-secondary">
-                        <div class="fs-4 fw-bold text-success"
+                        <div class="fs-4 fw-bold text-white"
                             th:text="${productos != null ? #lists.size(productos) : 0}">0</div>
                         <div class="small text-white-50">Total Productos</div>
                     </div>
                 </div>
                 <div class="col-md-3 col-6">
-                    <div class="card text-center p-3 bg-verde-oscuro text-white border-secondary">
-                        <div class="fs-4 fw-bold text-info"
+                    <div class="card text-center p-3 bg-verde-oscuro text-white">
+                        <div class="fs-4 fw-bold"
                             th:text="${categorias != null ? #lists.size(categorias) : 0}">0</div>
                         <div class="small text-white-50">Categorías</div>
                     </div>
@@ -63,7 +51,7 @@
                     <h5 class="mb-0"><i class="bi bi-box-seam me-2 text-success"></i> Catálogo de Productos</h5>
                     <button class="btn btn-success btn-sm" data-bs-toggle="modal"
                         data-bs-target="#modal-crear-producto">
-                        <i class="bi bi-plus-circle me-1"></i> + Nuevo Producto
+                        <i class="bi bi-plus-circle me-1"></i>Nuevo Producto
                     </button>
                 </div>
 
@@ -127,7 +115,7 @@
         <!-- ================= MODAL 1: REGISTRAR NUEVO PRODUCTO ================= -->
         <div class="modal fade" id="modal-crear-producto" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog">
-                <div class="modal-content bg-verde-oscuro text-white border-secondary">
+                <div class="modal-content bg-dark text-white border-secondary">
                     <form th:action="@{/gestor/productos/guardar}" method="post" th:object="${nuevoProducto}">
                         <div class="modal-header border-secondary">
                             <h5 class="modal-title"><i class="bi bi-plus-circle text-success me-2"></i>Registrar Nuevo

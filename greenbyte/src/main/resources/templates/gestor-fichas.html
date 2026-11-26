@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fichas técnicas | GreenByte</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="icon" th:href="@{/iconos/icono-greenbyte.png}" type="image/png">
+    <link rel="stylesheet" th:href="@{/styles.css}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+    <header th:replace="~{fragments/header-panel :: panel('Gestión de catálogo', 'fichas')}"></header>
+
+    <main class="container py-4 flex-grow-1">
+        <h1 class="titulo-editorial mb-4">Fichas técnicas</h1>
+        <p th:if="${success}" class="alert alert-success" role="status" th:text="${success}"></p>
+        <div class="row g-4">
+            <section class="col-lg-6">
+                <h2 class="h4 titulo-editorial" th:text="${fichaId == null ? 'Nueva ficha' : 'Editar ficha'}"></h2>
+                <form class="bg-white border rounded-3 p-3" method="post" th:action="@{/gestor/fichas}" th:object="${ficha}">
+                    <input type="hidden" name="token" th:value="${session.tokenCambioRol}">
+                    <input th:if="${fichaId != null}" type="hidden" name="id" th:value="${fichaId}">
+                    <div class="mb-3">
+                        <label for="nombre" class="form-label">Nombre de la planta</label>
+                        <input class="form-control" th:field="*{nombre}" required maxlength="80">
+                        <div class="invalid-feedback d-block" th:errors="*{nombre}"></div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="tipo" class="form-label">Tipo</label>
+                        <input class="form-control" th:field="*{tipo}" required maxlength="50">
+                        <div class="invalid-feedback d-block" th:errors="*{tipo}"></div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="descripcion" class="form-label">Descripción</label>
+                        <textarea class="form-control" th:field="*{descripcion}" required maxlength="240" rows="2"></textarea>
+                        <div class="invalid-feedback d-block" th:errors="*{descripcion}"></div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="luz" class="form-label">Luz</label>
+                        <input class="form-control" th:field="*{luz}" required maxlength="120">
+                        <div class="invalid-feedback d-block" th:errors="*{luz}"></div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="riego" class="form-label">Riego</label>
+                        <input class="form-control" th:field="*{riego}" required maxlength="160">
+                        <div class="invalid-feedback d-block" th:errors="*{riego}"></div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="notas" class="form-label">Notas de cuidado</label>
+                        <textarea class="form-control" th:field="*{notas}" required maxlength="240" rows="2"></textarea>
+                        <div class="invalid-feedback d-block" th:errors="*{notas}"></div>
+                    </div>
+                    <label class="form-check d-flex align-items-center gap-2 mb-3">
+                        <input class="form-check-input mt-0" type="checkbox" th:field="*{activa}">
+                        Publicar en Manual Byte
+                    </label>
+                    <button class="btn btn-success" type="submit">Guardar ficha</button>
+                    <a th:if="${fichaId != null}" th:href="@{/gestor/fichas}" class="btn btn-outline-secondary">Cancelar</a>
+                </form>
+            </section>
+            <section class="col-lg-6">
+                <h2 class="h4 titulo-editorial">Fichas guardadas</h2>
+                <p th:if="${#lists.isEmpty(fichas)}">Todavía no hay fichas.</p>
+                <ul class="list-group">
+                    <li th:each="item : ${fichas}" class="list-group-item bg-white d-flex align-items-center justify-content-between gap-2">
+                        <span>
+                            <strong th:text="${item.nombre}"></strong><br>
+                            <small th:text="${item.activa ? 'Publicada' : 'Oculta'}"></small>
+                        </span>
+                        <a class="btn btn-sm btn-outline-success" th:href="@{/gestor/fichas(id=${item.id})}"
+                           th:attr="aria-label=|Editar ${item.nombre}|">Editar</a>
+                    </li>
+                </ul>
+            </section>
+        </div>
+    </main>
+    <script th:replace="~{fragments/scripts :: bootstrapJs}"></script>
+</body>
+
+</html>

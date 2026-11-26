@@ -1,23 +1,65 @@
-<header th:fragment="panel(titulo)" class="navbar barra-nav py-3">
-    <div class="container gap-3">
-        <span class="navbar-brand d-flex align-items-center gap-2 me-0 mb-0">
-            <img th:src="@{/iconos/ico-greenbyte-sinfondo.png}" alt="GreenByte" width="36" height="36">
-            <span th:text="${titulo}">Panel GreenByte</span>
+<nav th:fragment="panel(titulo, seccion)" class="navbar navbar-expand-lg barra-nav py-3 position-relative z-3"
+     th:attr="aria-label=${titulo}">
+    <script th:if="${session.logueado == true}" th:src="@{/js/historial-sesion.js}" defer></script>
+    <div class="container-fluid px-4 px-lg-5">
+        <span class="navbar-brand d-flex align-items-center gap-2">
+            <img th:src="@{/iconos/icono-greenbyte.png}" alt="" width="40" height="40">
+            <span class="titulo-marca">Green<span>Byte</span></span>
         </span>
-        <div class="d-flex align-items-center flex-wrap gap-2">
-            <span th:if="${session.rol != null}" class="badge text-bg-light"
-                  th:text="|Rol activo: ${session.rol == 'ADMIN' ? 'Administrador' : (session.rol == 'GESTOR' ? 'Gestor' : 'Cliente')}|">
-            </span>
-            <div class="dropdown">
-                <button class="btn btn-outline-light btn-sm dropdown-toggle" type="button"
-                        data-bs-toggle="dropdown" aria-expanded="false">Perfil</button>
-                <ul class="dropdown-menu dropdown-menu-end">
-                    <li><span class="dropdown-item-text" th:text="${session.nombre}"></span></li>
-                    <li><a class="dropdown-item" th:href="@{/elegir-rol}">Cambiar rol</a></li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" th:href="@{/cerrar-sesion}">Cerrar sesión</a></li>
-                </ul>
-            </div>
+        <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navegacion-panel" aria-controls="navegacion-panel"
+                aria-expanded="false" aria-label="Abrir menú del panel">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div id="navegacion-panel" class="collapse navbar-collapse gap-3">
+            <ul class="navbar-nav mx-auto mb-2 mb-lg-0 gap-lg-3">
+                <li class="nav-item" th:if="${session.rol == 'ADMIN' or session.rol == 'GESTOR'}">
+                    <a class="nav-link" th:href="@{/}">Inicio</a>
+                </li>
+                <th:block th:if="${session.rol == 'GESTOR'}">
+                    <li class="nav-item"><a class="nav-link" th:href="@{/gestor}" th:classappend="${seccion == 'productos'} ? 'active'"
+                        th:attr="aria-current=${seccion == 'productos'} ? 'page' : null">Productos</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/gestor/categorias}" th:classappend="${seccion == 'categorias'} ? 'active'"
+                        th:attr="aria-current=${seccion == 'categorias'} ? 'page' : null">Categorías</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/gestor/campanias}" th:classappend="${seccion == 'campanias'} ? 'active'"
+                        th:attr="aria-current=${seccion == 'campanias'} ? 'page' : null">Campañas</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/gestor/fichas}" th:classappend="${seccion == 'fichas'} ? 'active'"
+                        th:attr="aria-current=${seccion == 'fichas'} ? 'page' : null">Fichas técnicas</a></li>
+                </th:block>
+                <li class="nav-item" th:if="${session.rol == 'ADMIN'}">
+                    <a class="nav-link" th:href="@{/administrador}" th:classappend="${seccion == 'usuarios'} ? 'active'"
+                       th:attr="aria-current=${seccion == 'usuarios'} ? 'page' : null">Usuarios</a>
+                </li>
+                <li class="nav-item" th:if="${session.rol == 'ADMIN'}">
+                    <a class="nav-link" th:href="@{/administrador/ventas}" th:classappend="${seccion == 'ventas'} ? 'active'"
+                       th:attr="aria-current=${seccion == 'ventas'} ? 'page' : null">Ventas</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav align-items-lg-center">
+                <li class="nav-item dropdown">
+                    <button class="nav-link dropdown-toggle d-flex align-items-center gap-2" type="button"
+                            data-bs-toggle="dropdown" aria-expanded="false" th:title="${session.usuario}">
+                        <i class="bi bi-person-circle fs-5" aria-hidden="true"></i>
+                        <span class="nombre-usuario"
+                              th:text="${session.nombre != null ? session.nombre : session.usuario} ?: 'Perfil'">Perfil</span>
+                        <span th:if="${session.rol != null}" class="badge rounded-pill"
+                              th:classappend="${session.rol == 'ADMIN'} ? 'bg-danger' : 'bg-success'"
+                              th:attr="aria-label=|Rol activo: ${session.rol == 'ADMIN' ? 'Administrador' : (session.rol == 'GESTOR' ? 'Gestor' : 'Cliente')}|"
+                              th:text="${session.rol}">Rol</span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li th:if="${session.usuario != null}">
+                            <span class="dropdown-header text-truncate" style="max-width: 220px"
+                                  th:text="${session.usuario}"></span>
+                        </li>
+                        <li><a class="dropdown-item" th:href="@{/elegir-rol}">Cambiar rol</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" th:href="@{/cerrar-sesion}">
+                            <i class="bi bi-box-arrow-right me-1" aria-hidden="true"></i> Cerrar sesión
+                        </a></li>
+                    </ul>
+                </li>
+            </ul>
         </div>
     </div>
-</header>
+</nav>

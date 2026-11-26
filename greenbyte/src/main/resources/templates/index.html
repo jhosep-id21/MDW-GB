@@ -4,10 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GreenByte - Tienda de plantas en Trujillo</title>
+    <title>Inicio | GreenByte</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <link rel="icon" th:href="@{/iconos/ico-greenbyte-sinfondo.png}" type="image/png">
+    <link rel="icon" th:href="@{/iconos/icono-greenbyte.png}" type="image/png">
     <link rel="stylesheet" th:href="@{/styles.css}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 </head>
@@ -53,51 +53,17 @@
             </div>
         </section>
 
-        <section class="container pb-5" aria-labelledby="titulo-categorias">
+        <section th:unless="${#lists.isEmpty(categorias)}" class="container pb-5" aria-labelledby="titulo-categorias">
             <h2 id="titulo-categorias" class="titulo-editorial h1 mb-3">Explora por categoría</h2>
             <div class="row row-cols-2 row-cols-sm-3 row-cols-lg-5 g-3">
-                <div class="col">
+                <div class="col" th:each="categoria : ${categorias}">
                     <a class="categoria-inicio d-block h-100 rounded-3 overflow-hidden text-decoration-none"
-                       th:href="@{/productos(categoria='interior')}">
-                        <img class="w-100 d-block object-fit-cover" th:src="@{/plantas/interior/planta-int-4.webp}" alt="" loading="lazy">
+                       th:href="@{/productos(categoria=${categoria.nombre})}">
+                        <img class="w-100 d-block object-fit-cover" alt="" loading="lazy"
+                             th:src="@{${fotosCategorias[categoria.nombre] ?: '/img-carousel/image-mas-plantas.jpg'}}">
                         <span class="d-flex align-items-center justify-content-between gap-2 p-3 fw-semibold">
-                            Interior <i class="bi bi-arrow-up-right" aria-hidden="true"></i>
-                        </span>
-                    </a>
-                </div>
-                <div class="col">
-                    <a class="categoria-inicio d-block h-100 rounded-3 overflow-hidden text-decoration-none"
-                       th:href="@{/productos(categoria='exterior')}">
-                        <img class="w-100 d-block object-fit-cover" th:src="@{/plantas/exterior/planta-ext-4.webp}" alt="" loading="lazy">
-                        <span class="d-flex align-items-center justify-content-between gap-2 p-3 fw-semibold">
-                            Exterior <i class="bi bi-arrow-up-right" aria-hidden="true"></i>
-                        </span>
-                    </a>
-                </div>
-                <div class="col">
-                    <a class="categoria-inicio d-block h-100 rounded-3 overflow-hidden text-decoration-none"
-                       th:href="@{/productos(categoria='macetas')}">
-                        <img class="w-100 d-block object-fit-cover" th:src="@{/img-carousel/maceta-2.jpg}" alt="" loading="lazy">
-                        <span class="d-flex align-items-center justify-content-between gap-2 p-3 fw-semibold">
-                            Macetas <i class="bi bi-arrow-up-right" aria-hidden="true"></i>
-                        </span>
-                    </a>
-                </div>
-                <div class="col">
-                    <a class="categoria-inicio d-block h-100 rounded-3 overflow-hidden text-decoration-none"
-                       th:href="@{/productos(categoria='accesorios')}">
-                        <img class="w-100 d-block object-fit-cover" th:src="@{/img-carousel/accesorios-2.png}" alt="" loading="lazy">
-                        <span class="d-flex align-items-center justify-content-between gap-2 p-3 fw-semibold">
-                            Accesorios <i class="bi bi-arrow-up-right" aria-hidden="true"></i>
-                        </span>
-                    </a>
-                </div>
-                <div class="col">
-                    <a class="categoria-inicio d-block h-100 rounded-3 overflow-hidden text-decoration-none"
-                       th:href="@{/productos(categoria='principiantes')}">
-                        <img class="w-100 d-block object-fit-cover" th:src="@{/plantas/interior/planta-int-3.webp}" alt="" loading="lazy">
-                        <span class="d-flex align-items-center justify-content-between gap-2 p-3 fw-semibold">
-                            Principiantes <i class="bi bi-arrow-up-right" aria-hidden="true"></i>
+                            <span th:text="${categoria.nombre}"></span>
+                            <i class="bi bi-arrow-up-right" aria-hidden="true"></i>
                         </span>
                     </a>
                 </div>
@@ -118,24 +84,10 @@
                 <h2 id="titulo-manual-byte" class="titulo-editorial h2 mb-3">Manual Byte</h2>
                 <p class="text-body-secondary">Herramientas gratuitas para cuidar tus plantas. <span th:if="${session.logueado != true}">Inicia sesión para usarlas.</span>
                     <span th:if="${session.logueado == true and session.rol != 'CLIENTE'}">Elige el rol Cliente para usarlas.</span></p>
-                <div class="d-flex flex-wrap gap-2"
-                     th:with="visitante=${session.logueado != true}">
-                    <a th:href="@{/fichas}" class="btn btn-outline-success"
-                       th:attr="data-bs-toggle=${visitante ? 'modal' : null},data-bs-target=${visitante ? '#modal-acceso' : null}"
-                       data-acceso-mensaje="Crea una cuenta gratis o inicia sesión para usar Manual Byte.">
-                        <i class="bi bi-journal-text me-2" aria-hidden="true"></i>Fichas técnicas
-                    </a>
-                    <a th:href="@{/calculadora-riego}" class="btn btn-outline-success"
-                       th:attr="data-bs-toggle=${visitante ? 'modal' : null},data-bs-target=${visitante ? '#modal-acceso' : null}"
-                       data-acceso-mensaje="Crea una cuenta gratis o inicia sesión para usar Manual Byte.">
-                        <i class="bi bi-droplet me-2" aria-hidden="true"></i>Calculadora de riego
-                    </a>
-                    <a th:href="@{/tips-luz}" class="btn btn-outline-success"
-                       th:attr="data-bs-toggle=${visitante ? 'modal' : null},data-bs-target=${visitante ? '#modal-acceso' : null}"
-                       data-acceso-mensaje="Crea una cuenta gratis o inicia sesión para usar Manual Byte.">
-                        <i class="bi bi-sun me-2" aria-hidden="true"></i>Guía de iluminación
-                    </a>
-                </div>
+                <a class="btn btn-outline-success" th:href="@{/manual-byte}"
+                   th:attr="data-bs-toggle=${session.logueado != true} ? 'modal' : null,
+                            data-bs-target=${session.logueado != true} ? '#modal-acceso' : null"
+                   data-acceso-mensaje="Crea una cuenta gratis o inicia sesión para usar Manual Byte.">Abrir Manual Byte</a>
             </div>
         </section>
     </main>

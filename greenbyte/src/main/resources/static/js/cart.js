@@ -90,7 +90,13 @@ function vaciarCarrito() {
     dibujarCarrito();
 }
 
-function finalizarCompra(boton) {
+function codigoCompra() {
+    const hex = Array.from(crypto.getRandomValues(new Uint8Array(16)),
+        byte => byte.toString(16).padStart(2, '0')).join('');
+    return [hex.slice(0, 8), hex.slice(8, 12), hex.slice(12, 16), hex.slice(16, 20), hex.slice(20)].join('-');
+}
+
+async function finalizarCompra(boton) {
     const cesta = leerCarrito();
     if (!cesta.length) return;
 
@@ -110,18 +116,54 @@ function finalizarCompra(boton) {
         return;
     }
 
-    const total = cesta.reduce((suma, item) => suma + Number(item.precio) * item.cantidad, 0);
-    const resumen = cesta
-        .map(item => `${item.cantidad} × ${item.nombre} (S/ ${Number(item.precio).toFixed(2)})`)
-        .join('\n');
+    const aviso = document.getElementById('error-compra');
+    aviso.classList.add('d-none');
+    boton.disabled = true;
+    try {
+        const articulos = cesta.map(item => ({id: Number(item.id), cantidad: Number(item.cantidad)}));
+        const carrito = JSON.stringify(articulos);
+        let solicitud = JSON.parse(sessionStorage.getItem('greenbyte_solicitud_compra') || 'null');
+        if (solicitud?.carrito !== carrito || solicitud?.usuario !== panel.dataset.usuario) {
+            solicitud = {carrito, usuario: panel.dataset.usuario, codigo: codigoCompra()};
+            sessionStorage.setItem('greenbyte_solicitud_compra', JSON.stringify(solicitud));
+        }
 
-    window.alert(`Resumen de demostración (sin pago real)\n\n${resumen}\n\nTotal: S/ ${total.toFixed(2)}`);
-    localStorage.removeItem(CLAVE_CARRITO);
-    actualizarContador();
-    dibujarCarrito();
+        const respuesta = await fetch(panel.dataset.compras, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json', 'X-Token-Sesion': panel.dataset.token},
+            body: JSON.stringify({codigo: solicitud.codigo, articulos})
+        });
+        if (respuesta.redirected || respuesta.status === 403) {
+            throw new Error('Vuelve a iniciar sesión como Cliente para continuar.');
+        }
+        if (respuesta.status === 404) {
+            throw new Error('La aplicación que está abierta todavía no reconoce la ruta de compra. Reiníciala e inténtalo de nuevo.');
+        }
+        if (!respuesta.headers.get('Content-Type')?.includes('application/json')) {
+            throw new Error('El servidor no pudo confirmar la compra. Inténtalo de nuevo.');
+        }
+        const compra = await respuesta.json();
+        if (!respuesta.ok) {
+            if (respuesta.status < 500) sessionStorage.removeItem('greenbyte_solicitud_compra');
+            throw new Error(compra.mensaje || 'El servidor no pudo confirmar la compra.');
+        }
 
-    if (panel && typeof bootstrap !== 'undefined') {
+        sessionStorage.removeItem('greenbyte_solicitud_compra');
+        const cantidadesCompradas = new Map(articulos.map(item => [item.id, item.cantidad]));
+        const restantes = leerCarrito().map(item => ({
+            ...item,
+            cantidad: item.cantidad - (cantidadesCompradas.get(Number(item.id)) || 0)
+        }));
+        guardarCarrito(restantes.filter(item => item.cantidad > 0));
         bootstrap.Offcanvas.getInstance(panel)?.hide();
+        mostrarAviso(`Compra #${compra.id} registrada. Total: S/ ${Number(compra.total).toFixed(2)}`);
+    } catch (error) {
+        aviso.textContent = error instanceof TypeError
+            ? 'No se pudo conectar con el servidor. Inténtalo de nuevo.'
+            : error.message;
+        aviso.classList.remove('d-none');
+    } finally {
+        boton.disabled = false;
     }
 }
 

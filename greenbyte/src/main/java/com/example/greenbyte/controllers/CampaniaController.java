@@ -59,13 +59,25 @@ public class CampaniaController {
         return mostrarFormulario(model, id, categoriaId);
     }
 
-    @PostMapping({"", "/{id}"})
-    public String guardar(@PathVariable(required = false) Long id,
-                          @Valid @ModelAttribute("campania") Campania formulario,
-                          BindingResult errores,
-                          @RequestParam(required = false) Long categoriaId,
-                          @RequestParam String token,
-                          HttpSession session, Model model, RedirectAttributes redireccion) {
+    @PostMapping
+    public String crear(@Valid @ModelAttribute("campania") Campania formulario,
+                        BindingResult errores, @RequestParam(required = false) Long categoriaId,
+                        @RequestParam String token, HttpSession session, Model model,
+                        RedirectAttributes redireccion) {
+        return guardar(null, formulario, errores, categoriaId, token, session, model, redireccion);
+    }
+
+    @PostMapping("/{id}")
+    public String actualizar(@PathVariable Long id,
+                             @Valid @ModelAttribute("campania") Campania formulario,
+                             BindingResult errores, @RequestParam(required = false) Long categoriaId,
+                             @RequestParam String token, HttpSession session, Model model,
+                             RedirectAttributes redireccion) {
+        return guardar(id, formulario, errores, categoriaId, token, session, model, redireccion);
+    }
+
+    private String guardar(Long id, Campania formulario, BindingResult errores, Long categoriaId,
+                           String token, HttpSession session, Model model, RedirectAttributes redireccion) {
         if (!token.equals(session.getAttribute("tokenCambioRol"))) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Formulario inválido");
         }
